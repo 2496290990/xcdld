@@ -103,16 +103,4 @@ public class BattleUtil {
         );
         return RandomUtil.weightRandom(list).next();
     }
-
-    public static void main(String[] args) {
-        List<Weapon> weaponList = Collections.singletonList(new Weapon("蓝球"));
-        Player attacker = new Player("IKUN", weaponList);
-        Player defender = new Player("小黑子", weaponList);
-        List<BattleProcess> processList = new ArrayList<>();
-        doBattle(attacker, defender, processList, 1);
-        processList.forEach(System.out::println);
-        System.out.println();
-        System.out.println(attacker);
-        System.out.println(defender);
-    }
 }
