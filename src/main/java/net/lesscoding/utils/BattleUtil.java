@@ -9,7 +9,6 @@ import net.lesscoding.model.BattleResult;
 import net.lesscoding.model.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

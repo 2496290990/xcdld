@@ -10,7 +10,7 @@ spring:
   datasource:
     driver: com.mysql.cj.jdbc.Driver
     password: dream
-    url: jdbc:mysql:///xedld?serverTimezone=UTC
+    url: jdbc:mysql:///xcdld?serverTimezone=UTC
     username: root
 mybatis-plus:
   configuration:
