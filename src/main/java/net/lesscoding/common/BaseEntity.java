@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @apiNote
  */
 @Data
-public class BaseEntity {
+public class BaseEntity<T> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 

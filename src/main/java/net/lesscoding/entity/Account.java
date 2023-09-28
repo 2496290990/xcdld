@@ -13,4 +13,6 @@ import net.lesscoding.common.BaseEntity;
 @TableName("tb_account")
 public class Account extends BaseEntity {
     private String account;
+
+    private String mac;
 }

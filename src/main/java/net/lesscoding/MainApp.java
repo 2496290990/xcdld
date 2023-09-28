@@ -7,6 +7,7 @@ import net.lesscoding.utils.BattleUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -18,13 +19,14 @@ import java.util.List;
  * @date 2023年9月27日12:12:28
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 @MapperScan("net.lesscoding.mapper")
 public class MainApp {
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void battleTest() {
         List<Weapon> weaponList = Collections.singletonList(new Weapon("蓝球"));
         Player attacker = new Player("IKUN", weaponList);

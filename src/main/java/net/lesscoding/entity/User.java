@@ -1,6 +1,7 @@
 package net.lesscoding.entity;
 
 import lombok.Data;
+import net.lesscoding.common.BaseEntity;
 
 /**
  * @author eleven
@@ -8,7 +9,7 @@ import lombok.Data;
  * @apiNote
  */
 @Data
-public class User {
+public class User extends BaseEntity<User> {
     /**
      * 网卡地址
      */
