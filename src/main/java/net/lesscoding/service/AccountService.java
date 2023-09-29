@@ -16,7 +16,12 @@ public interface AccountService extends IService<Account> {
      * 获取所有的用户数据
      * @return
      */
-    public List<Account> getAccountList();
+    List<Account> getAccountList();
 
     String registerAccount(Account account);
+
+    /**
+     * 根据mac自动注册
+     */
+    void autoRegisterByMac();
 }

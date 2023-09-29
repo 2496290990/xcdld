@@ -1,5 +1,6 @@
 package net.lesscoding.common;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -19,17 +20,22 @@ public class BaseEntity<T> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    @TableField(fill = FieldFill.INSERT)
     private Integer createBy;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:dd")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Integer updateBy;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:dd")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
+    @TableField(fill = FieldFill.INSERT)
     private Boolean delFlag;
 }

@@ -20,8 +20,8 @@ import java.io.IOException;
  * Link to: <a href="https://lesscoding.net">https://lesscoding.net</a>
  * mail to:2496290990@qq.com zjh292411@gmail.com admin@lesscoding.net
  */
-@Component
-@RestControllerAdvice
+//@Component
+//@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler{
 

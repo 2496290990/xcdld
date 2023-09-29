@@ -1,19 +1,28 @@
 package net.lesscoding;
 
+import com.luues.redis.single.service.JedisTemplate;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * @author eleven
@@ -22,6 +31,7 @@ import java.util.Arrays;
  */
 @SpringBootTest(classes = MainApp.class)
 @RunWith(SpringRunner.class)
+@RefreshScope
 public class AccountTest {
 
     @Autowired
@@ -29,6 +39,8 @@ public class AccountTest {
     @Autowired
     private AccountMapper accountMapper;
 
+    @Value("${redis.userNameCache}")
+    private String userNameCache;
     @Test
     public void randomAccount() {
         int cycle = 50;
@@ -62,5 +74,30 @@ public class AccountTest {
             e.printStackTrace();
         }
         return macStr;
+    }
+
+
+    @Autowired
+    private JedisTemplate jedisTemplate;
+    @Test
+    public void userNameCache() {
+        jedisTemplate.
+        Map<String, String> stringStringMap = jedisTemplate.hgetAll(userNameCache);
+        System.out.println(stringStringMap);
+        //Map userNameMap = hashRedisTemplate.opsForHash().entries(userNameCache);
+        //userNameMap.forEach((key, value) -> {
+        //    System.out.println(String.format("key: %s\n value:%s", key, value));
+        //});
+        //hashRedisTemplate.execute(new RedisCallback() {
+        //    @Override
+        //    public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
+        //
+        //        Map<byte[], byte[]> map = redisConnection.hGetAll(userNameCache.getBytes());
+        //        map.forEach((key, value) -> {
+        //            System.out.println(String.format("key: %s, value: %s", new String(key), new String(value)));
+        //        });
+        //        return null;
+        //    }
+        //});
     }
 }

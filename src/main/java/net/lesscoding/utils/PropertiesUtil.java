@@ -41,7 +41,7 @@ public class PropertiesUtil {
      * dev环境启动时打印当前的所有配置文件
      * @throws Exception
      */
-    @PostConstruct
+    //@PostConstruct
     public void afterRunning() throws Exception {
         // 生产环境不输出配置信息
         if (active.toLowerCase().contains("prod")) {
