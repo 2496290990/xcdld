@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
+import net.lesscoding.model.dto.AccountDto;
 import net.lesscoding.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -53,6 +54,16 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         } while (!accountStr.contains(accountStr));
         System.out.println(accountStr);
         return accountStr;
+    }
+
+    /**
+     * 注册账号
+     * @param dto
+     * @return
+     */
+    @Override
+    public Object registerAccount(AccountDto dto) {
+        return null;
     }
 
     /**

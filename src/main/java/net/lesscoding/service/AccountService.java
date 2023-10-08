@@ -2,6 +2,7 @@ package net.lesscoding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.lesscoding.entity.Account;
+import net.lesscoding.model.dto.AccountDto;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface AccountService extends IService<Account> {
     List<Account> getAccountList();
 
     String registerAccount(Account account);
+
+    Object registerAccount(AccountDto dto);
 
     /**
      * 根据mac自动注册

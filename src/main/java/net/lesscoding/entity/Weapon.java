@@ -1,6 +1,8 @@
 package net.lesscoding.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import net.lesscoding.common.BaseEntity;
 
 /**
  * @author eleven
@@ -8,7 +10,8 @@ import lombok.Data;
  * @apiNote 武器
  */
 @Data
-public class Weapon {
+@TableName("tb_weapon")
+public class Weapon extends BaseEntity<Weapon> {
     /**
      * 名称
      */
