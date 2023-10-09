@@ -1,20 +1,10 @@
 package net.lesscoding.config;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import redis.clients.jedis.JedisPoolConfig;
-
-import javax.annotation.Resource;
 
 /**
  * @author eleven
@@ -25,56 +15,12 @@ import javax.annotation.Resource;
  * mail to:2496290990@qq.com zjh292411@gmail.com admin@lesscoding.net
  */
 @Configuration
-@RefreshScope
 public class RedisConfig {
 
-    @Resource
-    RedisProperties redisProperties;
-
-    @Value("${spring.jedis.pool.max-idle:25}")
-    private int maxIdle;
-    @Value("${spring.jedis.pool.min-idle:10}")
-    private int minIdle;
-    @Value("${spring.jedis.pool.max-active:25}")
-    private int maxActive;
-    @Value("${spring.jedis.pool.max-wait:-1}")
-    private int maxWait;
-    @Value("${spring.redis.database:1}")
-    private int database;
-
-    /**
-     * jedis连接工厂
-     * @return  JedisConnectionFactory
-     */
-    public JedisConnectionFactory jedisConnectionFactory() {
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxIdle(maxIdle);
-        jedisPoolConfig.setMinIdle(minIdle);
-        jedisPoolConfig.setMaxTotal(maxActive);
-        jedisPoolConfig.setMaxWaitMillis(maxWait);
-
-        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
-        jedisClientConfiguration.connectTimeout(redisProperties.getTimeout());
-        jedisClientConfiguration.usePooling();
-        jedisClientConfiguration.clientName("xcdld");
-        JedisClientConfiguration.JedisPoolingClientConfigurationBuilder builder = (JedisClientConfiguration.JedisPoolingClientConfigurationBuilder) JedisClientConfiguration.builder();
-        builder.poolConfig(jedisPoolConfig);
-
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(redisProperties.getHost());
-        redisStandaloneConfiguration.setPort(redisProperties.getPort());
-        redisStandaloneConfiguration.setDatabase(database);
-        if (!StringUtils.isEmpty(redisProperties.getPassword())) {
-            redisStandaloneConfiguration.setPassword(RedisPassword.of(redisProperties.getPassword()));
-        }
-
-        return new JedisConnectionFactory(redisStandaloneConfiguration, builder.build());
-    }
-
     @Bean("jedisRedisTemplate")
-    public RedisTemplate redisTemplate() {
+    public RedisTemplate redisTemplate(JedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
+        template.setConnectionFactory(redisConnectionFactory);
 
         //使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
