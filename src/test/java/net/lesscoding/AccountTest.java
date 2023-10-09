@@ -7,22 +7,17 @@ import net.lesscoding.service.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Map;
+
 
 /**
  * @author eleven
@@ -81,7 +76,6 @@ public class AccountTest {
     private JedisTemplate jedisTemplate;
     @Test
     public void userNameCache() {
-        jedisTemplate.
         Map<String, String> stringStringMap = jedisTemplate.hgetAll(userNameCache);
         System.out.println(stringStringMap);
         //Map userNameMap = hashRedisTemplate.opsForHash().entries(userNameCache);

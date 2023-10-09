@@ -8,8 +8,7 @@ import net.lesscoding.entity.Weapon;
 import net.lesscoding.model.BattleResult;
 import net.lesscoding.model.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author eleven
@@ -75,6 +74,88 @@ public class BattleUtil {
     }
 
     /**
+     * 坚果教主提供的战斗工具类
+     * @author 坚果教主
+     * @param attacker  攻击者
+     * @param defender  防御者
+     * @return  List    战斗过程
+     */
+    public static List<Map<String, Object>> fight(Player attacker, Player defender) {
+        List<Weapon> attackerWeaponList = attacker.getWeaponList();
+        List<Weapon> defenderWeaponList = defender.getWeaponList();
+
+        Double attackerComboRate = attacker.getComboRate();
+        Double defenderComboRate = defender.getComboRate();
+
+        Double attackerFlee = attacker.getFlee();
+        Double defenderFlee = defender.getFlee();
+
+        String attackerNickname = attacker.getNickname();
+        String defenderNickname = defender.getNickname();
+
+        Integer attackerHp = attacker.getHp();
+        Integer defenderHp = defender.getHp();
+
+        Integer attackerDefence = attacker.getDefence();
+        Integer defenderDefence = defender.getDefence();
+
+        Random random = new Random();
+
+        List<Map<String, Object>> processList = new ArrayList<>();
+
+        for (int i = 0; i < 50; i++) {
+            Map<String, Object> singleRound = new HashMap<>();
+
+            Boolean attackerComboRateFlag = getWeightResult(attackerComboRate);
+            Boolean defenderComboRateFlag = getWeightResult(defenderComboRate);
+            Boolean attackerFleeFlag = getWeightResult(attackerFlee);
+            Boolean defenderFleeFlag = getWeightResult(defenderFlee);
+
+            int attackerWeaponIndex = random.nextInt(attackerWeaponList.size() + 1);
+            int defenderWeaponIndex = random.nextInt(defenderWeaponList.size() + 1);
+
+            Weapon attackWeapon = attackerWeaponList.get(attackerWeaponIndex);
+            Weapon defenderWeapon = attackerWeaponList.get(defenderWeaponIndex);
+
+            String attackerWeaponName = attackWeapon.getName();
+            String defenderWeaponName = defenderWeapon.getName();
+
+            singleRound.put("attacker", attackerNickname);
+            singleRound.put("attackerWeaponName", attackerWeaponName);
+            singleRound.put("defender", defenderNickname);
+            singleRound.put("defenderWeaponName", defenderWeaponName);
+
+            int attackerPower = 0;
+            int defenderPower = 0;
+
+            if (!attackerFleeFlag) {
+                if (attackerComboRateFlag) {
+                    attackerPower = getRangeAttack(attackWeapon.getMinDamage(), attackWeapon.getMaxDamage()) + getRangeAttack(attackWeapon.getMinDamage(), attackWeapon.getMaxDamage()) - 2 * defenderDefence;
+                } else {
+                    attackerPower = getRangeAttack(attackWeapon.getMinDamage(), attackWeapon.getMaxDamage()) - defenderDefence;
+                }
+            }
+
+            if (!defenderFleeFlag) {
+                if (defenderComboRateFlag) {
+                    defenderPower = getRangeAttack(defenderWeapon.getMinDamage(), defenderWeapon.getMaxDamage()) + getRangeAttack(defenderWeapon.getMinDamage(), defenderWeapon.getMaxDamage()) - 2 * attackerDefence;
+                } else {
+                    defenderPower = getRangeAttack(defenderWeapon.getMinDamage(), defenderWeapon.getMaxDamage()) - attackerDefence;
+                }
+            }
+            singleRound.put("attackerPower", attackerPower);
+            singleRound.put("defenderPower", defenderPower);
+            attackerHp -= defenderPower;
+            defenderHp -= attackerPower;
+            processList.add(singleRound);
+            if (attackerHp <= 0 || defenderHp <= 0) {
+                break;
+            }
+        }
+        return processList;
+    }
+
+    /**
      * 获取区间数值 [min,max] 区间的数值
      * @param min   最小值(包含)
      * @param max   最大值(不包含)
@@ -102,4 +183,6 @@ public class BattleUtil {
         );
         return RandomUtil.weightRandom(list).next();
     }
+
+
 }
