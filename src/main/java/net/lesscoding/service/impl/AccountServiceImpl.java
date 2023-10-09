@@ -1,6 +1,8 @@
 package net.lesscoding.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,6 +10,8 @@ import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.model.dto.AccountDto;
 import net.lesscoding.service.AccountService;
+import net.lesscoding.utils.IpUtils;
+import net.lesscoding.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -75,5 +79,35 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public void autoRegisterByMac() {
         //Object o = redisTemplate.opsForValue().get(userNameCache);
         //System.out.println(o);
+    }
+
+    public String quickLoginByMac(AccountDto dto) {
+        String mac = dto.getMac();
+        if (StrUtil.isBlank(mac)) {
+            mac = IpUtils.getIpAddr(ServletUtils.getRequest());
+        }
+        Account account = accountMapper.selectOne(new QueryWrapper<Account>()
+                .eq("del_flag", false)
+                .eq("mac", mac)
+                .or().
+                eq("ip", mac));
+        if (account != null && account.getStatus() != 0) {
+            StpUtil.login(account.getId());
+        }
+        return StpUtil.getTokenValueByLoginId(account.getId());
+    }
+
+    @Override
+    public Object doLogin(AccountDto dto) {
+        Integer type = dto.getType();
+        if (type == null) {
+            throw new RuntimeException("登录类型不允许为空");
+        }
+        switch (type) {
+            case 0:
+                return quickLoginByMac(dto);
+            default:
+                throw new RuntimeException("登录类型异常");
+        }
     }
 }

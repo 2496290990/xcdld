@@ -27,4 +27,11 @@ public interface AccountService extends IService<Account> {
      * 根据mac自动注册
      */
     void autoRegisterByMac();
+
+    /**
+     * 登录
+     * @param dto
+     * @return
+     */
+    Object doLogin(AccountDto dto);
 }

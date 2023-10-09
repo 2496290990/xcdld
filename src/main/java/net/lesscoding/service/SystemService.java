@@ -21,4 +21,11 @@ public interface SystemService {
      * @return
      */
     Integer autoRegisterByRedisMac();
+
+    /**
+     * 登陆接口
+     * @param dto       登录参数
+     * @return
+     */
+    Object doLogin(AccountDto dto);
 }

@@ -74,4 +74,10 @@ public class SystemServiceImpl implements SystemService {
         }
         return redisMacSet.size();
     }
+
+    @Override
+    public Object doLogin(AccountDto dto) {
+        return accountService.doLogin(dto);
+    }
+
 }
