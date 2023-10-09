@@ -1,6 +1,5 @@
 package net.lesscoding;
 
-import com.luues.redis.single.service.JedisTemplate;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
@@ -10,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.time.LocalDateTime;
 import java.util.Map;
-
 
 /**
  * @author eleven
@@ -36,6 +35,7 @@ public class AccountTest {
 
     @Value("${redis.userNameCache}")
     private String userNameCache;
+
     @Test
     public void randomAccount() {
         int cycle = 50;
@@ -72,12 +72,20 @@ public class AccountTest {
     }
 
 
-    @Autowired
-    private JedisTemplate jedisTemplate;
+    @Resource(name = "jedisRedisTemplate")
+    private RedisTemplate redisTemplate;
+
+
     @Test
     public void userNameCache() {
-        Map<String, String> stringStringMap = jedisTemplate.hgetAll(userNameCache);
-        System.out.println(stringStringMap);
+
+        Object o = redisTemplate.opsForHash().get("USER_NAME_CACHE", "翻译官");
+        System.out.println(o);
+        System.out.println();
+
+        Map entries = redisTemplate.boundHashOps(userNameCache).entries();
+        entries.forEach((k, v) -> System.out.println(k + " \t==> " + v));
+
         //Map userNameMap = hashRedisTemplate.opsForHash().entries(userNameCache);
         //userNameMap.forEach((key, value) -> {
         //    System.out.println(String.format("key: %s\n value:%s", key, value));
