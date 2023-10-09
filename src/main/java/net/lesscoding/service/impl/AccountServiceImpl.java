@@ -88,9 +88,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
         Account account = accountMapper.selectOne(new QueryWrapper<Account>()
                 .eq("del_flag", false)
-                .eq("mac", mac)
-                .or().
-                eq("ip", mac));
+                .eq("mac", mac));
         if (account != null && account.getStatus() != 0) {
             StpUtil.login(account.getId());
         }

@@ -30,6 +30,7 @@ public class SystemController {
     }
 
     @PostMapping("/login")
+    @SaIgnore
     public Result doLogin(@RequestBody AccountDto dto) {
         return ResultFactory.success(systemService.doLogin(dto));
     }
