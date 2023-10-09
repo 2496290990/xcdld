@@ -42,7 +42,10 @@ public class RedisConfig {
     @Value("${spring.redis.database:1}")
     private int database;
 
-    @Bean
+    /**
+     * jedis连接工厂
+     * @return  JedisConnectionFactory
+     */
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
@@ -69,9 +72,9 @@ public class RedisConfig {
     }
 
     @Bean("jedisRedisTemplate")
-    public RedisTemplate redisTemplate(JedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
+        template.setConnectionFactory(jedisConnectionFactory());
 
         //使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
