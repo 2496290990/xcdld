@@ -32,7 +32,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     //private RedisTemplate redisTemplate;
     @Override
     public List<Account> getAccountList() {
-        return null;
+        return accountMapper.selectList(null);
     }
 
     @NacosValue("${redis.userNameCache}")

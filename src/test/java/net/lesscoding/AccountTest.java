@@ -3,6 +3,7 @@ package net.lesscoding;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
+import net.lesscoding.service.SystemService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class AccountTest {
     private AccountService accountService;
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private SystemService systemService;
 
     @Value("${redis.userNameCache}")
     private String userNameCache;
@@ -86,20 +89,9 @@ public class AccountTest {
         Map entries = redisTemplate.boundHashOps(userNameCache).entries();
         entries.forEach((k, v) -> System.out.println(k + " \t==> " + v));
 
-        //Map userNameMap = hashRedisTemplate.opsForHash().entries(userNameCache);
-        //userNameMap.forEach((key, value) -> {
-        //    System.out.println(String.format("key: %s\n value:%s", key, value));
-        //});
-        //hashRedisTemplate.execute(new RedisCallback() {
-        //    @Override
-        //    public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
-        //
-        //        Map<byte[], byte[]> map = redisConnection.hGetAll(userNameCache.getBytes());
-        //        map.forEach((key, value) -> {
-        //            System.out.println(String.format("key: %s, value: %s", new String(key), new String(value)));
-        //        });
-        //        return null;
-        //    }
-        //});
+    }
+    @Test
+    public void autoRegisterByMacTest() {
+        System.out.println(systemService.autoRegisterByRedisMac());
     }
 }

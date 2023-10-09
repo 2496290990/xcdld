@@ -15,4 +15,10 @@ public interface SystemService {
      * @return  String
      */
     Object registerAccount(AccountDto dto);
+
+    /**
+     * 根据redis之中的mac地址自动注册
+     * @return
+     */
+    Integer autoRegisterByRedisMac();
 }

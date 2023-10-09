@@ -1,8 +1,11 @@
 package net.lesscoding.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.lesscoding.common.BaseEntity;
+import net.lesscoding.model.vo.RedisUserCache;
 
 /**
  * @author eleven
@@ -11,8 +14,46 @@ import net.lesscoding.common.BaseEntity;
  */
 @Data
 @TableName("tb_account")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account extends BaseEntity {
+    /**
+     * 账号
+     */
     private String account;
 
+    /**
+     * 网卡地址
+     */
     private String mac;
+
+    /**
+     *邮箱
+     */
+    private String email;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 密码随机盐
+     */
+    private String salt;
+
+    /**
+     * 状态 0 小黑屋 1正常 2注销
+     */
+    private Integer status;
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
+    public Account(RedisUserCache cache) {
+        this.nickname = cache.getUsername();
+        this.mac = cache.getUuid();
+    }
 }
