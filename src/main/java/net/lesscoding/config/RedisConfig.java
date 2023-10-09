@@ -3,6 +3,7 @@ package net.lesscoding.config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisPassword;
@@ -24,6 +25,7 @@ import javax.annotation.Resource;
  * mail to:2496290990@qq.com zjh292411@gmail.com admin@lesscoding.net
  */
 @Configuration
+@RefreshScope
 public class RedisConfig {
 
     @Resource
