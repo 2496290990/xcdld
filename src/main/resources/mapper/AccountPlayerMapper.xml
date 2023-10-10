@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.lesscoding.mapper.AccountPlayerMapper">
-    <select id="getPlayerBaseAttr" resultType="net.lesscoding.model.Player">
-        select tb.id as accountPlayerId,
+    <resultMap id="playerMap" type="net.lesscoding.model.Player">
+        <id column="id" property="id" />
+        <result column="account_id" property="accountPlayerId" />
+        <result column="nickname" property="nickname" />
+        <result column="hp" property="hp" />
+        <result column="attack" property="attack" />
+        <result column="defender" property="defence" />
+        <result column="hit" property="hitRate" />
+        <result column="flee" property="flee" />
+        <result column="combo" property="comboRate" />
+    </resultMap>
+    <select id="getPlayerBaseAttr" resultMap="playerMap">
+        select tb.id account_id,
+               tb.nickname,
                tple.id,
                tple.level,
                tple.need_exp,

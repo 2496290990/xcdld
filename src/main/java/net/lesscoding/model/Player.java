@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Player {
+    private Integer id;
 
     private Integer accountPlayerId;
 
