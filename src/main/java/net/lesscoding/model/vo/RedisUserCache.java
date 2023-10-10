@@ -1,5 +1,7 @@
 package net.lesscoding.model.vo;
 
+import cn.hutool.core.util.StrUtil;
+import com.google.gson.Gson;
 import lombok.Data;
 
 /**
@@ -41,4 +43,15 @@ public class RedisUserCache {
      * 客户端版本
      */
     private String clientVersion;
+
+    private String extra;
+
+    private RedisCacheExtra extraVo;
+
+    public RedisCacheExtra getExtraVo() {
+        if (StrUtil.isBlank(extra)) {
+            return null;
+        }
+        return new Gson().fromJson(extra, RedisCacheExtra.class);
+    }
 }

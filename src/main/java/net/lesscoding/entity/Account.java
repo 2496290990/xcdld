@@ -52,8 +52,18 @@ public class Account extends BaseEntity {
      */
     private String nickname;
 
+    private String region;
+
+    private String ip;
+
+    private String platform;
+
+
     public Account(RedisUserCache cache) {
         this.nickname = cache.getUsername();
         this.mac = cache.getUuid();
+        this.ip = cache.getIp();
+        this.platform = cache.getPlatform();
+        this.region = cache.getExtraVo().getShortRegion();
     }
 }

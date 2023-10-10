@@ -1,0 +1,1055 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:///C://Users//Administrator//AppData//Roaming//Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@import '';
+
+:root {
+    --side-bar-bg-color: #1d1d1d;
+    --control-text-color: #aaaaaa;
+    --select-text-bg-color: hsl(153, 47%, 40%);
+    --active-file-bg-color:  hsl(153, 47%, 40%);
+    --select-text-font-color: #aaaaaa;
+    --active-file-text-color: #eeeeee;
+    --bg-color: #1d1d1d;
+    --item-hover-bg-color: var(--select-text-bg-color);
+    --text-color: #aaaaaa;
+    --font-sans-serif: 'Source Sans Pro', sans-serif !important;
+    --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
+}
+
+.md-rawblock-control:not(.md-rawblock-tooltip) {
+    background: #555;
+    color: #eeeeee;
+}
+
+.md-rawblock-on-edit>.md-rawblock-tooltip, .md-rawblock:hover>.md-rawblock-container, .md-rawblock:hover>.md-rawblock-tooltip {
+    background: #555;
+    color: #eeeeee;
+}
+
+/* code color */
+.cm-s-inner .cm-keyword {
+    color: #bb7fc3
+}
+
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom {
+    color: #9088cc
+}
+
+.cm-s-inner .cm-number {
+    color: #88b2a1
+}
+
+.cm-s-inner .cm-def {
+    color: #7f7fff
+}
+
+.cm-s-inner .cm-variable {
+    color: #efefef
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #7faad4
+}
+
+.cm-s-inner .cm-variable-3 {
+    color: #7fc3aa
+}
+
+.cm-s-inner .cm-string {
+    color: #d48888
+}
+
+.cm-s-inner .cm-property {
+    color: #efefef
+}
+
+.cm-s-inner .cm-operator {
+    color: #cb8c8c
+}
+
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment {
+    color: hsl(0, 0%, 35%)
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #ffaa7f
+}
+
+.cm-s-inner .cm-meta {
+    color: hsl(0, 0%, 33%)
+}
+
+.cm-s-inner .cm-qualifier {
+    color: hsl(0, 0%, 33%)
+}
+
+.cm-s-inner .cm-builtin {
+    color: #997fd4
+}
+
+.cm-s-inner .cm-bracket {
+    color: #ccccbb
+}
+
+.cm-s-inner .cm-tag {
+    color: #88bb7f
+}
+
+.cm-s-inner .cm-attribute {
+    color: #7f7fe5
+}
+
+.cm-s-inner .cm-header, .cm-s-inner.cm-header {
+    color: #7f7fff
+}
+
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote {
+    color: #7fcc7f
+}
+
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr {
+    color: hsl(0, 0%, 60%)
+}
+
+.cm-s-inner .cm-link, .cm-s-inner.cm-link {
+    color: #7f7fe5
+}
+
+.cm-negative {
+    color: #eea1a1
+}
+
+.cm-positive {
+    color: #90cc90
+}
+
+.cm-header, .cm-strong {
+    font-weight: 700
+}
+
+.cm-error {
+    color: #ff7f7f
+}
+
+.cm-invalidchar {
+    color: #ff7f7f
+}
+
+.cm-constant {
+    color: #42b983
+}
+
+.cm-defined {
+    color: #dac37f
+}
+
+div.CodeMirror span.CodeMirror-matchingbracket {
+    color: #7fff7f
+}
+
+div.CodeMirror span.CodeMirror-nonmatchingbracket {
+    color: #ff9090
+}
+
+.info-panel-tab:hover {
+    color:  #42b983;
+}
+
+.outline-label:hover {
+    text-decoration: none;
+}
+
+input {
+    color: #42b983;
+}
+
+.info-panel-tab:hover {
+    color:  #42b983;
+}
+
+.outline-label:hover {
+    text-decoration: none;
+}
+
+input {
+    color: #42b983;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    background: var(--select-text-bg-color);
+    color: #fff;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans-serif);
+    color: #eeeeee;
+    background-color: #1f1f1f;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6rem;
+    letter-spacing: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 30px 40px 30px;
+    padding-top: 20px;
+    padding-bottom: 100px;
+}
+
+#write p {
+    /* text-indent: 2rem; */
+    line-height: 1.6rem;
+    word-spacing: .05rem;
+}
+
+#write ol li {
+    padding-left: 0.5rem;
+}
+
+#write > ul:first-child,
+#write > ol:first-child {
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+a {
+    color: #42b983;
+    font-weight: 600;
+    padding: 0px 2px;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+
+h1 {
+    padding-bottom: .4rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.75rem;
+    line-height: 1.225;
+    margin: 35px 0px 15px 0px;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid hsl(0, 0%, 20%);
+}
+
+h3 {
+    font-size: 1.4rem;
+    line-height: 1.43;
+    margin: 20px 0px 7px 0px;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: hsl(0, 0%, 53%);
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table {
+    margin: 0.8em 0;
+}
+
+li > ol,
+li > ul {
+    margin: 0 0;
+}
+
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: hsl(0, 0%, 18%);
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+
+li p.first {
+    display: inline-block;
+}
+
+ul,
+ol {
+    padding-left: 30px;
+}
+
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+
+blockquote {
+    border-left: 4px solid #42b983;
+    padding: 10px 0px 10px 15px;
+    color: #eeeeee;
+    background-color: rgba(66, 185, 131, .1);
+}
+
+table {
+    font-family: var(--font-monospace);
+    font-size: 0.85rem;
+    padding: 0;
+    overflow: hidden;
+    word-break: initial;
+}
+
+table tr {
+    border-top: 1px solid hsl(210, 10%, 11%);
+    margin: 0;
+    padding: 0;
+}
+
+table tr:nth-child(2n),
+thead {
+    /* background-color: hsl(0, 0%, 2%); */
+    background-color: hsl(0, 0%, 10%);
+}
+
+table tr th {
+    font-weight: bold;
+    /* border: 1px solid hsl(210, 10%, 11%); */
+    border: transparent;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr td {
+    /* border: 2px solid hsl(210, 10%, 11%); */
+    /* border: 2px solid hsl(0, 0%, 4%); */
+    border: 2px solid #1d1d1d;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+#write table thead th {
+    /* background-color: hsl(0, 0%, 5%); */
+    background-color: hsl(0, 0%, 9%);
+}
+
+#write .CodeMirror-gutters {
+    border-right: none;
+}
+
+#write .md-fences {
+    border: 1px solid hsl(0, 0%, 11%);
+    -webkit-font-smoothing: initial;
+    margin: 0.8rem 0 !important;
+    padding: 0.3rem 0rem !important;
+    line-height: 1.43rem;
+    color: hsl(0, 0%, 78%);
+    background-color: hsl(0, 0%, 10%) !important;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-weight: bold;
+    font-size: 0.85rem;
+    word-wrap: normal;
+}
+
+#write .CodeMirror-wrap .CodeMirror-code pre {
+    padding-left: 12px;
+}
+
+#write code, tt {
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #f3b37f;
+    background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+tt {
+    margin: 0 2px;
+}
+
+#write .md-footnote {
+    background-color: hsla(0, 0%, 0%, 0.2);
+    color: #f3b37f;
+}
+
+/* heighlight. */
+#write mark {
+    background-color: #EBFFEB;
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    color: #222;
+    font-weight: 500;
+}
+
+#write del {
+    padding: 1px 2px;
+}
+
+.cm-s-inner .cm-link,
+.cm-s-inner.cm-link {
+    color: #22a2c9;
+}
+
+.cm-s-inner .cm-string {
+    color: #22a2c9;
+}
+
+.md-task-list-item > input {
+    margin-left: -1.3em;
+}
+
+@media screen and (min-width: 914px) {
+    /*body {
+        width: 854px;
+        margin: 0 auto;
+    }*/
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+#write pre.md-meta-block {
+    padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: hsl(0, 0%, 3%);
+    border: 0;
+    border-radius: 3px;
+    color: hsl(0, 0%, 53%);
+    margin-top: 0 !important;
+}
+
+.mathjax-block > .code-tooltip {
+    bottom: .375rem;
+}
+
+#write > h3.md-focus:before {
+    left: -1.5625rem;
+    top: .375rem;
+}
+
+#write > h4.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h5.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h6.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+.md-image > .md-meta {
+    border-radius: 3px;
+    font-family: var(--font-monospace);
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: inherit;
+}
+
+.md-toc {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.md-diagram-panel {
+    position: static !important;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: hsl(0, 0%, 2%);
+    border-color: hsl(0, 0%, 0%) hsl(0, 0%, 10%) hsl(0, 0%, 10%) hsl(0, 0%, 7%);
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header,
+.context-menu,
+.megamenu-content,
+footer {
+    font-family: var(--font-sans-serif);
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state {
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: hsl(0, 0%, 2%);
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #42b983;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: hsl(215, 92%, 5%);
+}
+
+#typora-sidebar {
+    font-family: var(--font-sans-serif);
+    font-weight: bold;
+}
+
+.file-list-item-summary{
+    font-family: var(--font-sans-serif);
+    font-weight: 400;
+}
+
+.file-list-item {
+    border-bottom: 0.15rem solid hsl(0, 0%, 18%);
+}
+
+.file-list-item.active {
+    background: hsl(0, 0%, 15%) !important;
+}
+
+.file-node-background {
+    height: 29px;
+}
+
+#toc-dropmenu {
+    background: hsl(0, 0%, 18%) !important;
+    font-weight: bold;
+}
+
+#toc-content {
+    margin-top: 1.0rem;
+    margin-bottom: 1.0rem;
+}
+
+#toc-content a:hover {
+    text-decoration: none;
+}
+
+.outline-item {
+    /* transition: color 150ms, background-color 150ms; */
+    transition: color 150ms;
+}
+
+.outline-item:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #42b983;
+}
+
+.sidebar-footer {
+    border-top: 2px solid hsl(0, 0%, 15%) !important;
+}
+
+.footer-item:hover, .sidebar-footer-item:hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.file-tree-node.active>.file-node-background {
+    background-color: hsl(0, 0%, 15%) !important;
+}
+
+.file-node-content:hover {
+    color: #eeeeee;
+}
+
+html{
+    background: #1f1f1f !important;
+}
+
+.outline-title-wrapper {
+    display: none;
+}
+
+.dropdown-menu .divider {
+    display: none;
+    height: 2px;
+    background-color: hsl(0, 0%, 13%);
+}
+
+.dropdown-menu>li>a {
+    color: #eeeeee;
+}
+
+.autoComplt-hint {
+    color: #42b983 !important;
+    /* border-color: transparent !important */
+}
+
+.auto-suggest-container {
+    color: #42b983 !important;
+    font-family: var(--font-sans-serif);
+    font-weight: bold !important;
+    border-color: #42b983 !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+    margin-top: 5px;
+    overflow: hidden !important;
+    box-shadow: 0 0 1rem hsla(153, 47%, 49%, 0.3);
+}
+
+/* .auto-suggest-container li { */
+    /* transition: all 150ms; */
+    /* text-align: center !important; */
+/* } */
+
+.auto-suggest-container li:hover {
+    color: #eeeeee !important;
+    background-color: #42b983 !important;
+    /* text-align: right !important; */
+}
+
+/* windows */
+/* .modal-dialog { */
+    /* color: #000; */
+/* } */
+
+.typora-sourceview-on #toggle-sourceview-btn{
+    background-color: #42b983
+}
+
+/* cursor */
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor {
+    border-left: 5px solid #42b983;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 5px solid #42b983;
+    z-index: 3;
+}
+
+/* selected text */
+/* .CodeMirror-selecte { */
+    /* background-color: hsla(153, 47%, 49%, 0.5) !important; */
+    /* color: #eeeeee !important; */
+/* } */
+
+.ty-preferences {
+    color: #aaaaaa;
+}
+
+.ty-preferences .btn-default:not([disabled]):hover {
+    background-color: var(--active-file-bg-color);
+    background-image: none;
+    color: #fff;
+}
+
+.ty-preferences .search-hit {
+    background: var(--select-text-bg-color)
+}
+
+
+
+</style><title>X宠大乐斗</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=' first-line-indent'><h1 id='1-主动技能'><span>1. 主动技能</span></h1><figure><table><thead><tr><th><span>技能名称</span></th><th><span>级别</span></th><th><span>等级要求</span></th><th><span>气力消耗</span></th><th><span>技能伤害</span></th><th><span>额外效果</span></th></tr></thead><tbody><tr><td><span>企鹅拳</span></td><td><span>1级</span></td><td><span>0级</span></td><td><span>3</span></td><td><span>5</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>16级</span></td><td><span>4</span></td><td><span>7</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>21级</span></td><td><span>6</span></td><td><span>9</span></td><td><span>无</span></td></tr><tr><td><span>气功波</span></td><td><span>1级</span></td><td><span>3级</span></td><td><span>5</span></td><td><span>7</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>16级</span></td><td><span>6</span></td><td><span>9</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>21级</span></td><td><span>7</span></td><td><span>12</span></td><td><span>无</span></td></tr><tr><td><span>拍砖头</span></td><td><span>1级</span></td><td><span>4级</span></td><td><span>4</span></td><td><span>5</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>16级</span></td><td><span>5</span></td><td><span>8</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>21级</span></td><td><span>7</span></td><td><span>10</span></td><td><span>无</span></td></tr><tr><td><span>念力飞扇</span></td><td><span>1级</span></td><td><span>9级</span></td><td><span>5</span></td><td><span>8</span></td><td><span>30%机率附加萎靡效果，降低对手魔法技能命中率15%，削弱魔法技能伤害25%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>17级</span></td><td><span>6</span></td><td><span>10</span></td><td><span>40%机率附加萎靡效果，降低对手魔法技能命中率20%，削弱魔法技能伤害35%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>22级</span></td><td><span>7</span></td><td><span>12</span></td><td><span>50%机率附加萎靡效果，降低对手魔法技能命中率25%，削弱魔法技能伤害40%，持续3回合</span></td></tr><tr><td><span>企鹅冲撞</span></td><td><span>1级</span></td><td><span>6级</span></td><td><span>4</span></td><td><span>6</span></td><td><span>有20%机率造成挫伤效果，每回合减少对手7点生命值，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>17级</span></td><td><span>6</span></td><td><span>9</span></td><td><span>有30%机率造成挫伤效果，每回合减少对手10点生命值，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>20级</span></td><td><span>7</span></td><td><span>11</span></td><td><span>有40%机率造成挫伤效果，每回合减少对手15点生命值，持续4回合</span></td></tr><tr><td><span>无影腿</span></td><td><span>1级</span></td><td><span>13级</span></td><td><span>5</span></td><td><span>12</span></td><td><span>30%机率附加模糊效果，降低对手的远程技能命中率20%，削弱远程技能伤害30%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>19级</span></td><td><span>6</span></td><td><span>14</span></td><td><span>45%机率附加模糊效果，降低对手的远程技能命中率25%，削弱远程技能伤害40%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>24级</span></td><td><span>8</span></td><td><span>16</span></td><td><span>60%机率附加模糊效果，降低对手的远程技能命中率30%，削弱远程技能伤害50%，持续3回合</span></td></tr><tr><td><span>暴走</span></td><td><span>1级</span></td><td><span>15级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>进入暴怒状态，在该状态下接下物理攻击力效果提高12%，物理爆击率提高10%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>21级</span></td><td><span>13</span></td><td><span>无</span></td><td><span>进入暴怒状态，在该状态下接下物理攻击力效果提高17%，物理爆击率提高12%，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>26级</span></td><td><span>16</span></td><td><span>无</span></td><td><span>进入暴怒状态，在该状态下接下物理攻击力效果提高24%，物理爆击率提高15%，持续4回合</span></td></tr><tr><td><span>企鹅流星拳</span></td><td><span>1级</span></td><td><span>18级</span></td><td><span>8</span></td><td><span>11</span></td><td><span>可以在1回合内打出2次连击</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>22级</span></td><td><span>10</span></td><td><span>13</span></td><td><span>可以在1回合内打出2次连击</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>27级</span></td><td><span>12</span></td><td><span>16</span></td><td><span>可以在1回合内打出2次连击</span></td></tr><tr><td><span>金钟罩</span></td><td><span>1级</span></td><td><span>19级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>进入金刚状态，在该状态下接下防御属性提高12%，受远程技能伤害减少</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>23级</span></td><td><span>13</span></td><td><span>无</span></td><td><span>进入金刚状态，在该状态下接下防御属性提高16%，受远程技能伤害减少18%，持续3</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>28级</span></td><td><span>17</span></td><td><span>无</span></td><td><span>进入金刚状态，在该状态下接下防御属性提高22%，受远程技能伤害减少26%，持续5回合</span></td></tr><tr><td><span>异次元攻击</span></td><td><span>1级</span></td><td><span>23级</span></td><td><span>10</span></td><td><span>18</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>29级</span></td><td><span>12</span></td><td><span>20</span></td><td><span>无</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>34级</span></td><td><span>14</span></td><td><span>23</span></td><td><span>无</span></td></tr><tr><td><span>极地冰</span></td><td><span>1级</span></td><td><span>7级</span></td><td><span>7</span></td><td><span>8</span></td><td><span>30%机率附加冰封效果，降低对手30%的速度属性和20%的闪避率</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>17级</span></td><td><span>9</span></td><td><span>11</span></td><td><span>35%机率附加冰封效果，降低对手35%的速度属性和25%的闪避率</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>22级</span></td><td><span>10</span></td><td><span>13</span></td><td><span>40%机率附加冰封效果，降低对手40%的速度属性和30%的闪避率</span></td></tr><tr><td><span>烈焰火</span></td><td><span>1级</span></td><td><span>10级</span></td><td><span>8</span></td><td><span>10</span></td><td><span>20%机率造成灼伤效果，每回合减少对手10点生命值，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>17级</span></td><td><span>11</span></td><td><span>12</span></td><td><span>25%机率造成灼伤效果，每回合减少对手13点生命值，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>22级</span></td><td><span>13</span></td><td><span>14</span></td><td><span>30%机率造成灼伤效果，每回合减少对手18点生命值，持续3回合</span></td></tr><tr><td><span>灵魂附体</span></td><td><span>1级</span></td><td><span>11级</span></td><td><span>8</span></td><td><span>无</span></td><td><span>进入附灵状态，在该状态下魔法攻击威力提升20%，魔法爆击率提升10%，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>17级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>进入附灵状态，在该状态下魔法攻击威力提升25%，魔法爆击率提升12%，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>22级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>进入附灵状态，在该状态下魔法攻击威力提升30%，魔法爆击率提升15%，持续3回合</span></td></tr><tr><td><span>企鹅吼</span></td><td><span>1级</span></td><td><span>14级</span></td><td><span>10</span></td><td><span>13</span></td><td><span>20%机率造成封喉效果，对手不能使用特技，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>20级</span></td><td><span>12</span></td><td><span>15</span></td><td><span>25%机率造成封喉效果，对手不能使用特技，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>25级</span></td><td><span>14</span></td><td><span>17</span></td><td><span>30%机率造成封喉效果，对手不能使用特技，持续4回合</span></td></tr><tr><td><span>雷霆震</span></td><td><span>1级</span></td><td><span>18级</span></td><td><span>12</span></td><td><span>14</span></td><td><span>30%机率造成虚弱效果，降低对手18%的物理攻击力和20%的物理防御力</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>22级</span></td><td><span>14</span></td><td><span>17</span></td><td><span>35%机率造成虚弱效果，降低对手22%的物理攻击力和25%的物理防御力</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>27级</span></td><td><span>16</span></td><td><span>20</span></td><td><span>40%机率造成虚弱效果，降低对手25%的物理攻击力和28%的物理防御力</span></td></tr><tr><td><span>心眼</span></td><td><span>1级</span></td><td><span>24级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>进入静心状态，在该状态下接下来的攻击将100%命中，并提升10%的闪避率，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>30级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>进入静心状态，在该状态下接下来的攻击将100%命中，并提升12%的闪避率，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>35级</span></td><td><span>20</span></td><td><span>无</span></td><td><span>进入静心状态，在该状态下接下来的攻击将100%命中，并提升15%的闪避率，持续4回合</span></td></tr><tr><td><span>点穴手</span></td><td><span>1级</span></td><td><span>26级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>60%机率附加麻痹效果，对手不能使用物理技能，在该状态下对手承受110%的魔法伤害，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>29级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>75%机率附加麻痹效果，对手不能使用物理技能，在该状态下对手承受120%的魔法伤害，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>34级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>100%机率附加麻痹效果，对手不能使用物理技能，在该状态下对手承受150%的魔法伤害，持续3回合</span></td></tr><tr><td><span>摄魂大法</span></td><td><span>1级</span></td><td><span>27级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>60%机率附加沉默效果，对手不能使用魔法技能，在该状态下对手将承受110%的物理伤害，持续2回合</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>30级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>70%机率附加沉默效果，对手不能使用魔法技能，在该状态下对手将承受120%的物理伤害，持续3回合</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>35级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>100%机率附加沉默效果，对手不能使用魔法技能，在该状态下对手将承受150%的物理伤害，持续3回合</span></td></tr><tr><td><span>秘-背水一击</span></td><td><span>1级</span></td><td><span>10级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>18级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>23级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>秘-昏睡咒</span></td><td><span>1级</span></td><td><span>20级</span></td><td><span>10</span></td><td><span>无</span></td><td><span>100%的机率令对手进入休眠状态，休眠状态下无法行动，持续2回合。一旦对手受到攻击，将清醒。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>25级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>100%的机率令对手进入休眠状态，休眠状态下无法行动，持续3回合。一旦对手受到攻击，将清醒。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>30级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>100%的机率令对手进入休眠状态，休眠状态下无法行动，持续4回合。一旦对手受到攻击，将清醒。该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>秘-排山倒海</span></td><td><span>1级</span></td><td><span>22级</span></td><td><span>12</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>28级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>33级</span></td><td><span>18</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>秘-御龙在天</span></td><td><span>1级</span></td><td><span>25级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>31级</span></td><td><span>18</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>36级</span></td><td><span>20</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>奥-死亡笔记</span></td><td><span>1级</span></td><td><span>28级</span></td><td><span>16</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>32级</span></td><td><span>20</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>37级</span></td><td><span>25</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>奥-百步烈烧</span></td><td><span>1级</span></td><td><span>30级</span></td><td><span>15</span></td><td><span>无</span></td><td><span>有100%机率造成点燃效果，每回合减少对手30%生命值，持续2回合。发动该技能后将损失1回合行动。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>35级</span></td><td><span>18</span></td><td><span>无</span></td><td><span>有100%机率造成点燃效果，每回合减少对手35%生命值，持续3回合。发动该技能后将损失1回合行动。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>40级</span></td><td><span>20</span></td><td><span>无</span></td><td><span>有100%机率造成点燃效果，每回合减少对手40%生命值，持续4回合。发动该技能后将损失1回合行动。该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>奥-灵魂契约</span></td><td><span>1级</span></td><td><span>32级</span></td><td><span>20</span></td><td><span>无</span></td><td><span>100%机率令自己进入魔神状态，在该状态下攻击提升20%，暴击率提升15%，持续2回合。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>38级</span></td><td><span>25</span></td><td><span>无</span></td><td><span>100%机率令自己进入魔神状态，在该状态下攻击提升25%，暴击率提升20%，持续3回合。该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>43级</span></td><td><span>30</span></td><td><span>无</span></td><td><span>100%机率令自己进入魔神状态，在该状态下攻击提升30%，暴击率提升25%，持续4回合。该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>奥-天崩地裂</span></td><td><span>1级</span></td><td><span>34级</span></td><td><span>25</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>39级</span></td><td><span>30</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>44级</span></td><td><span>35</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td><span>奥-无尽黑暗</span></td><td><span>1级</span></td><td><span>36级</span></td><td><span>30</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>2级</span></td><td><span>41级</span></td><td><span>35</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr><tr><td>&nbsp;</td><td><span>3级</span></td><td><span>46级</span></td><td><span>40</span></td><td><span>无</span></td><td><span>该技能只能在狂暴状态下使用！</span></td></tr></tbody></table></figure><h1 id='2-被动技能'><span>2. 被动技能</span></h1><blockquote><p><span>被动技能是由玩家自定义的技能，可以在战斗中被动使用。许多被动技能需要达到一定等级才能解锁。此外，玩家可以购买道具卡来扩展其技能槽的数量。</span></p></blockquote><figure><table><thead><tr><th><span>技能名称</span></th><th><span>等级要求</span></th><th><span>特殊效果</span></th></tr></thead><tbody><tr><td><span>蛮力</span></td><td><span>1级（5级）</span></td><td><span>攻击力提高20%，遇到铁布衫时，威力失效</span></td></tr><tr><td>&nbsp;</td><td><span>2级（14级）</span></td><td><span>攻击力提高25%，遇到铁布衫时，威力失效</span></td></tr><tr><td>&nbsp;</td><td><span>3级（19级）</span></td><td><span>攻击力提高30%，遇到铁布衫时，威力失效</span></td></tr><tr><td><span>灵性</span></td><td><span>1级（5级）</span></td><td><span>提高自身灵力20%</span></td></tr><tr><td>&nbsp;</td><td><span>2级（14级）</span></td><td><span>提高自身灵力25%</span></td></tr><tr><td>&nbsp;</td><td><span>3级（19级）</span></td><td><span>提高自身灵力30%</span></td></tr><tr><td><span>铁布衫</span></td><td><span>1级（7级）</span></td><td><span>防御力提升20%，可克制蛮力</span></td></tr><tr><td>&nbsp;</td><td><span>2级（15级）</span></td><td><span>防御力提升25%，可克制蛮力</span></td></tr><tr><td>&nbsp;</td><td><span>3级（20级）</span></td><td><span>防御力提升30%，可克制蛮力</span></td></tr><tr><td><span>凌波微步</span></td><td><span>1级（8级）</span></td><td><span>速度提升15%，命中率增加5%</span></td></tr><tr><td>&nbsp;</td><td><span>2级（17级）</span></td><td><span>速度提升20%，命中率增加8%</span></td></tr><tr><td>&nbsp;</td><td><span>3级（22级）</span></td><td><span>速度提升25%，命中率增加12%</span></td></tr><tr><td><span>御冰</span></td><td><span>1级（9级）</span></td><td><span>有15%的几率，吸收冰系伤害</span></td></tr><tr><td>&nbsp;</td><td><span>2级（15级）</span></td><td><span>有20%的几率，吸收冰系伤害，增加5%生命上限</span></td></tr><tr><td>&nbsp;</td><td><span>3级（20级）</span></td><td><span>有25%的几率，吸收冰系伤害，增加10%生命上限</span></td></tr><tr><td><span>御火</span></td><td><span>1级（11级）</span></td><td><span>有15%的几率，吸收火系伤害</span></td></tr><tr><td>&nbsp;</td><td><span>2级（19级）</span></td><td><span>有20%的几率，吸收火系伤害，增加5%生命上限</span></td></tr><tr><td>&nbsp;</td><td><span>3级（24级）</span></td><td><span>有25%的几率，吸收火系伤害，增加10%生命上限</span></td></tr><tr><td><span>御雷</span></td><td><span>1级（19级）</span></td><td><span>有15%的几率，吸收雷系伤害</span></td></tr><tr><td>&nbsp;</td><td><span>2级（22级）</span></td><td><span>有20%的几率，吸收雷系伤害，增加5%生命上限</span></td></tr><tr><td>&nbsp;</td><td><span>3级（27级）</span></td><td><span>有25%的几率，吸收雷系伤害，增加10%生命上限</span></td></tr><tr><td><span>爆击 武</span></td><td><span>1级（13级）</span></td><td><span>提升8%物理攻击爆击率</span></td></tr><tr><td>&nbsp;</td><td><span>2级（21级）</span></td><td><span>提升12%物理攻击爆击率</span></td></tr><tr><td>&nbsp;</td><td><span>3级（26级）</span></td><td><span>提升15%物理攻击爆击率</span></td></tr><tr><td><span>爆击 魔</span></td><td><span>1级（14级）</span></td><td><span>提升8%魔法攻击爆击率</span></td></tr><tr><td>&nbsp;</td><td><span>2级（23级）</span></td><td><span>提升12%魔法攻击爆击率</span></td></tr><tr><td>&nbsp;</td><td><span>3级（28级）</span></td><td><span>提升15%魔法攻击爆击率</span></td></tr><tr><td><span>反击</span></td><td><span>1级（15级）</span></td><td><span>受到近程攻击时，有20%进行反击</span></td></tr><tr><td>&nbsp;</td><td><span>2级（23级）</span></td><td><span>受到近程攻击时，有25%进行反击</span></td></tr><tr><td>&nbsp;</td><td><span>3级（28级）</span></td><td><span>受到近程攻击时，有30%进行反击</span></td></tr><tr><td><span>反震</span></td><td><span>1级（17级）</span></td><td><span>受到攻击时，有10%反弹50%的伤害至对方</span></td></tr><tr><td>&nbsp;</td><td><span>2级（23级）</span></td><td><span>受到攻击时，有15%反弹50%的伤害至对方</span></td></tr><tr><td>&nbsp;</td><td><span>3级（28级）</span></td><td><span>受到攻击时，有20%反弹50%的伤害至对方</span></td></tr><tr><td><span>幻影</span></td><td><span>1级（16级）</span></td><td><span>受远程攻击时，闪避率提升20%，抵消20%伤害</span></td></tr><tr><td>&nbsp;</td><td><span>2级（25级）</span></td><td><span>受远程攻击时，闪避率提升25%，抵消25%伤害</span></td></tr><tr><td>&nbsp;</td><td><span>3级（30级）</span></td><td><span>受远程攻击时，闪避率提升30%，抵消30%伤害</span></td></tr><tr><td><span>刚韧不屈</span></td><td><span>1级（21级）</span></td><td><span>刚韧的体魄，不会让对手爆击</span></td></tr><tr><td>&nbsp;</td><td><span>2级（27级）</span></td><td><span>刚韧的体魄，不会让对手爆击，增加5%的闪避率</span></td></tr><tr><td>&nbsp;</td><td><span>3级（32级）</span></td><td><span>刚韧的体魄，不会让对手爆击，增加10%的闪避率</span></td></tr><tr><td><span>偷袭</span></td><td><span>1级（23级）</span></td><td><span>不受反击，反震效果</span></td></tr><tr><td>&nbsp;</td><td><span>2级（29级）</span></td><td><span>不受反击，反震效果，提高5%基础命中率</span></td></tr><tr><td>&nbsp;</td><td><span>3级（34级）</span></td><td><span>不受反击，反震效果，提高10%基础命中率</span></td></tr><tr><td><span>幸运</span></td><td><span>1级（26级）</span></td><td><span>每回合有5%的几率自动解除自身的不良状态，并回复生命最大值5%的生命</span></td></tr><tr><td>&nbsp;</td><td><span>2级（29级）</span></td><td><span>每回合有7%的几率自动解除自身的不良状态，并回复生命最大值7%的生命</span></td></tr><tr><td>&nbsp;</td><td><span>3级（34级）</span></td><td><span>每回合有9%的几率自动解除自身的不良状态，并回复生命最大值9%的生命</span></td></tr><tr><td><span>大难不死</span></td><td><span>1级（28级）</span></td><td><span>15%几率在受到致命打击后抵抗死亡，并回复生命最大值10%的生命</span></td></tr><tr><td>&nbsp;</td><td><span>2级（31级）</span></td><td><span>20%几率在受到致命打击后抵抗死亡，并回复生命最大值13%的生命</span></td></tr><tr><td>&nbsp;</td><td><span>3级（36级）</span></td><td><span>30%几率在受到致命打击后抵抗死亡，并回复生命最大值16%的生命</span></td></tr></tbody></table></figure><h1 id='3五神技'><span>3五神技</span></h1><blockquote><p><span>从“天地宝鉴”（游戏道具）中可以领悟到“五神诀”的招式，分别是“八卦迷踪腿”“道威无极真气”“狂龙傲天拳”“惊天混元掌”和“灵气寒霜指”。一旦领悟到神技，则该神技对应的技能图标将被点亮。(可以在与boss战斗中随机获得，或者在线抽奖获得)。</span></p></blockquote><blockquote><p><span> 每一种神技具有七个等级，玩家领悟出神技之后，可以鼠标左键单击该神技图标强化技能。强化神技没有等级要求，但需要消耗一定量的天书残卷。强化神技时，有一定几率失败。失败后技能不会消失，强化的技能等级越高，成功几率越小。</span></p></blockquote><h3 id='1-狂龙傲天拳'><span>1. 狂龙傲天拳</span></h3><p><span>使你的攻击伤害（不包含神技）提升X%，持续2回合。2级—50% ，3级— 55%，4级—60%，5级—65%，6级—70%，7级—75%</span></p><h2 id='2-惊天混元掌'><span>2. 惊天混元掌</span></h2><p><span>使你受到的所有伤害降低X%（包括神技和特技），持续2回合。2级—50% ，3级— 55%，4级—60%，5级—65%，6级—70%，7级—75%</span></p><h2 id='3-灵气寒霜指'><span>3. 灵气寒霜指</span></h2><p><span>增加自身X速度，降低对手X速度。2级—25速度， 3级—40速度，4级—55，5级—70速度，6级—75速度，7级—85速度</span></p><h2 id='4-道威无极真气'><span>4. 道威无极真气</span></h2><p><span>使你的攻击伤害（不包含神技），回复技能伤害的X%的生命值，持续2回合（X根据神技等级不同，加成的X比率也不同）。2级—25%， 3级—30%，4级—35%，5级—40%，6级—45%，7级—50%。</span></p><h2 id='5-八卦迷踪腿'><span>5. 八卦迷踪腿</span></h2><p><span>使你受到的攻击命中率降低X%，持续2回合。2级—30%， 3级—35%，4级—40%，5级—45%，6级—50%，7级—60%</span></p></div></div>
+</body>
+</html>

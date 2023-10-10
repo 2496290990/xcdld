@@ -4,8 +4,10 @@ import cn.hutool.core.collection.CollUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.Account;
+import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.model.dto.AccountDto;
 import net.lesscoding.model.vo.RedisUserCache;
+import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.AccountService;
 import net.lesscoding.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ import java.util.stream.Collectors;
 public class SystemServiceImpl implements SystemService {
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private AccountPlayerService playerService;
 
     @Autowired
     @Qualifier("jedisRedisTemplate")
@@ -50,7 +54,6 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     @Scheduled(cron = "0 0/15 * * * ?")
-    @PostConstruct
     public Integer autoRegisterByRedisMac() {
         List<Account> accountList = accountService.getAccountList();
         Map<String,String> userCacheMap = jedisTemplate.boundHashOps(userCache).entries();
@@ -59,7 +62,6 @@ public class SystemServiceImpl implements SystemService {
             List<String> existsMacList = accountList.stream()
                     .map(Account::getMac)
                     .collect(Collectors.toList());
-
             // 获取到没有注册的mac地址
             existsMacList.forEach(redisMacSet::remove);
         }
@@ -72,7 +74,18 @@ public class SystemServiceImpl implements SystemService {
 
         if (CollUtil.isNotEmpty(insertList)) {
             log.info("当前要自动创建账号数量为 -{}", insertList.size());
-            accountService.saveBatch(insertList, 50);
+            accountService.saveBatch(insertList, 500);
+            List<AccountPlayer> accountPlayerList = new ArrayList<>();
+            AccountPlayer accountPlayer = null;
+            for (Account account : insertList) {
+                accountPlayer = new AccountPlayer();
+                accountPlayer.setNickname(account.getNickname());
+                accountPlayer.setLevel(0);
+                accountPlayer.setExp(0);
+                accountPlayer.setAccountId(account.getId());
+                accountPlayerList.add(accountPlayer);
+            }
+            playerService.saveBatch(accountPlayerList);
         }
         return redisMacSet.size();
     }

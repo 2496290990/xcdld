@@ -23,20 +23,20 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS tb_account;
 CREATE TABLE tb_account  (
   id int NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  mac varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '网卡地址',
-  account varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '账号',
-  email varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
-  password varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
-  salt varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '随机盐',
+  mac varchar(32)  NOT NULL COMMENT '网卡地址',
+  account varchar(10)  NULL DEFAULT NULL COMMENT '账号',
+  email varchar(32)  NULL DEFAULT NULL COMMENT '邮箱',
+  password varchar(32)  NULL DEFAULT NULL COMMENT '密码',
+  salt varchar(8)  NULL DEFAULT NULL COMMENT '随机盐',
   status int NULL DEFAULT 1 COMMENT '0 小黑屋 1正常 2注销',
-  nickname varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '昵称',
+  nickname varchar(12)  NULL DEFAULT NULL COMMENT '昵称',
   create_by int NULL DEFAULT NULL COMMENT '创建人',
   create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   update_by int NULL DEFAULT NULL COMMENT '更新人',
   update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   del_flag bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
   PRIMARY KEY (id) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '账户表' ROW_FORMAT = Dynamic;
+) COMMENT = '账户表' ;
 
 
 create table tb_player_level_exp
@@ -90,3 +90,26 @@ INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender,
 INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by, create_time, update_by, update_time, del_flag) VALUES (30, 29, 100000, 9527, 399, 199, 0.60, 0.60, 0.70, 0, '2023-10-08 06:08:38', 0, '2023-10-08 06:08:38', b'0');
 INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by, create_time, update_by, update_time, del_flag) VALUES (31, 30, 200000, 10086, 404, 200, 0.70, 0.70, 0.70, 0, '2023-10-08 06:08:43', 0, '2023-10-08 06:08:43', b'0');
 
+create table tb_base_table
+(
+    id          int primary key auto_increment comment '自增主键',
+    create_by   int      NULL DEFAULT NULL COMMENT '创建人',
+    create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_by   int      NULL DEFAULT NULL COMMENT '更新人',
+    update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    del_flag    bit(1)   NULL DEFAULT false COMMENT '删除标记'
+) comment '基础表格框架';
+
+create table tb_account_player
+(
+    id          int primary key auto_increment comment '自增主键',
+    account_id  int not null comment '账号id',
+    nickname    varchar(32) not null comment '昵称',
+    level       int default 0 comment '当前等级',
+    exp         int default 0 comment '当前经验',
+    create_by   int      NULL DEFAULT NULL COMMENT '创建人',
+    create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_by   int      NULL DEFAULT NULL COMMENT '更新人',
+    update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    del_flag    bit(1)   NULL DEFAULT false COMMENT '删除标记'
+) comment '账号角色';
