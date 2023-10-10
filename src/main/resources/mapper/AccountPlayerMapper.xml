@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.lesscoding.mapper.AccountPlayerMapper">
+    <select id="getPlayerBaseAttr" resultType="net.lesscoding.model.Player">
+        select tb.id as accountPlayerId,
+               tple.id,
+               tple.level,
+               tple.need_exp,
+               tple.hp,
+               tple.attack,
+               tple.defender,
+               tple.flee,
+               tple.combo,
+               tple.hit,
+               tple.create_by,
+               tple.create_time,
+               tple.update_by,
+               tple.update_time,
+               tple.del_flag
+        from tb_account_player tb
+                 left join tb_player_level_exp tple on tple.level = tb.level
+        where tb.del_flag = false
+        and tb.id = #{accountPlayerId}
+    </select>
 </mapper>

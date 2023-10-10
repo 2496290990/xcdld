@@ -27,21 +27,22 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 注册 Sa-Token 拦截器，打开注解式鉴权功能
-        registry.addInterceptor(new SaInterceptor(handle -> {
-                    SaRouter
-                            .match("/**")    // 拦截的 path 列表，可以写多个 */
-                            .notMatch("/sys/**")//系统服务全排除
-                            // 下边的是knife4j使用的
-                            .notMatch("/*.html")
-                            .notMatch("/swagger-resources")
-                            .notMatch("/webjars/**")
-                            .notMatch("/**/api-docs")
-                            .notMatch("/favicon.ico")
-                            .notMatch("/file/qiniu")
-                            .check(r -> StpUtil.checkLogin());
-                }))
-                .addPathPatterns("/**")
+        //// 注册 Sa-Token 拦截器，打开注解式鉴权功能
+        //registry.addInterceptor(new SaInterceptor(handle -> {
+        //            SaRouter
+        //                    .match("/**")    // 拦截的 path 列表，可以写多个 */
+        //                    .notMatch("/sys/**")//系统服务全排除
+        //                    .notMatch("/battle/**")//系统服务全排除
+        //                    // 下边的是knife4j使用的
+        //                    .notMatch("/*.html")
+        //                    .notMatch("/swagger-resources")
+        //                    .notMatch("/webjars/**")
+        //                    .notMatch("/**/api-docs")
+        //                    .notMatch("/favicon.ico")
+        //                    .notMatch("/file/qiniu")
+        //                    .check(r -> StpUtil.checkLogin());
+        //        }))
+        //        .addPathPatterns("/**")
         ;
     }
 

@@ -2,6 +2,7 @@ package net.lesscoding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lesscoding.entity.AccountPlayer;
+import net.lesscoding.model.Player;
 
 /**
  * @author eleven
@@ -9,4 +10,5 @@ import net.lesscoding.entity.AccountPlayer;
  * @apiNote
  */
 public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
+    Player getPlayerBaseAttr(Integer accountPlayerId);
 }

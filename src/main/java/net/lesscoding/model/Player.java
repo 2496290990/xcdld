@@ -1,6 +1,8 @@
 package net.lesscoding.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.lesscoding.entity.Skill;
 import net.lesscoding.entity.User;
 import net.lesscoding.entity.Weapon;
 
@@ -12,7 +14,10 @@ import java.util.List;
  * @apiNote
  */
 @Data
+@NoArgsConstructor
 public class Player {
+
+    private Integer accountPlayerId;
 
     /**
      * 昵称
@@ -52,6 +57,9 @@ public class Player {
     private User user;
 
     private List<Weapon> weaponList;
+
+    private List<Skill> skillList;
+
 
     public Player(String nickname, List<Weapon> weaponList) {
         this.nickname = nickname;
