@@ -12,6 +12,14 @@
         <result column="flee" property="flee" />
         <result column="combo" property="comboRate" />
     </resultMap>
+
+    <resultMap id="playerVoMap" type="net.lesscoding.model.vo.PlayerVo">
+        <id column="id" property="id" />
+        <result column="account_id" property="accountId" />
+        <result column="nickname" property="nickname" />
+        <result column="level" property="nickname" />
+        <result column="region" property="region" />
+    </resultMap>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.id account_id,
                tb.nickname,
@@ -33,5 +41,16 @@
                  left join tb_player_level_exp tple on tple.level = tb.level
         where tb.del_flag = false
         and tb.id = #{accountPlayerId}
+    </select>
+
+    <select id="getAllPlayer" resultType="net.lesscoding.model.vo.PlayerVo">
+        select
+            ap.id,
+            ap.account_id,
+            ap.nickname,
+            ap.level,
+            tb.region
+        from tb_account tb
+        left join tb_account_player ap on ap.account_id = tb.id
     </select>
 </mapper>

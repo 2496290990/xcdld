@@ -18,7 +18,7 @@ import java.util.concurrent.*;
  * @apiNote
  */
 @Slf4j
-//@Configuration
+@Configuration
 public class AfterRunningConfig implements ApplicationRunner {
 
     @Autowired

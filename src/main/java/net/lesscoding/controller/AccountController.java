@@ -26,4 +26,5 @@ public class AccountController {
     public Result registerAccount(@RequestBody Account account) {
         return ResultFactory.success(accountService.registerAccount(account));
     }
+
 }

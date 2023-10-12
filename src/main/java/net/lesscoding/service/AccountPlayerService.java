@@ -1,8 +1,10 @@
 package net.lesscoding.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.model.Player;
+import net.lesscoding.model.dto.PlayerDto;
 
 /**
  * @author eleven
@@ -16,4 +18,6 @@ public interface AccountPlayerService extends IService<AccountPlayer> {
      * @return
      */
     Player getPlayerBaseAttr(Integer accountPlayerId);
+
+    Page getAllPlayer(PlayerDto dto);
 }
