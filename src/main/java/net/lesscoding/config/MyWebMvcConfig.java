@@ -44,6 +44,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
                             .notMatch("/**/api-docs")
                             .notMatch("/favicon.ico")
                             .notMatch("/file/qiniu")
+                            .notMatch("/error")
                             .check(r -> StpUtil.checkLogin());
                 }))
                 .addPathPatterns("/**")
