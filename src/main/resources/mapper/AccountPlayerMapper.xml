@@ -17,8 +17,9 @@
         <id column="id" property="id" />
         <result column="account_id" property="accountId" />
         <result column="nickname" property="nickname" />
-        <result column="level" property="nickname" />
+        <result column="level" property="level" />
         <result column="region" property="region" />
+        <result column="mac" property="mac" />
     </resultMap>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.id account_id,
@@ -38,18 +39,21 @@
                tple.update_time,
                tple.del_flag
         from tb_account_player tb
-                 left join tb_player_level_exp tple on tple.level = tb.level
+        left join tb_player_level_exp tple on tple.level = tb.level
+        left join tb_account ac on ac.id = tb.account_id
         where tb.del_flag = false
-        and tb.id = #{accountPlayerId}
+        and ( tb.id = #{accountPlayerId} or ac.mac = #{mac} )
+
     </select>
 
-    <select id="getAllPlayer" resultType="net.lesscoding.model.vo.PlayerVo">
+    <select id="getAllPlayer" resultMap="playerVoMap">
         select
             ap.id,
             ap.account_id,
             ap.nickname,
             ap.level,
-            tb.region
+            tb.region,
+            tb.mac
         from tb_account tb
         left join tb_account_player ap on ap.account_id = tb.id
     </select>

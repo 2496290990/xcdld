@@ -9,14 +9,34 @@ import lombok.Data;
  */
 @Data
 public class PlayerVo{
+    /**
+     * 角色id
+     */
     private Integer id;
 
+    /**
+     * 账号id
+     */
     private Integer accountId;
 
+    /**
+     * 名称
+     */
     private String nickname;
 
+    /**
+     * 等级
+     */
     private Integer level;
 
+    /**
+     * 省份
+     */
     private String region;
+
+    /**
+     * 网卡地址
+     */
+    private String mac;
 
 }

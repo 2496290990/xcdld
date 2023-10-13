@@ -12,12 +12,6 @@ import net.lesscoding.model.dto.PlayerDto;
  * @apiNote
  */
 public interface AccountPlayerService extends IService<AccountPlayer> {
-    /**
-     * 获取游戏角色的基本熟悉
-     * @param accountPlayerId       角色id
-     * @return
-     */
-    Player getPlayerBaseAttr(Integer accountPlayerId);
 
     Page getAllPlayer(PlayerDto dto);
 }

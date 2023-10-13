@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
  * @apiNote
  */
 public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
-    Player getPlayerBaseAttr(Integer accountPlayerId);
+    Player getPlayerBaseAttr(Player player);
 
     /**
      * 查询玩家列表

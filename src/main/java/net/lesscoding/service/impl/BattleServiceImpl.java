@@ -2,6 +2,7 @@ package net.lesscoding.service.impl;
 
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.Weapon;
+import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.BattleDto;
 import net.lesscoding.service.AccountPlayerService;
@@ -23,13 +24,13 @@ import java.util.List;
 public class BattleServiceImpl implements BattleService {
 
     @Autowired
-    private AccountPlayerService playerService;
+    private AccountPlayerMapper playerMapper;
     @Override
     public Object doBattle(BattleDto dto) {
         Player attacker = getLastPlayer(dto.getAttacker());
         Player defender = getLastPlayer(dto.getDefender());
         List<BattleProcess> processList = new ArrayList<>();
-        BattleUtil.doBattle(attacker, defender, processList, 0);
+        BattleUtil.doBattle(attacker, defender, processList, 1);
         return processList;
     }
 
@@ -38,7 +39,7 @@ public class BattleServiceImpl implements BattleService {
         Weapon keyboard = new Weapon("键盘");
         List<Weapon> weapons = Arrays.asList(basketball, keyboard);
         // 获取角色的基本属性
-        player = playerService.getPlayerBaseAttr(player.getAccountPlayerId());
+        player = playerMapper.getPlayerBaseAttr(player);
         player.setWeaponList(weapons);
         return player;
     }

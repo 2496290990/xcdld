@@ -23,7 +23,6 @@ public class BattleController {
     private BattleService battleService;
 
     @PostMapping("/doBattle")
-    @SaIgnore
     private Result doBattle(@RequestBody BattleDto dto) {
         return ResultFactory.success(battleService.doBattle(dto));
     }

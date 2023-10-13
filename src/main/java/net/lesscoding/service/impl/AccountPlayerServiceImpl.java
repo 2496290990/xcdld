@@ -20,11 +20,6 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
 
     @Autowired
     private AccountPlayerMapper playerMapper;
-    @Override
-    public Player getPlayerBaseAttr(Integer accountPlayerId) {
-        Player player = playerMapper.getPlayerBaseAttr(accountPlayerId);
-        return player;
-    }
 
     /**
      * 获取所有的玩家数据

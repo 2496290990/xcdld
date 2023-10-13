@@ -3,6 +3,8 @@ package net.lesscoding.config;
 //import cn.dev33.satoken.exception.NotLoginException;
 //import cn.dev33.satoken.exception.NotRoleException;
 //import cn.dev33.satoken.util.SaResult;
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotRoleException;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
@@ -20,22 +22,22 @@ import java.io.IOException;
  * Link to: <a href="https://lesscoding.net">https://lesscoding.net</a>
  * mail to:2496290990@qq.com zjh292411@gmail.com admin@lesscoding.net
  */
-//@Component
-//@RestControllerAdvice
+@Component
+@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler{
 
 
-    //@ExceptionHandler({NotRoleException.class})
-    //public Result notRoleExceptionHandler(NotRoleException e){
-    //    log.error("====权限不足===",e);
-    //    return ResultFactory.failed(e.getMessage());
-    //}
-    //@ExceptionHandler({NotLoginException.class})
-    //public Result notLoginExceptionHandler(NotLoginException e) {
-    //    log.error("======未登录访问登录资源======");
-    //    return ResultFactory.failed(e.getMessage());
-    //}
+    @ExceptionHandler({NotRoleException.class})
+    public Result notRoleExceptionHandler(NotRoleException e){
+        log.error("====权限不足===",e);
+        return ResultFactory.failed(e.getMessage());
+    }
+    @ExceptionHandler({NotLoginException.class})
+    public Result notLoginExceptionHandler(NotLoginException e) {
+        log.error("======未登录访问登录资源======");
+        return ResultFactory.failed("用户未登录");
+    }
     /**
      * 处理运行时异常
      * @param   e       运行时异常对象
