@@ -89,6 +89,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         Account account = accountMapper.selectOne(new QueryWrapper<Account>()
                 .eq("del_flag", false)
                 .eq("mac", mac));
+        if (account == null) {
+            throw new RuntimeException("查询账号失败，请联系塘主处理，QQ群号754126966");
+        }
         if (account != null && account.getStatus() != 0) {
             StpUtil.login(account.getId());
         }
