@@ -31,6 +31,10 @@ public class BattleServiceImpl implements BattleService {
         Player defender = getLastPlayer(dto.getDefender());
         List<BattleProcess> processList = new ArrayList<>();
         BattleUtil.doBattle(attacker, defender, processList, 1);
+        processList.add(new BattleProcess(
+                processList.size(),
+                String.format("【战斗结果】:%s", BattleUtil.getFightResult(attacker, defender))
+        ));
         return processList;
     }
 

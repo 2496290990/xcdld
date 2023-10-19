@@ -184,5 +184,18 @@ public class BattleUtil {
         return RandomUtil.weightRandom(list).next();
     }
 
+    public static String getFightResult(Player attacker, Player defender) {
+        Integer attackerHp = attacker.getHp();
+        StringBuffer sb = new StringBuffer();
+        if (attackerHp > 0) {
+            sb.append("你击败了【")
+                    .append(defender.getNickname())
+                    .append("】获得了胜利。评价：")
+                    .append(attackerHp < 10 ? "惨胜" : "完胜");
+        } else {
+            sb.append("惜败！");
+        }
+        return sb.toString();
+    }
 
 }
