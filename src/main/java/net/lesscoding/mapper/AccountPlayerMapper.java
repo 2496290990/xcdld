@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.model.Player;
+import net.lesscoding.model.dto.AddExpDto;
 import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.PlayerVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author eleven
@@ -23,4 +26,12 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @return  List    返回数据
      */
     Page<PlayerVo> getAllPlayer(Page page, @Param("dto") PlayerDto dto);
+
+    /**
+     * 给玩家添加经验
+     * @param addExpList
+     */
+    void addPlayerExpBatch(@Param("list") List<AddExpDto> addExpList);
+
+    void addPlayerExp(AddExpDto dto);
 }

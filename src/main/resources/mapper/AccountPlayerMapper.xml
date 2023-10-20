@@ -21,10 +21,26 @@
         <result column="region" property="region" />
         <result column="mac" property="mac" />
     </resultMap>
+    <update id="addPlayerExp">
+        UPDATE tb_account_player
+        SET exp = exp + #{addExp},
+            update_by = #{updateBy},
+            level = (SELECT MAX(level) FROM tb_player_level_exp WHERE need_exp &lt;= exp)
+        WHERE id = #{id}
+    </update>
+    <update id="addPlayerExpBatch">
+        <foreach collection="list" item="item" separator=";">
+            UPDATE tb_account_player
+            SET exp = exp + #{item.addExp},
+            update_by = #{item.updateBy},
+            level = (SELECT MAX(level) FROM tb_player_level_exp WHERE need_exp &lt;= exp)
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
-        select tb.id account_id,
+        select tb.account_id account_id,
                tb.nickname,
-               tple.id,
+               tb.id,
                tple.level,
                tple.need_exp,
                tple.hp,
