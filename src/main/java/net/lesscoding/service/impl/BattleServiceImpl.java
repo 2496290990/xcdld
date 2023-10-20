@@ -1,5 +1,6 @@
 package net.lesscoding.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.Weapon;
@@ -24,6 +25,7 @@ import java.util.*;
  * @apiNote
  */
 @Service
+@Slf4j
 public class BattleServiceImpl implements BattleService {
 
     @Autowired
@@ -57,11 +59,28 @@ public class BattleServiceImpl implements BattleService {
         int lvExp = lvDiff + 1;
         int hpExpRatio = Math.max(2, lvExp * lvExp);
         int hpExp = 1;
+        log.info("当前胜利者 {} 等级 {}", winner.getNickname(), winnerLv);
+        log.info("当前失败者 {} 等级 {}", loser.getNickname(), loser);
+        log.info("当前胜利者剩余HP {}", winner.getHp());
+        log.info("等级差：：{}，hp比例：：{}", lvDiff, hpExpRatio);
         if (winnerLv < loserLv) {
             hpExp = winner.getHp() * hpExpRatio;
+            log.info("当前计算公式 {} + {} * {} + 1 = {}",
+                    lvExp,
+                    winner.getHp(),
+                    hpExpRatio,
+                    1,
+                    hpExp);
         } else {
             hpExp = winner.getHp() / hpExpRatio;
+            log.info("当前计算公式 {} + {} / {} + 1 = {}",
+                    lvExp,
+                    winner.getHp(),
+                    hpExpRatio,
+                    1,
+                    hpExp);
         }
+
         int winnerExp = lvExp + hpExp + 1;
         int loserExp = Math.max(1, winnerExp / 20);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp));

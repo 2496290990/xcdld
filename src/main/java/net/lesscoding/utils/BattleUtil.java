@@ -59,6 +59,8 @@ public class BattleUtil {
                 sb.append(String.format("%s侧身一躲，躲过了%s的致命一击", defender.getNickname(), attacker.getNickname()));
             } else {
                 attack -= defender.getDefence();
+                // 防止攻击为负数导致被攻击者加血
+                attack = Math.max(0, attack);
                 defender.setHp(Math.max(0, defender.getHp() - attack));
                 sb.append(String.format("%s被击中, HP减少 %d, 当前 %d", defender.getNickname(), attack, defender.getHp()));
             }
