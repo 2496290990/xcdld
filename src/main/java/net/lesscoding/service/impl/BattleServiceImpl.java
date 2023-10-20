@@ -53,9 +53,9 @@ public class BattleServiceImpl implements BattleService {
         Player loser = playerList.get(0);
         Player winner = playerList.get(1);
         // 等级差
-        Integer winnerLv = winner.getLevel();
-        int loserLv = winnerLv - loser.getLevel();
-        int lvDiff = Math.abs(loserLv);
+        int winnerLv = winner.getLevel();
+        int loserLv = loser.getLevel();
+        int lvDiff = Math.abs(winnerLv - loserLv);
         int lvExp = lvDiff + 1;
         int hpExpRatio = Math.max(2, lvExp * lvExp);
         int hpExp = 1;
@@ -81,7 +81,7 @@ public class BattleServiceImpl implements BattleService {
                     hpExp);
         }
 
-        int winnerExp = lvExp + hpExp + 1;
+        int winnerExp = lvDiff > 5 ? 0 : lvExp + lvExp + hpExp + 1;
         int loserExp = Math.max(1, winnerExp / 20);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp));
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp));
