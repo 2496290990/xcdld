@@ -5,6 +5,7 @@ package net.lesscoding.config;
 //import cn.dev33.satoken.util.SaResult;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
+import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
@@ -31,7 +32,9 @@ public class GlobalExceptionHandler{
     @ExceptionHandler({LimiterException.class})
     public Result LimiterExceptionHandler(LimiterException e) {
         log.error("====接口限流===",e);
-        return ResultFactory.failed(e.getMessage());
+        log.error("====限流强制退出===");
+        StpUtil.logout();
+        return ResultFactory.failed(String.format("%s，访问频繁，强制退出", e.getMessage()));
     }
 
     @ExceptionHandler({NotRoleException.class})
