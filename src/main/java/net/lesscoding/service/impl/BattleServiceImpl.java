@@ -1,13 +1,17 @@
 package net.lesscoding.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.entity.PlayerWeapon;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.mapper.AccountPlayerMapper;
+import net.lesscoding.mapper.PlayerWeaponMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.AddExpDto;
 import net.lesscoding.model.dto.BattleDto;
+import net.lesscoding.model.vo.AfterPlayerVo;
 import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.BattleService;
 import net.lesscoding.utils.BattleUtil;
@@ -18,6 +22,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author eleven
@@ -31,11 +37,14 @@ public class BattleServiceImpl implements BattleService {
     @Autowired
     private AccountPlayerMapper playerMapper;
 
+    @Autowired
+    private PlayerWeaponMapper playerWeaponMapper;
+
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Object doBattle(BattleDto dto) {
-        Player attacker = getLastPlayer(dto.getAttacker());
-        Player defender = getLastPlayer(dto.getDefender());
+        Player attacker =  playerMapper.getPlayerBaseAttr(dto.getAttacker());
+        Player defender =  playerMapper.getPlayerBaseAttr(dto.getDefender());
         List<BattleProcess> processList = new ArrayList<>();
         BattleUtil.doBattle(attacker, defender, processList, 1);
         processList.add(new BattleProcess(
@@ -46,6 +55,12 @@ public class BattleServiceImpl implements BattleService {
         return processList;
     }
 
+    /**
+     * 添加玩家的经验
+     * @param attacker      攻击者
+     * @param defender      防御者
+     * @param processList   进程集合
+     */
     private void addPlayerExp(Player attacker, Player defender, List<BattleProcess> processList) {
         List<Player> playerList = new ArrayList<>();
         Collections.addAll(playerList, attacker, defender);
@@ -87,20 +102,58 @@ public class BattleServiceImpl implements BattleService {
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp));
         processList.add(new BattleProcess(processList.size() + 1,
                 String.format("你获得了%d经验值", attacker.getHp() > 0 ? winnerExp : loserExp)));
-        AccountPlayer afterAttacker = playerMapper.selectById(attacker.getId());
-        if (afterAttacker.getLevel() > attacker.getLevel()) {
-            processList.add(new BattleProcess(processList.size() + 2,
-                    String.format("你升级了，当前%d级", afterAttacker.getLevel())));
+        List<AfterPlayerVo> afterList =  playerMapper.selectAfterPlayer(Arrays.asList(attacker.getId(), defender.getId()));
+        addWeapon(attacker, defender, processList, afterList);
+    }
+
+    /**
+     * 添加获取武器的代码
+     * @param attacker
+     * @param defender
+     * @param processList
+     * @param afterList
+     */
+    private void addWeapon(Player attacker, Player defender, List<BattleProcess> processList, List<AfterPlayerVo> afterList) {
+        Map<Integer, AfterPlayerVo> playerVoMap = afterList.stream()
+                .collect(Collectors.toMap(AfterPlayerVo::getId, Function.identity()));
+        List<PlayerWeapon> insertList = new ArrayList<>(2);
+        addPlayerWeapon(playerVoMap, attacker, insertList, processList, true);
+        addPlayerWeapon(playerVoMap, defender, insertList, processList, false);
+        if (CollUtil.isNotEmpty(insertList)) {
+            playerWeaponMapper.insertBatch(insertList);
         }
     }
 
-    private Player getLastPlayer(Player player) {
-        Weapon basketball = new Weapon("蓝球");
-        Weapon keyboard = new Weapon("键盘");
-        List<Weapon> weapons = Arrays.asList(basketball, keyboard);
-        // 获取角色的基本属性
-        player = playerMapper.getPlayerBaseAttr(player);
-        player.setWeaponList(weapons);
-        return player;
+    /**
+     * 添加武器
+     * @param playerVoMap
+     * @param player
+     * @param insertList
+     * @param processList
+     * @param addFlag
+     */
+    private void addPlayerWeapon(Map<Integer, AfterPlayerVo> playerVoMap, Player player, List<PlayerWeapon> insertList, List<BattleProcess> processList, Boolean addFlag) {
+        AfterPlayerVo afterAttacker = playerVoMap.get(player.getId());
+        List<PlayerWeapon> playerWeaponList = new ArrayList<>(2);
+        if (afterAttacker.getLevel() > player.getLevel()) {
+            if (addFlag) {
+                processList.add(new BattleProcess(processList.size() + 2,
+                        String.format("你升级了，当前%d级", afterAttacker.getLevel())));
+            }
+            Weapon weapon = afterAttacker.getWeapon();
+            if (weapon != null) {
+                playerWeaponList.add(new PlayerWeapon(player.getId(), weapon.getId(), 0));
+                if (addFlag) {
+                    processList.add(new BattleProcess(processList.size() + 3,
+                            String.format("你获得了【%s】描述【%s】攻击力[%d ~ %d]",
+                                    weapon.getName(),
+                                    weapon.getIntro(),
+                                    weapon.getMinDamage(),
+                                    weapon.getMaxDamage()))
+                    );
+                }
+            }
+        }
     }
+
 }

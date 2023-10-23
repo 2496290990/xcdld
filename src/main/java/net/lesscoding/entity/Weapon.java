@@ -24,18 +24,16 @@ public class Weapon extends BaseEntity<Weapon> {
 
     private Integer maxDamage;
 
-    private Integer level;
+    private String intro;
 
-    private String description;
-
-    private Integer star;
+    //private Integer star;
+    //
+    //private Integer level;
 
     public Weapon(String name) {
         this.name = name;
         this.minDamage = 3;
         this.maxDamage = 7;
-        this.level = 0;
-        this.description = "测试";
-        this.star = 0;
+        this.intro = "测试";
     }
 }
