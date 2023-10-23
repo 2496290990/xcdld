@@ -54,7 +54,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         ;
         // 添加限流
         registry.addInterceptor(new RateLimiterInterceptor(RateLimiter.create(1, 10, TimeUnit.SECONDS)))
-                .addPathPatterns("/**");
+                .addPathPatterns("/battle/**");
     }
 
     /**
