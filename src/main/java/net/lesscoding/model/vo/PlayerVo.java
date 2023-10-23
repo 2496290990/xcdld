@@ -39,4 +39,10 @@ public class PlayerVo{
      */
     private String mac;
 
+    private Integer exp;
+
+    private Integer needExp;
+
+    private Integer energy;
+
 }

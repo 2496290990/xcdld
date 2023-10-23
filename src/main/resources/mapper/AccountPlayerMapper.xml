@@ -28,6 +28,9 @@
         <result column="level" property="level" />
         <result column="region" property="region" />
         <result column="mac" property="mac" />
+        <result column="energy" property="energy" />
+        <result column="exp" property="exp" />
+        <result column="needExp" property="needExp" />
     </resultMap>
 
     <resultMap id="afterPlayerMap" type="net.lesscoding.model.vo.AfterPlayerVo">
@@ -89,7 +92,6 @@
                  left join tb_weapon tw on pw.weapon_id = tw.id
         where tb.del_flag = false
           and (tb.id = #{accountPlayerId} or ac.mac = #{mac})
-
     </select>
 
     <select id="getAllPlayer" resultMap="playerVoMap">
@@ -99,9 +101,14 @@
             ap.nickname,
             ap.level,
             tb.region,
-            tb.mac
+            tb.mac,
+            ap.exp,
+            ap.energy,
+            ple.need_exp
         from tb_account tb
         left join tb_account_player ap on ap.account_id = tb.id
+        left join tb_player_level_exp ple on ple.level = ap.level + 1
+        order by tb.level desc ,tb.exp desc
     </select>
 
     <select id="selectAfterPlayer" resultMap="afterPlayerMap">
