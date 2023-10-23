@@ -8,6 +8,7 @@ import cn.dev33.satoken.exception.NotRoleException;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
+import net.lesscoding.exception.LimiterException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,6 +28,11 @@ import java.io.IOException;
 @Slf4j
 public class GlobalExceptionHandler{
 
+    @ExceptionHandler({LimiterException.class})
+    public Result LimiterExceptionHandler(LimiterException e) {
+        log.error("====接口限流===",e);
+        return ResultFactory.failed(e.getMessage());
+    }
 
     @ExceptionHandler({NotRoleException.class})
     public Result notRoleExceptionHandler(NotRoleException e){
