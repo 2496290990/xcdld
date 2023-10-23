@@ -142,6 +142,7 @@ public class BattleServiceImpl implements BattleService {
             }
             Weapon weapon = afterAttacker.getWeapon();
             if (weapon != null) {
+                insertList.add(new PlayerWeapon(player.getId(), weapon.getId(), 0));
                 playerWeaponList.add(new PlayerWeapon(player.getId(), weapon.getId(), 0));
                 if (addFlag) {
                     processList.add(new BattleProcess(processList.size() + 3,
