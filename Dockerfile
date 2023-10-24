@@ -4,9 +4,9 @@ FROM openjdk:8-jre
 WORKDIR /home
 #将当前metabase.jar 复制到容器根目录下
 ADD ./target/xcdld-1.0-SNAPSHOT.jar xcdld.jar
-#暴露容器端口为8180 Docker镜像告知Docker宿主机应用监听了8180端口
+#暴露容器端口为9528 Docker镜像告知Docker宿主机应用监听了9528端口
 EXPOSE 9528
 #容器启动时执行的命令
-CMD java -jar xcdld.jar > logs/xcdld.log &
+CMD java -jar xcdld.jar --spring.profiles.active=prod > logs/xcdld.log &
 
 ENV TZ=Asia/Shanghai
