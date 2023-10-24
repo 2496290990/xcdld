@@ -49,6 +49,7 @@
         UPDATE tb_account_player
         SET exp = exp + #{addExp},
             update_by = #{updateBy},
+            update_time = now(),
             level = (SELECT MAX(level) FROM tb_player_level_exp WHERE need_exp &lt;= exp)
         WHERE id = #{id}
     </update>
@@ -57,6 +58,7 @@
             UPDATE tb_account_player
             SET exp = exp + #{item.addExp},
             update_by = #{item.updateBy},
+            update_time = now(),
             level = (SELECT MAX(level) FROM tb_player_level_exp WHERE need_exp &lt;= exp)
             WHERE id = #{item.id}
         </foreach>
