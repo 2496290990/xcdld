@@ -1,14 +1,16 @@
 package net.lesscoding.interceptor;
 
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.cache.Cache;
+import cn.hutool.cache.impl.TimedCache;
 import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.exception.LimiterException;
-import org.springframework.http.MediaType;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author eleven
@@ -18,25 +20,27 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class RateLimiterInterceptor implements HandlerInterceptor {
 
-    private final RateLimiter rateLimiter;
+    // 缓存 超时未使用会被移除
+    private final Cache<String, RateLimiter> rateLimiterCache = new TimedCache<>(20 * 60 * 1000);
 
-    /**
-     * 通过构造函数初始化限速器
-     */
-    public RateLimiterInterceptor(RateLimiter rateLimiter) {
+    public RateLimiterInterceptor() {
         super();
-        this.rateLimiter = rateLimiter;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if (this.rateLimiter.tryAcquire()) {
-            /**
-             * 成功获取到令牌
-             */
+        String id = StpUtil.getLoginIdAsString();
+        RateLimiter rateLimiter = rateLimiterCache.get(id);
+        if (rateLimiter == null) {
+            rateLimiter = RateLimiter.create(1, 10, TimeUnit.SECONDS);
+            rateLimiterCache.put(id, rateLimiter);
+        }
+
+        if (rateLimiter.tryAcquire()) {
+            // 成功获取到令牌
             return true;
         }
-        throw new LimiterException("服务器繁忙，请稍后重试");
+        throw new LimiterException("调用太频繁，请稍后再试！");
     }
 }

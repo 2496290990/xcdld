@@ -6,15 +6,12 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.google.common.util.concurrent.RateLimiter;
 import net.lesscoding.interceptor.RateLimiterInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author eleven
@@ -53,8 +50,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
         ;
         // 添加限流
-        registry.addInterceptor(new RateLimiterInterceptor(RateLimiter.create(1, 10, TimeUnit.SECONDS)))
-                .addPathPatterns("/battle/**");
+        registry.addInterceptor(new RateLimiterInterceptor()).addPathPatterns("/battle/**");
     }
 
     /**
