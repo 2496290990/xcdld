@@ -78,26 +78,29 @@ public class BattleServiceImpl implements BattleService {
         log.info("当前失败者 {} 等级 {}", loser.getNickname(), loser);
         log.info("当前胜利者剩余HP {}", winner.getHp());
         log.info("等级差：：{}，hp比例：：{}", lvDiff, hpExpRatio);
-        if (winnerLv < loserLv) {
+        int realLvExp = lvDiff > 5 ? 1 : lvExp;
+        log.info("等级差经验为 {}, 公式： 等级差 > 5 ? 1 : 等级差 + 1 ", realLvExp);
+        String formatStr = String.format("当前计算公式 %d + %d %s %d + 1 = %d");
+        String hpExpLogStr = "";
+        boolean vsHighLevel = winnerLv < loserLv;
+        if (vsHighLevel) {
             hpExp = winner.getHp() * hpExpRatio;
-            log.info("当前计算公式 {} + {} * {} + 1 = {}",
-                    lvExp,
-                    winner.getHp(),
-                    hpExpRatio,
-                    1,
-                    hpExp);
         } else {
             hpExp = winner.getHp() / hpExpRatio;
-            log.info("当前计算公式 {} + {} / {} + 1 = {}",
+            hpExpLogStr = String.format(formatStr,
                     lvExp,
-                    winner.getHp(),
-                    hpExpRatio,
-                    1,
+                    winner.getHp(), "/", hpExpRatio,
                     hpExp);
         }
 
-        int winnerExp = lvDiff > 5 ? 0 : lvExp + lvExp + hpExp + 1;
-        int loserExp = Math.max(1, winnerExp / 20);
+        hpExpLogStr = String.format(formatStr,
+                realLvExp,
+                winner.getHp(), vsHighLevel ? "*" : "/" , hpExpRatio,
+                hpExp);
+        log.info(hpExpLogStr);
+        int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
+        int loserExp = Math.max(lvDiff, winnerExp / (5 + lvDiff));
+        log.info("胜利者获得 {} exp， 失败者获得 {} exo", winnerExp, loserExp);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp));
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp));
         processList.add(new BattleProcess(processList.size() + 1,
