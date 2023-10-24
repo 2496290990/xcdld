@@ -6,10 +6,16 @@ package net.lesscoding.config;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
+import net.lesscoding.entity.Account;
 import net.lesscoding.exception.LimiterException;
+import net.lesscoding.mapper.AccountMapper;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,13 +34,13 @@ import java.io.IOException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler{
+    @Autowired
+    private AccountMapper accountMapper;
 
     @ExceptionHandler({LimiterException.class})
     public Result LimiterExceptionHandler(LimiterException e) {
         log.error("====接口限流===",e);
-        log.error("====限流强制退出===");
-        StpUtil.logout();
-        return ResultFactory.failed(String.format("%s，访问频繁，强制退出", e.getMessage()));
+        return ResultFactory.failed(e.getMessage());
     }
 
     @ExceptionHandler({NotRoleException.class})

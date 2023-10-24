@@ -118,7 +118,10 @@ public class BattleServiceImpl implements BattleService {
                 .collect(Collectors.toMap(AfterPlayerVo::getId, Function.identity()));
         List<PlayerWeapon> insertList = new ArrayList<>(2);
         addPlayerWeapon(playerVoMap, attacker, insertList, processList, true);
-        addPlayerWeapon(playerVoMap, defender, insertList, processList, false);
+        // NPC不增加经验也不增加装备
+        if (defender.getAccountPlayerId() > 0) {
+            addPlayerWeapon(playerVoMap, defender, insertList, processList, false);
+        }
         if (CollUtil.isNotEmpty(insertList)) {
             playerWeaponMapper.insertBatch(insertList);
         }

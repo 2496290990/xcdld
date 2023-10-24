@@ -52,6 +52,7 @@
             update_time = now(),
             level = (SELECT MAX(level) FROM tb_player_level_exp WHERE need_exp &lt;= exp)
         WHERE id = #{id}
+        and account_id > 0
     </update>
     <update id="addPlayerExpBatch">
         <foreach collection="list" item="item" separator=";">

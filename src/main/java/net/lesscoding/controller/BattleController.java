@@ -1,6 +1,5 @@
 package net.lesscoding.controller;
 
-import cn.dev33.satoken.annotation.SaIgnore;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
 import net.lesscoding.model.dto.BattleDto;
