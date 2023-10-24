@@ -80,7 +80,7 @@ public class BattleServiceImpl implements BattleService {
         log.info("等级差：：{}，hp比例：：{}", lvDiff, hpExpRatio);
         int realLvExp = lvDiff > 5 ? 1 : lvExp;
         log.info("等级差经验为 {}, 公式： 等级差 > 5 ? 1 : 等级差 + 1 ", realLvExp);
-        String formatStr = String.format("当前计算公式 %d + %d %s %d + 1 = %d");
+        String formatStr = "当前计算公式 %d + %d %s %d + 1 = %d";
         String hpExpLogStr = "";
         boolean vsHighLevel = winnerLv < loserLv;
         if (vsHighLevel) {
