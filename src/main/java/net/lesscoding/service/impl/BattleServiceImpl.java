@@ -88,13 +88,13 @@ public class BattleServiceImpl implements BattleService {
         } else {
             hpExp = winner.getHp() / hpExpRatio;
         }
-
         hpExpLogStr = String.format(formatStr,
                 realLvExp,
                 winner.getHp(), vsHighLevel ? "*" : "/" , hpExpRatio,
                 hpExp);
         log.info(hpExpLogStr);
-        int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
+        //int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
+        int winnerExp = realLvExp + hpExp + 1;
         int loserExp = Math.max(lvDiff, winnerExp / (5 + lvDiff));
         log.info("胜利者获得 {} exp， 失败者获得 {} exp", winnerExp, loserExp);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp));
