@@ -87,10 +87,6 @@ public class BattleServiceImpl implements BattleService {
             hpExp = winner.getHp() * hpExpRatio;
         } else {
             hpExp = winner.getHp() / hpExpRatio;
-            hpExpLogStr = String.format(formatStr,
-                    lvExp,
-                    winner.getHp(), "/", hpExpRatio,
-                    hpExp);
         }
 
         hpExpLogStr = String.format(formatStr,
@@ -100,7 +96,7 @@ public class BattleServiceImpl implements BattleService {
         log.info(hpExpLogStr);
         int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
         int loserExp = Math.max(lvDiff, winnerExp / (5 + lvDiff));
-        log.info("胜利者获得 {} exp， 失败者获得 {} exo", winnerExp, loserExp);
+        log.info("胜利者获得 {} exp， 失败者获得 {} exp", winnerExp, loserExp);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp));
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp));
         processList.add(new BattleProcess(processList.size() + 1,
