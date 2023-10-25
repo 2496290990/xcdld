@@ -14,4 +14,11 @@ import net.lesscoding.model.dto.PlayerDto;
 public interface AccountPlayerService extends IService<AccountPlayer> {
 
     Page getAllPlayer(PlayerDto dto);
+
+    /**
+     * 获取玩家基本信息
+     * @param dto
+     * @return
+     */
+    Object getPlayerDetail(AccountPlayer dto);
 }
