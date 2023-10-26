@@ -7,6 +7,7 @@ import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.AddExpDto;
 import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.AfterPlayerVo;
+import net.lesscoding.model.vo.PlayerInfoVo;
 import net.lesscoding.model.vo.PlayerVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,4 +43,11 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @return
      */
     List<AfterPlayerVo> selectAfterPlayer(List<Integer> asList);
+
+    /**
+     * 查询玩家信息
+     * @param accountId
+     * @return
+     */
+    PlayerInfoVo selectPlayerDetail(Integer accountId);
 }

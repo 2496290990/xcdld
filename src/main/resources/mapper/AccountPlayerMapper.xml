@@ -45,6 +45,22 @@
             <result column="max_damage" property="maxDamage" />
         </association>
     </resultMap>
+
+    <resultMap id="playerInfoVoMap" type="net.lesscoding.model.vo.PlayerInfoVo">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="level" property="level" />
+        <result column="nickname" property="nickname" />
+        <result column="hp" property="hp" />
+        <result column="attack" property="attack" />
+        <result column="defender" property="defence" />
+        <result column="hit" property="hitRate" />
+        <result column="flee" property="flee" />
+        <result column="combo" property="comboRate" />
+        <result column="exp" property="exp" />
+        <result column="need_exp" property="nextLvExp" />
+        <result column="energy" property="energy" />
+    </resultMap>
     <update id="addPlayerExp">
         UPDATE tb_account_player
         SET exp = exp + #{addExp},
@@ -132,5 +148,24 @@
         where tb.id in <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </select>
+    <select id="selectPlayerDetail" resultMap="playerInfoVoMap">
+        select tb.id,
+               ta.account,
+               tb.nickname,
+               tb.level,
+               exp,
+               energy,
+               need_exp,
+               hp,
+               attack,
+               defender,
+               flee,
+               combo,
+               hit
+        from tb_account_player tb
+                 left join tb_player_level_exp ple on ple.level = tb.level + 1
+                 left join tb_account ta on ta.id = tb.account_id
+        where ta.id = #{accountId}
     </select>
 </mapper>

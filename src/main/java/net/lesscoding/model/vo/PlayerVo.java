@@ -45,4 +45,6 @@ public class PlayerVo{
 
     private Integer energy;
 
+    private Boolean online;
+
 }

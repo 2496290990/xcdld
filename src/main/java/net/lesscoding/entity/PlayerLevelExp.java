@@ -1,5 +1,6 @@
 package net.lesscoding.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import net.lesscoding.common.BaseEntity;
@@ -50,6 +51,7 @@ public class PlayerLevelExp extends BaseEntity<PlayerLevelExp> {
     /**
      * 特殊效果类型
      */
+    @TableField(exist = false)
     private Integer specialEffectType;
 
 }

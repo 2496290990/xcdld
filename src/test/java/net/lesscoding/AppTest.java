@@ -35,4 +35,10 @@ public class AppTest
     {
         assertTrue( true );
     }
+
+    public static void main(String[] args) {
+        long onlineCount = 1l;
+        int size = 2;
+        System.out.println(String.format("玩家列表(%d/%d)", onlineCount, size));
+    }
 }

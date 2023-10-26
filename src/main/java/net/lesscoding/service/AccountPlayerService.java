@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.PlayerDto;
+import net.lesscoding.model.vo.PlayerInfoVo;
 
 /**
  * @author eleven
@@ -20,5 +21,5 @@ public interface AccountPlayerService extends IService<AccountPlayer> {
      * @param dto
      * @return
      */
-    Object getPlayerDetail(AccountPlayer dto);
+    PlayerInfoVo getPlayerDetail(AccountPlayer dto);
 }

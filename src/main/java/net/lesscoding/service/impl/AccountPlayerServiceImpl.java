@@ -1,6 +1,7 @@
 package net.lesscoding.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,9 +11,13 @@ import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.PlayerLevelExpMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.PlayerDto;
+import net.lesscoding.model.vo.PlayerInfoVo;
+import net.lesscoding.model.vo.PlayerVo;
 import net.lesscoding.service.AccountPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author eleven
@@ -34,20 +39,33 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
      */
     @Override
     public Page getAllPlayer(PlayerDto dto) {
-        return playerMapper.getAllPlayer(dto.getPage(), dto);
+        Page<PlayerVo> allPlayer = playerMapper.getAllPlayer(dto.getPage(), dto);
+        allPlayer.getRecords().forEach(item -> {
+            item.setOnline(StrUtil.isNotBlank(StpUtil.getTokenValueByLoginId(item.getId())));
+        });
+        return allPlayer;
     }
 
     @Override
-    public Object getPlayerDetail(AccountPlayer dto) {
+    public PlayerInfoVo getPlayerDetail(AccountPlayer dto) {
         Integer accountId = dto.getAccountId();
         if (accountId == null) {
             accountId = StpUtil.getLoginIdAsInt();
         }
-        PlayerLevelExp maxLevelExp = levelMapper.selectOne(new QueryWrapper<PlayerLevelExp>()
+        PlayerLevelExp maxLevel = levelMapper.selectOne(new QueryWrapper<PlayerLevelExp>()
                 .lambda()
                 .orderByDesc(PlayerLevelExp::getLevel)
                 .last("limit 1"));
-        // TODO: 2023/10/25  
-        return null;
+        PlayerInfoVo playerInfoVo = playerMapper.selectPlayerDetail(accountId);
+        if (playerInfoVo.getNextLvExp() == null) {
+            playerInfoVo.setNextLvExp(maxLevel.getNeedExp());
+            playerInfoVo.setHitRate(maxLevel.getHit());
+            playerInfoVo.setComboRate(maxLevel.getCombo());
+            playerInfoVo.setFlee(maxLevel.getFlee());
+            playerInfoVo.setHp(maxLevel.getHp());
+            playerInfoVo.setDefence(maxLevel.getDefender());
+            playerInfoVo.setAttack(maxLevel.getAttack());
+        }
+        return playerInfoVo;
     }
 }
