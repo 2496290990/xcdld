@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本机mysql
+ Source Server         : 官方鱼塘
  Source Server Type    : MySQL
- Source Server Version : 80028 (8.0.28)
- Source Host           : localhost:3306
+ Source Server Version : 80100 (8.1.0)
+ Source Host           : 103.153.101.174:3306
  Source Schema         : xcdld
 
  Target Server Type    : MySQL
- Target Server Version : 80028 (8.0.28)
+ Target Server Version : 80100 (8.1.0)
  File Encoding         : 65001
 
- Date: 27/09/2023 17:38:28
+ Date: 27/10/2023 16:33:39
 */
 
 SET NAMES utf8mb4;
@@ -20,274 +20,1391 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for tb_account
 -- ----------------------------
-DROP TABLE IF EXISTS tb_account;
-CREATE TABLE tb_account
-(
-    id          int         NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    mac         varchar(32) NOT NULL COMMENT '网卡地址',
-    account     varchar(10) NULL DEFAULT NULL COMMENT '账号',
-    email       varchar(32) NULL DEFAULT NULL COMMENT '邮箱',
-    password    varchar(32) NULL DEFAULT NULL COMMENT '密码',
-    salt        varchar(8)  NULL DEFAULT NULL COMMENT '随机盐',
-    status      int         NULL DEFAULT 1 COMMENT '0 小黑屋 1正常 2注销',
-    nickname    varchar(12) NULL DEFAULT NULL COMMENT '昵称',
-    create_by   int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)      NULL DEFAULT b'0' COMMENT '删除标记',
-    PRIMARY KEY (id) USING BTREE
-) COMMENT = '账户表';
+DROP TABLE IF EXISTS `tb_account`;
+CREATE TABLE `tb_account`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `mac` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '网卡地址',
+  `ip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'ip地址',
+  `region` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '省份',
+  `platform` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'IDEA WEB VSCODE',
+  `account` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '账号',
+  `email` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
+  `salt` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '随机盐',
+  `status` int NULL DEFAULT 1 COMMENT '0 小黑屋 1正常 2注销',
+  `nickname` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '昵称',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 340 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '账户表' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of tb_account
+-- ----------------------------
+INSERT INTO `tb_account` VALUES (-6, '743ac812f070e176ffc1899dc0de7a70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园Boss', 0, '2023-10-24 00:27:41', 0, '2023-10-24 00:27:41', b'0');
+INSERT INTO `tb_account` VALUES (-5, 'e7f2231ff115598dd404ce95afef04eb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园NPC5', 0, '2023-10-24 00:20:02', 0, '2023-10-24 00:20:02', b'0');
+INSERT INTO `tb_account` VALUES (-4, '372e6a22878afe51261f9ea593504802', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园NPC4', 0, '2023-10-24 00:20:02', 0, '2023-10-24 00:20:02', b'0');
+INSERT INTO `tb_account` VALUES (-3, '347bb46c344284125c5b786c3dd0ec69', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园NPC3', 0, '2023-10-24 00:20:02', 0, '2023-10-24 00:20:02', b'0');
+INSERT INTO `tb_account` VALUES (-2, 'b0e3b95c1061d4b6bec46d6e2d8b04a5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园NPC2', 0, '2023-10-24 00:20:02', 0, '2023-10-24 00:20:02', b'0');
+INSERT INTO `tb_account` VALUES (-1, '217b4ddeb616609efb2627caa92816e6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '光之乐园NPC1', 0, '2023-10-24 00:20:02', 0, '2023-10-24 00:20:02', b'0');
+INSERT INTO `tb_account` VALUES (1, '3C-7C-3F-C0-99-D7', '121.225.56.147', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '#exit', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (2, '40-B0-76-7F-7C-CC', '58.214.53.91', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '小咖喱黄不辣', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (3, '4C-ED-FB-CB-A1-AF', '113.98.54.56', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '君莫笑', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (4, 'C0-3C-59-47-B1-B1', '112.23.26.102', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '里斯', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (5, 'A0-51-0B-4E-4A-E0', '202.100.35.185', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '二乔代驾', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (6, '48-9E-BD-9C-05-68', '58.49.25.222', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '33', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (7, 'EA-93-4A-90-B2-0B', '59.174.150.75', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'test', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (8, '08-00-58-00-00-05', '42.48.25.179', '湘', 'IDEA', NULL, NULL, NULL, NULL, 1, '爱偷懒的程序员', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (9, '02-42-AC-11-00-08', '47.96.115.18', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '翻译官', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (10, 'E4-54-E8-A1-26-9D', '60.190.252.114', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '鼓励师本师', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (11, '2C-0D-A7-D8-BD-FF', '36.5.137.46', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '鱼子酱', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (12, '02-50-F2-00-00-02', '111.194.222.229', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'white', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (13, '00-00-00-00-00-00-00-E0', '119.176.220.208', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ljh', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (14, '62-B5-42-C8-2A-8F', '222.137.104.76', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, 'HuaiJinYuQ', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (15, '28-CD-C4-18-BF-19', '124.160.77.114', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯种马', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (16, 'AE-57-6F-B5-A2-D4', '114.244.10.225', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '{YQ}', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (17, '08-BF-B8-00-E5-CF', '180.111.135.236', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'soso', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (18, '2C-F0-5D-63-9F-9E', '183.245.23.187', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cz', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (19, '00-FF-18-05-66-AE', '223.167.7.125', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '幻影长矛手', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (20, '3E-62-71-48-76-86', '116.230.58.184', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '阿宾轻柔你的穴', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (21, '74-56-3C-7A-95-3D', '122.224.248.74', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ttt', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (22, '50-84-92-A3-EA-E0', '223.80.170.62', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Van', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (23, 'AC-DE-48-00-11-22', '101.95.131.186', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '晚上搓蛋蛋', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (24, '00-50-56-C0-00-08', '180.88.96.58', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'haha', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (25, '74-56-3C-34-2C-A0', '120.33.53.144', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, '夜', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (26, '74-5D-22-40-C6-1B', '219.137.143.249', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '杯莫停1', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (27, 'C4-03-A8-4D-1F-74', '14.155.215.151', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '藍忘機', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (28, '48-9E-BD-9F-7C-AD', '59.61.86.165', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'yitioaoyu', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (29, 'D4-BE-D9-8E-7C-03', '58.48.65.178', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'codebuger', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (30, '9C-7B-EF-2C-D7-8B', '125.70.163.217', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯路人', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (31, '08-71-90-FC-61-4D', '36.101.192.130', '琼', 'IDEA', NULL, NULL, NULL, NULL, 1, '琼霞网警', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (32, '56-13-79-5B-45-A7', '117.172.29.243', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '小小牛马可笑可笑', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (33, '86-4C-A1-D6-0F-15', '61.144.248.38', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '1', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (34, '00-E0-70-B8-46-86', '116.30.163.182', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'fish', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (35, '00-FF-09-03-17-3B', '120.192.18.232', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '季伯常', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (36, '52-54-00-1d-02-2a', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (37, 'B0-60-88-DF-3B-36', '111.198.88.83', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'sj', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (38, '54-8D-5A-8B-59-CE', '60.208.106.174', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Mr.g', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (39, 'D2-C5-D3-DA-8D-37', '219.131.220.139', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'wowjasonl', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (40, '1E-8B-34-1D-F3-40', '39.170.57.245', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '法外狂徒李四', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (41, '3A-FC-98-22-F7-F9', '183.17.228.58', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'issues', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (42, 'E8-6F-38-1E-0D-F2', '117.172.29.243', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '日本岛炸了', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (43, '88-66-5A-31-8F-F2', '114.253.243.143', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '隔壁老王', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (44, 'F6-BD-3C-B7-57-67', '117.136.68.189', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'UE888A', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (45, '3A-3C-2E-2C-5E-0A', '1.85.1.2', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, 'qhg', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (46, '00-15-5D-1B-98-5A', '180.111.135.236', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '青箱子', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (47, '7E-13-C2-74-23-C4', '223.100.167.149', '辽', 'IDEA', NULL, NULL, NULL, NULL, 1, '0', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (48, '18-C0-4D-4B-B6-D0', '180.111.135.236', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '阿祖绝不收手', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (49, '5E-69-E4-FF-75-FD', '117.25.103.253', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'a', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (50, '66-B2-FC-90-64-04', '222.129.128.214', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '{demo}', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (51, 'E8-6A-64-F7-90-6F', '125.70.95.205', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'shushu', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (52, 'F4-B5-20-27-AA-F9', '58.59.72.14', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '北辰', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (53, '4C-CC-6A-C4-DE-6A', '58.247.97.187', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'qhss', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (54, '0A-E0-AF-CD-01-BE', '175.164.138.73', '辽', 'IDEA', NULL, NULL, NULL, NULL, 1, '笋', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (55, '4E-79-6E-4A-59-D4', '125.77.254.157', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, '冷冰冰', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (56, '10-B1-DF-70-F8-24', '183.17.228.58', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ccc', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (57, 'DC-8B-28-95-B5-97', '124.65.189.38', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zhangzd', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (58, 'C0-3C-59-B9-C5-84', '112.6.91.46', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '{娃哈哈}', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (59, '46-57-FD-1D-21-B9', '222.173.121.154', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '臭屁蛋', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (60, 'B6-0E-DE-C7-11-77', '111.9.18.78', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'xye2', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (61, '38-00-25-E7-9B-32', '60.208.111.194', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '叮叮当', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (62, 'D8-BB-C1-C4-54-E1', '222.71.40.154', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '开原第一狠人', 1, '2023-10-10 17:06:08', 1, '2023-10-10 17:06:08', b'0');
+INSERT INTO `tb_account` VALUES (83, '00-FF-37-D7-75-96', '58.49.45.2', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '墨鱼', 1, '2023-10-10 20:30:01', 1, '2023-10-10 20:30:01', b'0');
+INSERT INTO `tb_account` VALUES (84, '08-00-27-F7-38-4C', '112.94.4.101', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '猛男', 1, '2023-10-10 20:30:01', 1, '2023-10-10 20:30:01', b'0');
+INSERT INTO `tb_account` VALUES (85, '44-E5-17-08-A2-AF', '27.223.133.247', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '游戏策划3', 1, '2023-10-10 22:25:22', 1, '2023-10-10 22:25:22', b'0');
+INSERT INTO `tb_account` VALUES (86, '00-50-56-89-DD-D6', '61.154.239.195', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zhixuan', 1, '2023-10-12 22:14:54', 1, '2023-10-12 22:14:54', b'0');
+INSERT INTO `tb_account` VALUES (87, 'E0-BE-03-71-7F-92', '117.144.47.226', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '一夜十次郎', 1, '2023-10-12 22:14:54', 1, '2023-10-12 22:14:54', b'0');
+INSERT INTO `tb_account` VALUES (88, '18-C0-4D-BD-D5-B8', '125.80.219.161', '渝', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ikun', 1, '2023-10-12 22:14:54', 1, '2023-10-12 22:14:54', b'0');
+INSERT INTO `tb_account` VALUES (89, '00-FF-13-92-AF-07', '120.36.93.64', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, '喵喵少年', 1, '2023-10-13 09:12:18', 1, '2023-10-13 09:12:18', b'0');
+INSERT INTO `tb_account` VALUES (90, '10-6F-D9-32-32-00', '27.19.36.138', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '霸道总裁', 1, '2023-10-13 09:12:18', 1, '2023-10-13 09:12:18', b'0');
+INSERT INTO `tb_account` VALUES (91, '4E-79-6E-34-73-8A', '58.213.224.244', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'dw', 1, '2023-10-13 09:12:18', 1, '2023-10-13 09:12:18', b'0');
+INSERT INTO `tb_account` VALUES (92, 'DA-C0-A6-67-47-07', '124.126.202.131', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ss', 1, '2023-10-13 09:12:18', 1, '2023-10-13 09:12:18', b'0');
+INSERT INTO `tb_account` VALUES (93, '80-E8-2C-ED-A0-5C', '125.41.251.31', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, '21341412413', 1, '2023-10-13 09:12:18', 1, '2023-10-13 09:12:18', b'0');
+INSERT INTO `tb_account` VALUES (94, 'B0-25-AA-56-0B-18', '60.214.237.218', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'test', 1, '2023-10-13 09:15:02', 1, '2023-10-13 09:15:02', b'0');
+INSERT INTO `tb_account` VALUES (95, 'AE-74-B1-17-E0-F3', '222.35.94.238', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'HelloWold.', 1, '2023-10-13 09:21:36', 1, '2023-10-13 09:21:36', b'0');
+INSERT INTO `tb_account` VALUES (96, 'F8-E4-3B-6A-28-2C', '222.209.88.172', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '我的好爸爸', 1, '2023-10-13 09:26:41', 1, '2023-10-13 09:26:41', b'0');
+INSERT INTO `tb_account` VALUES (97, '1C-69-7A-CF-81-5A', '219.144.248.227', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, 'hh', 1, '2023-10-13 10:00:01', 1, '2023-10-13 10:00:01', b'0');
+INSERT INTO `tb_account` VALUES (98, '8C-16-45-2D-4D-DD', '59.46.185.130', '辽', 'IDEA', NULL, NULL, NULL, NULL, 1, '{Mario}', 1, '2023-10-13 10:00:02', 1, '2023-10-13 10:00:02', b'0');
+INSERT INTO `tb_account` VALUES (99, '70-1A-B8-75-F8-46', '220.196.193.92', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '[东方明猪]osl', 1, '2023-10-13 10:06:35', 1, '2023-10-13 10:06:35', b'0');
+INSERT INTO `tb_account` VALUES (100, '6C-4B-90-CB-A3-C6', '125.64.218.94', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'kk', 1, '2023-10-13 10:06:35', 1, '2023-10-13 10:06:35', b'0');
+INSERT INTO `tb_account` VALUES (101, '12-F4-8D-BF-5B-61', '219.131.220.139', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'caicaizi', 1, '2023-10-13 10:09:55', 1, '2023-10-13 10:09:55', b'0');
+INSERT INTO `tb_account` VALUES (102, 'BE-22-1E-37-C5-20', '183.238.224.138', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '腻醌镉铞不铞', 1, '2023-10-13 10:11:20', 1, '2023-10-13 10:11:20', b'0');
+INSERT INTO `tb_account` VALUES (103, '58-11-22-AC-70-FB', '183.230.64.14', '渝', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zsc', 1, '2023-10-13 10:14:53', 1, '2023-10-13 10:14:53', b'0');
+INSERT INTO `tb_account` VALUES (104, '9C-FC-E8-E0-6A-77', '36.63.218.157', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '卷起千层海浪躲了不往里闯', 1, '2023-10-13 10:14:53', 1, '2023-10-13 10:14:53', b'0');
+INSERT INTO `tb_account` VALUES (111, '3C-91-80-2A-A1-91', '113.215.162.64', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '大棍子', 1, '2023-10-13 11:00:02', 1, '2023-10-13 11:00:02', b'0');
+INSERT INTO `tb_account` VALUES (112, '8C-16-45-3F-DA-C1', '218.68.105.9', '津', 'IDEA', NULL, NULL, NULL, NULL, 1, '保安队长', 1, '2023-10-13 11:00:02', 1, '2023-10-13 11:00:02', b'0');
+INSERT INTO `tb_account` VALUES (113, '96-E5-49-DC-DD-4A', '61.180.150.241', '黑', 'IDEA', NULL, NULL, NULL, NULL, 1, '浩', 1, '2023-10-13 11:00:02', 1, '2023-10-13 11:00:02', b'0');
+INSERT INTO `tb_account` VALUES (114, '20-1E-88-21-1F-79', '122.236.97.251', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '9527', 1, '2023-10-13 11:15:01', 1, '2023-10-13 11:15:01', b'0');
+INSERT INTO `tb_account` VALUES (115, '00-50-56-C0-00-01', '60.173.247.143', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '逼逼', 1, '2023-10-13 11:15:01', 1, '2023-10-13 11:15:01', b'0');
+INSERT INTO `tb_account` VALUES (116, '98-8F-E0-65-7E-F9', '113.57.117.50', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'djangson', 1, '2023-10-13 11:30:02', 1, '2023-10-13 11:30:02', b'0');
+INSERT INTO `tb_account` VALUES (117, '3E-3B-09-2F-DF-52', '27.154.242.142', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'qwp', 1, '2023-10-13 11:30:02', 1, '2023-10-13 11:30:02', b'0');
+INSERT INTO `tb_account` VALUES (118, 'E0-E1-A9-1F-F3-B2', '223.83.129.81', '赣', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Grass', 1, '2023-10-13 11:30:02', 1, '2023-10-13 11:30:02', b'0');
+INSERT INTO `tb_account` VALUES (119, '00-FF-AA-BB-CC-DD', '39.174.67.195', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '大只', 1, '2023-10-13 11:45:01', 1, '2023-10-13 11:45:01', b'0');
+INSERT INTO `tb_account` VALUES (120, '1C-78-39-02-8B-82', '113.89.233.99', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'xxzc', 1, '2023-10-13 11:45:01', 1, '2023-10-13 11:45:01', b'0');
+INSERT INTO `tb_account` VALUES (121, 'CC-2F-71-E4-4E-FF', '113.111.44.87', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{Wuuu}', 1, '2023-10-13 12:00:01', 1, '2023-10-13 12:00:01', b'0');
+INSERT INTO `tb_account` VALUES (122, 'CA-94-02-7F-DD-2D', '112.6.124.254', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '星期七', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (123, '7E-B7-4E-5E-8E-A0', '210.13.108.182', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '冈门正直', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (124, 'FA-9E-94-36-C6-F8', '110.191.214.110', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'w', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (125, 'F6-6A-DD-F2-2E-D9', '183.6.58.77', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{ELS}', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (126, '3a80c6c8-900c-4be3-8d65-08a25cd21323', '113.119.28.97', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, 'faf', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (127, 'F4-A4-75-11-B0-74', '59.56.248.246', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'JelyChen', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (128, '64-BC-58-6C-BE-F7', '117.71.59.30', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '安徽网警', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (129, '8A-14-AD-12-32-AF', '180.111.223.20', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'xiaoyuer', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (130, 'F8-5E-A0-56-DF-4B', '111.9.18.78', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'LuoJin', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (131, '4A-5F-99-94-B6-25', '223.72.211.85', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zz', 1, '2023-10-13 15:46:12', 1, '2023-10-13 15:46:12', b'0');
+INSERT INTO `tb_account` VALUES (132, 'FA-33-69-93-81-1F', '113.119.28.97', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'sb', 1, '2023-10-13 16:00:01', 1, '2023-10-13 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (133, 'FC-34-97-BE-DE-16', '119.98.206.29', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '{昵称}', 1, '2023-10-13 16:00:01', 1, '2023-10-13 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (134, '98-FA-9B-09-44-AB', '58.32.6.30', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '盖亚', 1, '2023-10-13 16:00:01', 1, '2023-10-13 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (135, '52-54-00-4d-e4-67', '111.26.165.56', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-13 16:00:01', 1, '2023-10-13 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (136, '00-FF-0A-30-D9-F8', '49.5.2.133', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '咸鱼', 1, '2023-10-13 16:00:01', 1, '2023-10-13 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (137, 'F2-A6-54-BD-18-3F', '119.180.24.154', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'hhh', 1, '2023-10-13 16:05:14', 1, '2023-10-13 16:05:14', b'0');
+INSERT INTO `tb_account` VALUES (138, '52-54-00-c2-fe-24', '111.26.165.56', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-13 16:08:35', 1, '2023-10-13 16:08:35', b'0');
+INSERT INTO `tb_account` VALUES (139, '00-FF-05-43-68-66', '153.35.178.3', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '穿山甲', 1, '2023-10-13 16:15:22', 1, '2023-10-13 16:15:22', b'0');
+INSERT INTO `tb_account` VALUES (140, '00-FF-04-49-6E-36', '112.132.223.243', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '游啊游', 1, '2023-10-13 16:26:30', 1, '2023-10-13 16:26:30', b'0');
+INSERT INTO `tb_account` VALUES (141, 'FA-C1-55-6B-EA-DD', '220.184.98.241', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '粉身碎骨', 1, '2023-10-13 16:30:02', 1, '2023-10-13 16:30:02', b'0');
+INSERT INTO `tb_account` VALUES (142, '00-0E-C6-BE-21-6F', '111.201.129.181', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Lsjjj', 1, '2023-10-13 16:46:29', 1, '2023-10-13 16:46:29', b'0');
+INSERT INTO `tb_account` VALUES (143, '18-47-3D-BC-D8-43', '117.30.222.14', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, '${name}', 1, '2023-10-13 16:46:29', 1, '2023-10-13 16:46:29', b'0');
+INSERT INTO `tb_account` VALUES (144, '73e5e36c-753f-4015-a352-66ee9ea6c4fa', '14.215.176.83', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, '寒露', 1, '2023-10-13 17:14:31', 1, '2023-10-13 17:14:31', b'0');
+INSERT INTO `tb_account` VALUES (145, 'A0-29-19-38-39-26', '219.131.220.139', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '小白', 1, '2023-10-13 17:14:31', 1, '2023-10-13 17:14:31', b'0');
+INSERT INTO `tb_account` VALUES (146, '74-86-E2-3C-A0-D4', '124.114.125.71', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '12313', 1, '2023-10-13 17:14:31', 1, '2023-10-13 17:14:31', b'0');
+INSERT INTO `tb_account` VALUES (147, '00-E0-4C-8D-A7-ED', '182.45.247.10', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '1', 1, '2023-10-13 17:14:31', 1, '2023-10-13 17:14:31', b'0');
+INSERT INTO `tb_account` VALUES (148, '38-00-25-C5-EC-D0', '123.121.6.143', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '666', 1, '2023-10-13 17:14:31', 1, '2023-10-13 17:14:31', b'0');
+INSERT INTO `tb_account` VALUES (149, '00-68-EB-C9-43-00', '27.46.67.13', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '胶王迪迦', 1, '2023-10-19 08:40:46', 1, '2023-10-19 08:40:46', b'0');
+INSERT INTO `tb_account` VALUES (150, 'E8-9E-B4-43-76-C9', '123.149.76.192', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, 'tttt', 1, '2023-10-19 08:40:46', 1, '2023-10-19 08:40:46', b'0');
+INSERT INTO `tb_account` VALUES (151, '00-E0-4C-4F-A3-27', '118.144.141.159', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '爱疯', 1, '2023-10-19 08:40:46', 1, '2023-10-19 08:40:46', b'0');
+INSERT INTO `tb_account` VALUES (152, '5C-BA-EF-BF-49-27', '222.209.88.172', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '赵四', 1, '2023-10-19 09:15:18', 1, '2023-10-19 09:15:18', b'0');
+INSERT INTO `tb_account` VALUES (153, 'F4-6B-8C-00-B7-41', '218.13.172.210', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'jy', 1, '2023-10-19 09:15:18', 1, '2023-10-19 09:15:18', b'0');
+INSERT INTO `tb_account` VALUES (154, '38-CA-84-41-69-F5', '14.212.87.185', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'eason', 1, '2023-10-19 10:00:10', 1, '2023-10-19 10:00:10', b'0');
+INSERT INTO `tb_account` VALUES (155, '02-50-9B-18-53-AD', '113.251.74.4', '渝', 'IDEA', NULL, NULL, NULL, NULL, 1, '寒露', 1, '2023-10-19 10:00:10', 1, '2023-10-19 10:00:10', b'0');
+INSERT INTO `tb_account` VALUES (156, '68-EC-C5-CE-8F-84', '112.96.224.208', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '秦始皇', 1, '2023-10-19 10:15:00', 1, '2023-10-19 10:15:00', b'0');
+INSERT INTO `tb_account` VALUES (157, '7C-8A-E1-6C-B0-6A', '120.196.80.86', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '隔壁老刘', 1, '2023-10-19 10:15:00', 1, '2023-10-19 10:15:00', b'0');
+INSERT INTO `tb_account` VALUES (162, '78-AF-08-6A-A7-89', '218.2.210.166', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'lihao', 1, '2023-10-19 14:15:26', 1, '2023-10-19 14:15:26', b'0');
+INSERT INTO `tb_account` VALUES (163, '00-FF-5F-37-E8-46', '218.76.30.129', '湘', 'IDEA', NULL, NULL, NULL, NULL, 1, '白羊', 1, '2023-10-19 14:15:26', 1, '2023-10-19 14:15:26', b'0');
+INSERT INTO `tb_account` VALUES (164, 'AA-3A-4D-F0-78-3C', '117.119.80.3', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'lazyCat', 1, '2023-10-19 14:15:26', 1, '2023-10-19 14:15:26', b'0');
+INSERT INTO `tb_account` VALUES (165, '52-54-00-20-3e-91', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛馬', 1, '2023-10-19 14:20:27', 1, '2023-10-19 14:20:27', b'0');
+INSERT INTO `tb_account` VALUES (166, '78-AF-08-FF-A9-BA', '117.133.153.146', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '阿巴阿巴', 1, '2023-10-19 14:30:12', 1, '2023-10-19 14:30:12', b'0');
+INSERT INTO `tb_account` VALUES (167, '40-5B-D8-DC-6E-86', '218.2.210.166', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '超人强', 1, '2023-10-19 15:15:00', 1, '2023-10-19 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (168, '58-11-22-A4-EE-24', '117.184.107.2', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '法外狂徒', 1, '2023-10-19 15:15:00', 1, '2023-10-19 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (169, 'E0-2E-0B-06-21-00', '223.166.86.209', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ss', 1, '2023-10-19 15:30:00', 1, '2023-10-19 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (170, '38-BA-F8-A1-B6-A7', '219.131.220.139', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{黄粱}', 1, '2023-10-19 15:30:00', 1, '2023-10-19 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (171, 'E0-BE-03-64-EE-34', '222.92.25.41', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '隔壁老玊', 1, '2023-10-19 15:42:29', 1, '2023-10-19 15:42:29', b'0');
+INSERT INTO `tb_account` VALUES (172, '00-FF-05-C9-A3-77', '219.140.129.17', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zhangsan', 1, '2023-10-19 15:45:00', 1, '2023-10-19 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (173, '00-FF-05-C9-A3-77', '219.140.129.17', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zhangsan', 1, '2023-10-19 15:45:02', 1, '2023-10-19 15:45:02', b'0');
+INSERT INTO `tb_account` VALUES (174, 'CE-78-EA-9C-AF-0F', '223.85.249.93', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '老牛马了', 1, '2023-10-19 16:15:00', 1, '2023-10-19 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (175, '9C-30-5B-8A-08-D6', '36.7.138.100', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, 'fzl', 1, '2023-10-19 16:15:00', 1, '2023-10-19 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (176, '00-FF-24-9D-1F-58', '124.64.23.139', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '1', 1, '2023-10-19 16:15:00', 1, '2023-10-19 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (177, '4C-1D-96-0A-4D-35', '218.13.14.227', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '调理农务系学长', 1, '2023-10-19 16:30:00', 1, '2023-10-19 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (178, '00-15-5D-C4-E3-2F', '47.98.206.191', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cz', 1, '2023-10-19 16:45:00', 1, '2023-10-19 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (179, '00-FF-0C-76-5D-00', '36.7.138.100', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, 'bz', 1, '2023-10-19 16:45:00', 1, '2023-10-19 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (180, '4C-CC-6A-B2-B3-ED', '61.140.234.227', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '赛博G7人爱上电子斐济杯', 1, '2023-10-19 16:59:44', 1, '2023-10-19 16:59:44', b'0');
+INSERT INTO `tb_account` VALUES (181, '52-54-00-cf-12-cc', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-19 17:15:00', 1, '2023-10-19 17:15:00', b'0');
+INSERT INTO `tb_account` VALUES (182, '10-68-38-92-36-A0', '58.34.52.50', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '赛文', 1, '2023-10-19 17:30:00', 1, '2023-10-19 17:30:00', b'0');
+INSERT INTO `tb_account` VALUES (183, 'A8-A1-59-22-DF-83', '39.174.76.178', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '粪海狂蛆', 1, '2023-10-19 18:00:00', 1, '2023-10-19 18:00:00', b'0');
+INSERT INTO `tb_account` VALUES (184, '80-E8-2C-ED-A1-27', '125.41.251.31', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, 'l', 1, '2023-10-20 09:15:00', 1, '2023-10-20 09:15:00', b'0');
+INSERT INTO `tb_account` VALUES (185, '72-1A-B8-C3-CA-B7', '111.85.88.68', '贵', 'IDEA', NULL, NULL, NULL, NULL, 1, 'lxa', 1, '2023-10-20 09:30:00', 1, '2023-10-20 09:30:00', b'0');
+INSERT INTO `tb_account` VALUES (186, '5E-E4-2A-8D-32-13', '124.64.16.194', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '学debug作边城', 1, '2023-10-20 10:08:08', 1, '2023-10-20 10:08:08', b'0');
+INSERT INTO `tb_account` VALUES (187, '9A-5A-EB-8E-F7-52', '113.88.14.162', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '哎嗨哎嗨哟', 1, '2023-10-20 11:45:00', 1, '2023-10-20 11:45:00', b'0');
+INSERT INTO `tb_account` VALUES (188, '52-54-00-83-8e-a4', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-20 13:30:00', 1, '2023-10-20 13:30:00', b'0');
+INSERT INTO `tb_account` VALUES (196, '02-42-D5-20-BC-D3', '202.120.3.186', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'test', 1, '2023-10-20 14:45:00', 1, '2023-10-20 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (197, '52-54-00-1c-71-6e', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-20 14:59:02', 1, '2023-10-20 14:59:02', b'0');
+INSERT INTO `tb_account` VALUES (198, '38-D5-7A-3F-99-67', '58.56.124.10', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'sz', 1, '2023-10-20 14:59:02', 1, '2023-10-20 14:59:02', b'0');
+INSERT INTO `tb_account` VALUES (199, '7E-21-4A-42-03-A6', '118.113.15.111', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '小帅', 1, '2023-10-20 14:59:02', 1, '2023-10-20 14:59:02', b'0');
+INSERT INTO `tb_account` VALUES (200, 'F8-B4-6A-72-54-84', '61.153.206.2', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cy', 1, '2023-10-20 15:00:00', 1, '2023-10-20 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (201, '52-54-00-4b-3d-92', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-20 15:45:00', 1, '2023-10-20 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (202, 'F6-F4-81-A8-8C-8F', '139.227.32.130', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '秃头强者', 1, '2023-10-20 16:15:00', 1, '2023-10-20 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (203, '74-54-27-1A-95-A8', '144.123.130.58', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '海绵宝宝', 1, '2023-10-20 16:30:00', 1, '2023-10-20 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (204, '74-5D-22-40-F7-91', '113.215.165.175', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'abc', 1, '2023-10-20 17:30:00', 1, '2023-10-20 17:30:00', b'0');
+INSERT INTO `tb_account` VALUES (205, '06-29-11-00-2A-0C', '111.18.248.116', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '我不摸鱼', 1, '2023-10-21 16:15:00', 1, '2023-10-21 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (206, 'C2-F4-D3-B1-17-8D', '39.174.76.178', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'askPanel产品经理', 1, '2023-10-21 17:45:00', 1, '2023-10-21 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (207, '80-FA-5B-9C-1E-29', '61.183.154.82', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '食不食油饼', 1, '2023-10-23 08:45:00', 1, '2023-10-23 08:45:00', b'0');
+INSERT INTO `tb_account` VALUES (208, '00-FF-13-13-C5-11', '58.20.171.51', '湘', 'IDEA', NULL, NULL, NULL, NULL, 1, '小超人', 1, '2023-10-23 08:53:29', 1, '2023-10-23 08:53:29', b'0');
+INSERT INTO `tb_account` VALUES (209, '7A-DC-7B-C0-96-15', '123.115.86.194', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'vastsheen', 1, '2023-10-23 10:00:00', 1, '2023-10-23 10:00:00', b'0');
+INSERT INTO `tb_account` VALUES (210, '52-54-00-40-fa-f4', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-23 10:02:45', 1, '2023-10-23 10:02:45', b'0');
+INSERT INTO `tb_account` VALUES (211, '00-FF-1A-4A-47-32', '125.71.66.229', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛逼', 1, '2023-10-23 14:00:00', 1, '2023-10-23 14:00:00', b'0');
+INSERT INTO `tb_account` VALUES (212, '4C-EB-BD-0D-10-57', '36.113.114.69', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'www', 1, '2023-10-23 14:15:00', 1, '2023-10-23 14:15:00', b'0');
+INSERT INTO `tb_account` VALUES (213, '4C-CC-6A-2A-45-8F', '222.181.198.178', '渝', 'IDEA', NULL, NULL, NULL, NULL, 1, 'mc', 1, '2023-10-23 14:30:00', 1, '2023-10-23 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (214, '00-FF-00-2A-AF-7F', '125.77.254.154', '闽', 'IDEA', NULL, NULL, NULL, NULL, 1, 'martlet', 1, '2023-10-23 16:45:00', 1, '2023-10-23 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (215, '52-54-00-f5-64-85', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-23 16:45:00', 1, '2023-10-23 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (216, '5A-A0-23-1B-14-03', '123.168.67.28', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cds', 1, '2023-10-23 16:55:06', 1, '2023-10-23 16:55:06', b'0');
+INSERT INTO `tb_account` VALUES (217, '52-54-00-ef-00-52', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-24 09:28:43', 1, '2023-10-24 09:28:43', b'0');
+INSERT INTO `tb_account` VALUES (218, '52-54-00-ef-00-52', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-24 09:28:43', 1, '2023-10-24 09:28:43', b'0');
+INSERT INTO `tb_account` VALUES (219, 'E8-6F-38-C6-33-4C', '101.207.144.180', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '打工者1号', 1, '2023-10-24 10:15:00', 1, '2023-10-24 10:15:00', b'0');
+INSERT INTO `tb_account` VALUES (220, '14-85-7F-00-52-1B', '101.71.9.239', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'api', 1, '2023-10-24 10:30:00', 1, '2023-10-24 10:30:00', b'0');
+INSERT INTO `tb_account` VALUES (221, '5A-CE-2A-DE-9A-04', '114.255.74.18', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '乌龟半走读', 1, '2023-10-24 10:30:00', 1, '2023-10-24 10:30:00', b'0');
+INSERT INTO `tb_account` VALUES (222, 'F8-E4-E3-D7-7D-B4', '171.88.68.82', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'xiaiosu', 1, '2023-10-24 10:30:00', 1, '2023-10-24 10:30:00', b'0');
+INSERT INTO `tb_account` VALUES (223, '38-FC-98-99-A7-90', '111.42.40.197', '黑', 'IDEA', NULL, NULL, NULL, NULL, 1, 'jdj', 1, '2023-10-24 13:45:00', 1, '2023-10-24 13:45:00', b'0');
+INSERT INTO `tb_account` VALUES (224, '52-54-00-e0-59-66', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-24 14:30:00', 1, '2023-10-24 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (225, '00-FF-3B-BE-77-02', '220.168.78.96', '湘', 'IDEA', NULL, NULL, NULL, NULL, 1, 'nmm', 1, '2023-10-24 16:30:00', 1, '2023-10-24 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (226, 'D8-5E-D3-79-1F-A3', '113.128.151.232', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'llluuuu', 1, '2023-10-24 16:45:00', 1, '2023-10-24 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (227, 'D8-5E-D3-79-1F-A3', '113.128.151.232', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'llluuuu', 1, '2023-10-24 16:45:07', 1, '2023-10-24 16:45:07', b'0');
+INSERT INTO `tb_account` VALUES (228, 'FE-70-42-CB-BA-65', '218.94.58.194', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '{我特别特别的爱上班}', 1, '2023-10-24 17:00:00', 1, '2023-10-24 17:00:00', b'0');
+INSERT INTO `tb_account` VALUES (229, '94-DE-80-26-A6-A9', '122.233.229.172', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '鼓励师', 1, '2023-10-24 19:22:16', 1, '2023-10-24 19:22:16', b'0');
+INSERT INTO `tb_account` VALUES (230, '94-DE-80-26-A6-A9', '122.233.229.172', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '鼓励师', 1, '2023-10-24 19:22:16', 1, '2023-10-24 19:22:16', b'0');
+INSERT INTO `tb_account` VALUES (231, '5C-E4-2A-4A-CF-6D', '58.213.224.244', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '官方魚塘', 1, '2023-10-25 09:15:00', 1, '2023-10-25 09:15:00', b'0');
+INSERT INTO `tb_account` VALUES (232, 'F6-DA-70-0E-BB-2C', '14.104.55.151', '渝', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ccp', 1, '2023-10-25 11:00:00', 1, '2023-10-25 11:00:00', b'0');
+INSERT INTO `tb_account` VALUES (233, '00-FF-2C-29-6E-FF', '222.210.60.164', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '法外狂徒张三', 1, '2023-10-25 11:25:54', 1, '2023-10-25 11:25:54', b'0');
+INSERT INTO `tb_account` VALUES (234, '00-FF-0C-36-2D-C1', '221.226.186.58', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'sdf', 1, '2023-10-25 11:25:54', 1, '2023-10-25 11:25:54', b'0');
+INSERT INTO `tb_account` VALUES (235, '00-FF-2C-29-6E-FF', '222.210.60.164', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '法外狂徒张三', 1, '2023-10-25 11:25:54', 1, '2023-10-25 11:25:54', b'0');
+INSERT INTO `tb_account` VALUES (236, '00-FF-0C-36-2D-C1', '221.226.186.58', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, 'sdf', 1, '2023-10-25 11:25:54', 1, '2023-10-25 11:25:54', b'0');
+INSERT INTO `tb_account` VALUES (237, '52-54-00-ac-2a-35', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '纯牛马', 1, '2023-10-25 11:30:00', 1, '2023-10-25 11:30:00', b'0');
+INSERT INTO `tb_account` VALUES (238, '08-8F-C3-6F-72-D3', '222.92.44.140', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '{海绵宝宝}', 1, '2023-10-25 14:15:00', 1, '2023-10-25 14:15:00', b'0');
+INSERT INTO `tb_account` VALUES (239, '00-D4-9E-84-FC-2A', '183.134.103.180', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '11', 1, '2023-10-25 14:30:00', 1, '2023-10-25 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (240, '00-FF-65-A2-CD-74', '122.226.88.214', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'zzy', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (241, '22-16-B9-97-F0-4A', '221.215.97.107', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '{ashui}', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (242, '00-FF-0A-2F-B9-4A', '27.185.23.121', '冀', 'IDEA', NULL, NULL, NULL, NULL, 1, '阿狸', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (243, '3E-31-0E-62-31-F2', '118.244.128.17', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '{王青龙}', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (244, 'd796a874-3894-41a0-9750-39b87960926f', '180.105.201.19', '苏', 'WEB', NULL, NULL, NULL, NULL, 1, 'lurui', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (245, '00-FF-1C-D6-2B-F5', '222.85.199.47', '贵', 'IDEA', NULL, NULL, NULL, NULL, 1, '举哥', 1, '2023-10-25 15:00:00', 1, '2023-10-25 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (246, 'CA-94-02-BB-F6-27', '59.173.215.148', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '猛踹瘸子那条好腿', 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (247, '00-FF-04-87-58-5B', '122.97.174.194', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '{yaoyuan}', 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (248, '00-25-B3-02-10-00', '117.159.17.95', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, 'neil', 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (249, '00-21-6A-2C-03-86', '202.98.91.213', '滇', 'IDEA', NULL, NULL, NULL, NULL, 1, '{1024}', 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (250, '64-79-F0-D5-19-92', '113.104.202.125', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '老季季伯常', 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (251, 'D0-C6-37-24-D5-5F', '58.49.75.14', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, 'HY', 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (252, '18-47-3D-DF-DE-CF', '124.42.31.133', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'kouer', 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (253, 'f60265ff-5688-48b4-8248-7aeeb74224e6', '113.140.11.140', '陕', 'WEB', NULL, NULL, NULL, NULL, 1, '{介是嘛}', 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (254, '00-FF-0D-94-ED-DD', '221.176.35.2', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Jarry', 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (255, '1A-5B-F9-C8-DE-CC', '117.68.154.67', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, 'chunge', 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (256, '81655015-aebe-4ea2-9afd-5f429897b0b6', '117.173.87.6', '川', 'WEB', NULL, NULL, NULL, NULL, 1, 'panzer', 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (257, '20-04-10-1A-12-D5', '183.6.88.67', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'master', 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account` VALUES (258, '7C-10-C9-BD-41-DC', '14.145.202.89', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'lan', 1, '2023-10-25 16:00:00', 1, '2023-10-25 16:00:00', b'0');
+INSERT INTO `tb_account` VALUES (259, '258324f7-033c-4922-a951-982c8139bd40', '182.119.255.70', '豫', 'WEB', NULL, NULL, NULL, NULL, 1, 'devil', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (260, '40-1C-83-49-8D-F5', '222.85.199.47', '贵', 'IDEA', NULL, NULL, NULL, NULL, 1, '阿甘', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (261, '10826919-0812-4b59-b1ee-018b3ef1ee4e', '103.37.140.90', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '灰色', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (262, '04-D4-C4-F1-A5-46', '219.147.8.46', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '{老王}', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (263, '00-FF-56-73-A0-06', '113.104.200.206', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'kris_wu', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (264, '862bd272-17f8-4d06-a92b-c8d3727533a0', '110.191.218.138', '川', 'WEB', NULL, NULL, NULL, NULL, 1, 'hello', 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (265, 'AA-93-4A-2D-80-53', '110.191.218.138', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '菊花', 1, '2023-10-25 16:30:00', 1, '2023-10-25 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (266, '92-0F-0C-B7-3A-FF', '171.212.242.145', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '奥克曼', 1, '2023-10-25 16:30:00', 1, '2023-10-25 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (267, 'CC-47-40-D0-1A-86', '36.57.187.50', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '大和', 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (268, '52-54-00-38-02-e5', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (269, '84-A9-38-73-02-00', '221.216.117.232', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '摸鱼的LLM', 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (270, 'c72a9bb6-03ee-488d-b757-affa81f4f87f', '218.17.28.116', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, 'jsa', 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account` VALUES (271, '00-FF-0B-35-7E-FC', '171.12.11.119', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ashr', 1, '2023-10-25 17:00:00', 1, '2023-10-25 17:00:00', b'0');
+INSERT INTO `tb_account` VALUES (272, '9323ba44-5917-4a13-bc21-8df6fd0ebd22', '219.147.8.46', '鲁', 'WEB', NULL, NULL, NULL, NULL, 1, 'xx', 1, '2023-10-25 17:00:00', 1, '2023-10-25 17:00:00', b'0');
+INSERT INTO `tb_account` VALUES (273, 'ba29c69a-6410-4ff8-93cf-45e6a8396e8f', '113.80.101.75', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, '{', 1, '2023-10-25 17:15:00', 1, '2023-10-25 17:15:00', b'0');
+INSERT INTO `tb_account` VALUES (274, '8a976989-50e7-49d9-9e1c-beb47c3a468f', '101.71.247.178', '浙', 'WEB', NULL, NULL, NULL, NULL, 1, '流苏', 1, '2023-10-25 17:15:00', 1, '2023-10-25 17:15:00', b'0');
+INSERT INTO `tb_account` VALUES (275, '00-FF-25-9A-19-36', '171.221.82.106', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'lsx', 1, '2023-10-25 17:30:00', 1, '2023-10-25 17:30:00', b'0');
+INSERT INTO `tb_account` VALUES (276, '64-6E-69-F7-40-80', '117.68.154.67', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, 'song', 1, '2023-10-25 17:30:00', 1, '2023-10-25 17:30:00', b'0');
+INSERT INTO `tb_account` VALUES (277, 'F4-26-79-1C-94-F0', '171.221.82.106', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'fry', 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (278, '00-FF-04-EF-27-83', '218.77.105.238', '湘', 'IDEA', NULL, NULL, NULL, NULL, 1, '萝卜特好吃', 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (279, '1C-69-7A-56-AA-09', '61.170.233.61', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'df', 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (280, '7aa29e19-dcea-4705-b86e-76186d9c2f98', '113.127.27.190', '鲁', 'WEB', NULL, NULL, NULL, NULL, 1, 'ss', 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (281, '08-BF-B8-37-86-2A', '61.185.194.131', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '{Edwin}', 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account` VALUES (282, '00-FF-1E-E4-13-5E', '210.22.86.19', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '苹果啊', 1, '2023-10-25 18:00:00', 1, '2023-10-25 18:00:00', b'0');
+INSERT INTO `tb_account` VALUES (283, 'E0-D5-5E-B9-DE-48', '211.94.156.166', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'wei', 1, '2023-10-25 19:45:00', 1, '2023-10-25 19:45:00', b'0');
+INSERT INTO `tb_account` VALUES (284, '80-30-49-95-42-E1', '221.2.160.5', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'shitou', 1, '2023-10-26 08:45:00', 1, '2023-10-26 08:45:00', b'0');
+INSERT INTO `tb_account` VALUES (285, '00-FF-00-8E-C6-47', '221.2.160.5', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '古月', 1, '2023-10-26 08:45:00', 1, '2023-10-26 08:45:00', b'0');
+INSERT INTO `tb_account` VALUES (286, '58-11-22-9E-C4-61', '61.185.194.131', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '{isyou}', 1, '2023-10-26 09:02:51', 1, '2023-10-26 09:02:51', b'0');
+INSERT INTO `tb_account` VALUES (287, '58-11-22-9E-C4-61', '61.185.194.131', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, '{isyou}', 1, '2023-10-26 09:02:52', 1, '2023-10-26 09:02:52', b'0');
+INSERT INTO `tb_account` VALUES (288, '2E-BA-EF-BB-C6-91', '125.71.95.101', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ChaoZhai', 1, '2023-10-26 09:15:00', 1, '2023-10-26 09:15:00', b'0');
+INSERT INTO `tb_account` VALUES (289, '2E-BA-EF-BB-C6-91', '125.71.95.101', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, 'ChaoZhai', 1, '2023-10-26 09:15:05', 1, '2023-10-26 09:15:05', b'0');
+INSERT INTO `tb_account` VALUES (290, '47b5c7e8-bd6a-4dd7-ac5a-524b2a979d64', '113.87.83.114', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, '{rex}', 1, '2023-10-26 09:30:00', 1, '2023-10-26 09:30:00', b'0');
+INSERT INTO `tb_account` VALUES (291, '52-54-00-0d-73-f7', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 10:15:00', 1, '2023-10-26 10:15:00', b'0');
+INSERT INTO `tb_account` VALUES (292, '52-54-00-0d-73-f7', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 10:15:12', 1, '2023-10-26 10:15:12', b'0');
+INSERT INTO `tb_account` VALUES (293, '14-5A-FC-32-36-06', '222.209.104.120', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '甜筒冰淇淋', 1, '2023-10-26 10:30:00', 1, '2023-10-26 10:30:00', b'0');
+INSERT INTO `tb_account` VALUES (294, '00-FF-0A-2A-1F-7E', '123.181.238.35', '冀', 'IDEA', NULL, NULL, NULL, NULL, 1, 'demo', 1, '2023-10-26 10:30:00', 1, '2023-10-26 10:30:00', b'0');
+INSERT INTO `tb_account` VALUES (295, '14-5A-FC-32-36-06', '222.209.104.120', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '甜筒冰淇淋', 1, '2023-10-26 10:30:02', 1, '2023-10-26 10:30:02', b'0');
+INSERT INTO `tb_account` VALUES (296, '00-FF-0A-2A-1F-7E', '123.181.238.35', '冀', 'IDEA', NULL, NULL, NULL, NULL, 1, 'demo', 1, '2023-10-26 10:30:02', 1, '2023-10-26 10:30:02', b'0');
+INSERT INTO `tb_account` VALUES (297, 'F4-6B-8C-5F-AD-2A', '222.209.104.120', '川', 'IDEA', NULL, NULL, NULL, NULL, 1, '天外飞仙', 1, '2023-10-26 10:45:00', 1, '2023-10-26 10:45:00', b'0');
+INSERT INTO `tb_account` VALUES (298, 'B6-8C-9D-54-6E-35', '125.42.127.150', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, '-0', 1, '2023-10-26 11:15:00', 1, '2023-10-26 11:15:00', b'0');
+INSERT INTO `tb_account` VALUES (299, '52-54-00-ae-ae-56', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 11:15:00', 1, '2023-10-26 11:15:00', b'0');
+INSERT INTO `tb_account` VALUES (300, 'B6-8C-9D-54-6E-35', '125.42.127.150', '豫', 'IDEA', NULL, NULL, NULL, NULL, 1, '-0', 1, '2023-10-26 11:15:02', 1, '2023-10-26 11:15:02', b'0');
+INSERT INTO `tb_account` VALUES (301, '52-54-00-ae-ae-56', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 11:15:02', 1, '2023-10-26 11:15:02', b'0');
+INSERT INTO `tb_account` VALUES (302, '52-54-00-47-a2-a7', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 14:00:01', 1, '2023-10-26 14:00:01', b'0');
+INSERT INTO `tb_account` VALUES (303, '00-15-5D-1E-1B-01', '221.12.100.38', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, 'barry', 1, '2023-10-26 14:45:00', 1, '2023-10-26 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (304, '54-EE-75-D7-50-63', '106.120.57.62', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Deuses', 1, '2023-10-26 14:45:00', 1, '2023-10-26 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (305, '0f0d4767-948a-41ea-a524-318024122fe0', '121.35.44.93', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, '小巴', 1, '2023-10-26 14:45:00', 1, '2023-10-26 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (306, 'A4-BB-6D-DE-7E-3E', '180.167.73.194', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'null', 1, '2023-10-26 15:00:01', 1, '2023-10-26 15:00:01', b'0');
+INSERT INTO `tb_account` VALUES (307, '52-54-00-dd-57-a0', '222.161.207.26', '吉', 'IDEA', NULL, NULL, NULL, NULL, 1, '灵堂DJ', 1, '2023-10-26 15:27:23', 1, '2023-10-26 15:27:23', b'0');
+INSERT INTO `tb_account` VALUES (308, '02-50-AE-A5-98-92', '60.208.111.222', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, '3', 1, '2023-10-26 16:15:00', 1, '2023-10-26 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (309, '94-08-C7-01-31-76', '122.96.32.66', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '{Ray}', 1, '2023-10-26 16:15:00', 1, '2023-10-26 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (310, '26-3D-58-96-B0-0C', '59.41.72.242', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{鱼向前没有小鸡鸡}', 1, '2023-10-26 16:15:00', 1, '2023-10-26 16:15:00', b'0');
+INSERT INTO `tb_account` VALUES (311, 'CE-15-31-EB-03-84', '61.148.243.90', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, 'JX', 1, '2023-10-26 16:25:06', 1, '2023-10-26 16:25:06', b'0');
+INSERT INTO `tb_account` VALUES (312, 'e539142e-a0e6-40fa-bf30-f39b38b9a4fb', '119.130.207.47', '粤', 'WEB', NULL, NULL, NULL, NULL, 1, '{mike}', 1, '2023-10-26 16:25:06', 1, '2023-10-26 16:25:06', b'0');
+INSERT INTO `tb_account` VALUES (313, '38-7A-0E-C1-83-C4', '180.166.193.219', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cq', 1, '2023-10-26 16:30:00', 1, '2023-10-26 16:30:00', b'0');
+INSERT INTO `tb_account` VALUES (314, '38-7A-0E-C1-83-C4', '180.166.193.219', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, 'cq', 1, '2023-10-26 16:30:02', 1, '2023-10-26 16:30:02', b'0');
+INSERT INTO `tb_account` VALUES (315, '82-90-DD-36-DA-F7', '114.254.0.35', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '🐟', 1, '2023-10-26 16:45:01', 1, '2023-10-26 16:45:01', b'0');
+INSERT INTO `tb_account` VALUES (316, 'FE-0B-5A-BF-E6-E9', '119.130.207.47', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{mike2}', 1, '2023-10-26 17:00:00', 1, '2023-10-26 17:00:00', b'0');
+INSERT INTO `tb_account` VALUES (317, 'FE-0B-5A-BF-E6-E9', '119.130.207.47', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{mike2}', 1, '2023-10-26 17:00:02', 1, '2023-10-26 17:00:02', b'0');
+INSERT INTO `tb_account` VALUES (318, 'F4-A4-75-7B-5C-91', '183.134.102.165', '浙', 'IDEA', NULL, NULL, NULL, NULL, 1, '别在河里撒尿', 1, '2023-10-26 17:15:00', 1, '2023-10-26 17:15:00', b'0');
+INSERT INTO `tb_account` VALUES (319, '58-11-22-46-5E-46', '223.11.222.67', '晋', 'IDEA', NULL, NULL, NULL, NULL, 1, '六子', 1, '2023-10-27 09:15:00', 1, '2023-10-27 09:15:00', b'0');
+INSERT INTO `tb_account` VALUES (320, '06-D8-5E-7F-2A-54', '61.180.150.241', '黑', 'IDEA', NULL, NULL, NULL, NULL, 1, '樱桃炸弹🍒', 1, '2023-10-27 10:14:33', 1, '2023-10-27 10:14:33', b'0');
+INSERT INTO `tb_account` VALUES (321, 'B2-03-C8-71-86-07', '125.76.177.210', '陕', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Shaw', 1, '2023-10-27 11:15:00', 1, '2023-10-27 11:15:00', b'0');
+INSERT INTO `tb_account` VALUES (322, '1ae0144e-2d2f-452c-9859-972473a1d0cf', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 13:15:00', 1, '2023-10-27 13:15:00', b'0');
+INSERT INTO `tb_account` VALUES (323, 'fe899f91-19ca-4913-86d3-2c10dce050ea', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 13:30:00', 1, '2023-10-27 13:30:00', b'0');
+INSERT INTO `tb_account` VALUES (324, '3a988370-3316-4bf2-960b-f78704b2f5d9', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 13:45:00', 1, '2023-10-27 13:45:00', b'0');
+INSERT INTO `tb_account` VALUES (325, '9286fdb4-2c81-482a-9234-350b2fb73dc1', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 14:00:00', 1, '2023-10-27 14:00:00', b'0');
+INSERT INTO `tb_account` VALUES (326, '2A-38-7A-DF-E1-E5', '14.145.179.174', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, '{miek}', 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (327, '1a3d1e1f-7435-4272-ae4a-05ae3bb4e65c', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (328, '00-E0-4D-92-72-1A', '106.228.16.174', '赣', 'IDEA', NULL, NULL, NULL, NULL, 1, 'joco', 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account` VALUES (329, '16-DD-CC-E0-17-C5', '113.89.232.251', '粤', 'IDEA', NULL, NULL, NULL, NULL, 1, 'l', 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (330, '1bf3ca53-5228-4b99-b0bf-9b244e58b679', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (331, '04-7F-0E-04-34-F6', '220.180.111.201', '皖', 'IDEA', NULL, NULL, NULL, NULL, 1, '4399', 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account` VALUES (332, '0A-5B-D6-4E-C6-04', '219.142.250.20', '京', 'IDEA', NULL, NULL, NULL, NULL, 1, '{策君}', 1, '2023-10-27 15:00:00', 1, '2023-10-27 15:00:00', b'0');
+INSERT INTO `tb_account` VALUES (333, '80-B6-55-F3-37-2B', '222.92.197.235', '苏', 'IDEA', NULL, NULL, NULL, NULL, 1, '哈哈哈哈', 1, '2023-10-27 15:15:00', 1, '2023-10-27 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (334, 'dc535a36-3c88-427d-90ad-afde0016f75c', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 15:15:00', 1, '2023-10-27 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (335, 'C4-D0-E3-57-96-5C', '58.40.122.86', '沪', 'IDEA', NULL, NULL, NULL, NULL, 1, '蝉', 1, '2023-10-27 15:15:00', 1, '2023-10-27 15:15:00', b'0');
+INSERT INTO `tb_account` VALUES (336, 'F8-9E-94-61-FD-22', '60.16.2.38', '辽', 'IDEA', NULL, NULL, NULL, NULL, 1, '{jagger}', 1, '2023-10-27 15:30:00', 1, '2023-10-27 15:30:00', b'0');
+INSERT INTO `tb_account` VALUES (337, 'd13790dc-fa8e-4201-926d-853b87226221', '1.94.58.50', '京', 'WEB', NULL, NULL, NULL, NULL, 1, '八级大狂风', 1, '2023-10-27 15:37:18', 1, '2023-10-27 15:37:18', b'0');
+INSERT INTO `tb_account` VALUES (338, '78-2B-46-FB-FC-58', '219.140.140.127', '鄂', 'IDEA', NULL, NULL, NULL, NULL, 1, '{唐}', 1, '2023-10-27 16:00:01', 1, '2023-10-27 16:00:01', b'0');
+INSERT INTO `tb_account` VALUES (339, 'CA-5F-99-46-C2-57', '218.57.98.225', '鲁', 'IDEA', NULL, NULL, NULL, NULL, 1, 'Su', 1, '2023-10-27 16:00:01', 1, '2023-10-27 16:00:01', b'0');
 
-create table tb_player_level_exp
-(
-    id          int primary key auto_increment comment '自增id',
-    level       int comment '等级',
-    need_exp    int comment '所需经验',
-    hp          int          default 50 comment '基础HP',
-    attack      int          default 1 comment '基础攻击力',
-    defender    int          default 1 comment '基础防御力',
-    flee        double(5, 2) default 0.3 comment '基础闪避率',
-    combo       double(5, 2) default 0.3 comment '基础连击',
-    hit         double(5, 2) default 0.5 comment '基础命中率',
-    create_by   int          default 0 comment '创建人',
-    create_time datetime     default now() comment '创建时间',
-    update_by   int          default 0 comment '更新人',
-    update_time datetime     default now() comment '更新时间',
-    del_flag    bit(1)       default false comment '删除标记'
-) comment '角色等级数据表';
+-- ----------------------------
+-- Table structure for tb_account_player
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_account_player`;
+CREATE TABLE `tb_account_player`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `account_id` int NOT NULL COMMENT '账号id',
+  `nickname` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '昵称',
+  `level` int NULL DEFAULT 0 COMMENT '当前等级',
+  `exp` int NULL DEFAULT 0 COMMENT '当前经验',
+  `energy` int NULL DEFAULT 100 COMMENT '体力值',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 309 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '账号角色' ROW_FORMAT = Dynamic;
 
--- 初始化等级数据
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (1, 0, 0, 50, 3, 1, 0.25, 0.25, 0.40, 0, '2023-10-08 06:05:08', 0, '2023-10-08 06:05:08', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (2, 1, 50, 54, 3, 2, 0.26, 0.25, 0.40, 0, '2023-10-08 06:05:41', 0, '2023-10-08 06:05:41', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (3, 2, 100, 58, 5, 2, 0.26, 0.26, 0.40, 0, '2023-10-08 06:06:24', 0, '2023-10-08 06:06:24', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (4, 3, 150, 64, 7, 3, 0.26, 0.26, 0.41, 0, '2023-10-08 06:06:56', 0, '2023-10-08 06:06:56', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (5, 4, 200, 75, 12, 4, 0.26, 0.26, 0.42, 0, '2023-10-08 06:07:04', 0, '2023-10-08 06:07:04', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (6, 5, 251, 89, 19, 4, 0.26, 0.27, 0.42, 0, '2023-10-08 06:07:08', 0, '2023-10-08 06:07:08', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (7, 6, 300, 130, 31, 7, 0.27, 0.27, 0.42, 0, '2023-10-08 06:07:12', 0, '2023-10-08 06:07:12', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (8, 7, 350, 170, 50, 9, 0.27, 0.28, 0.42, 0, '2023-10-08 06:07:17', 0, '2023-10-08 06:07:17', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (9, 8, 400, 220, 60, 13, 0.28, 0.28, 0.42, 0, '2023-10-08 06:07:24', 0, '2023-10-08 06:07:24', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (10, 9, 450, 280, 71, 15, 0.28, 0.28, 0.43, 0, '2023-10-08 06:07:29', 0, '2023-10-08 06:07:29', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (11, 10, 500, 340, 80, 15, 0.29, 0.29, 0.44, 0, '2023-10-08 06:07:33', 0, '2023-10-08 06:07:33', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (12, 11, 1000, 400, 84, 18, 0.40, 0.39, 0.54, 0, '2023-10-08 06:07:36', 0, '2023-10-08 06:07:36', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (13, 12, 2000, 500, 88, 19, 0.40, 0.40, 0.54, 0, '2023-10-08 06:07:39', 0, '2023-10-08 06:07:39', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (14, 13, 3000, 580, 92, 21, 0.40, 0.40, 0.55, 0, '2023-10-08 06:07:42', 0, '2023-10-08 06:07:42', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (15, 14, 4000, 670, 100, 22, 0.40, 0.41, 0.55, 0, '2023-10-08 06:07:46', 0, '2023-10-08 06:07:46', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (16, 15, 5000, 800, 123, 23, 0.40, 0.41, 0.56, 0, '2023-10-08 06:07:49', 0, '2023-10-08 06:07:49', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (17, 16, 6000, 950, 135, 28, 0.41, 0.41, 0.56, 0, '2023-10-08 06:07:52', 0, '2023-10-08 06:07:52', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (18, 17, 7000, 1080, 156, 30, 0.41, 0.42, 0.56, 0, '2023-10-08 06:07:58', 0, '2023-10-08 06:07:58', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (19, 18, 8000, 1340, 188, 31, 0.41, 0.42, 0.57, 0, '2023-10-08 06:08:01', 0, '2023-10-08 06:08:01', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (20, 19, 9000, 1780, 191, 33, 0.42, 0.42, 0.57, 0, '2023-10-08 06:08:05', 0, '2023-10-08 06:08:05', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (21, 20, 10000, 2356, 202, 55, 0.52, 0.52, 0.65, 0, '2023-10-08 06:08:08', 0, '2023-10-08 06:08:08', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (22, 21, 20000, 2600, 222, 64, 0.53, 0.52, 0.65, 0, '2023-10-08 06:08:11', 0, '2023-10-08 06:08:11', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (23, 22, 30000, 2980, 245, 70, 0.53, 0.53, 0.65, 0, '2023-10-08 06:08:14', 0, '2023-10-08 06:08:14', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (24, 23, 40000, 3500, 278, 101, 0.53, 0.53, 0.66, 0, '2023-10-08 06:08:17', 0, '2023-10-08 06:08:17', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (25, 24, 50000, 4400, 300, 113, 0.53, 0.54, 0.66, 0, '2023-10-08 06:08:22', 0, '2023-10-08 06:08:22', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (26, 25, 60000, 5200, 312, 135, 0.53, 0.54, 0.67, 0, '2023-10-08 06:08:25', 0, '2023-10-08 06:08:25', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (27, 26, 70000, 6100, 344, 149, 0.54, 0.54, 0.67, 0, '2023-10-08 06:08:28', 0, '2023-10-08 06:08:28', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (28, 27, 80000, 7000, 358, 179, 0.55, 0.55, 0.67, 0, '2023-10-08 06:08:31', 0, '2023-10-08 06:08:31', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (29, 28, 90000, 8848, 372, 188, 0.55, 0.55, 0.70, 0, '2023-10-08 06:08:35', 0, '2023-10-08 06:08:35', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (30, 29, 100000, 9527, 399, 199, 0.60, 0.60, 0.70, 0, '2023-10-08 06:08:38', 0, '2023-10-08 06:08:38', b'0');
-INSERT INTO xcdld.tb_player_level_exp(id, level, need_exp, hp, attack, defender, flee, combo, hit, create_by,
-                                      create_time, update_by, update_time, del_flag)
-VALUES (31, 30, 200000, 10086, 404, 200, 0.70, 0.70, 0.70, 0, '2023-10-08 06:08:43', 0, '2023-10-08 06:08:43', b'0');
+-- ----------------------------
+-- Records of tb_account_player
+-- ----------------------------
+INSERT INTO `tb_account_player` VALUES (1, 1, '#exit', 2, 109, 100, 1, '2023-10-10 17:06:09', 308, '2023-10-27 09:25:02', b'0');
+INSERT INTO `tb_account_player` VALUES (2, 2, '小咖喱黄不辣', 14, 4593, 100, 1, '2023-10-10 17:06:09', 156, '2023-10-27 16:33:06', b'0');
+INSERT INTO `tb_account_player` VALUES (3, 3, '君莫笑', 6, 308, 100, 1, '2023-10-10 17:06:09', 308, '2023-10-27 09:25:39', b'0');
+INSERT INTO `tb_account_player` VALUES (4, 4, '里斯', 0, 11, 100, 1, '2023-10-10 17:06:09', 24, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (5, 5, '二乔代驾', 1, 55, 100, 1, '2023-10-10 17:06:09', 308, '2023-10-27 09:24:37', b'0');
+INSERT INTO `tb_account_player` VALUES (6, 6, '33', 0, 7, 100, 1, '2023-10-10 17:06:09', 103, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (7, 7, 'test', 3, 153, 100, 1, '2023-10-10 17:06:09', 308, '2023-10-27 09:25:00', b'0');
+INSERT INTO `tb_account_player` VALUES (8, 8, '爱偷懒的程序员', 15, 5187, 100, 1, '2023-10-10 17:06:09', 2, '2023-10-27 16:06:19', b'0');
+INSERT INTO `tb_account_player` VALUES (9, 9, '翻译官', 26, 74221, 100, 1, '2023-10-10 17:06:09', 281, '2023-10-27 16:19:20', b'0');
+INSERT INTO `tb_account_player` VALUES (10, 10, '鼓励师本师', 32, 429698, 100, 1, '2023-10-10 17:06:09', 281, '2023-10-27 16:16:33', b'0');
+INSERT INTO `tb_account_player` VALUES (11, 11, '鱼子酱', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (12, 12, 'white', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (13, 13, 'ljh', 0, 33, 100, 1, '2023-10-10 17:06:09', 39, '2023-10-27 09:46:17', b'0');
+INSERT INTO `tb_account_player` VALUES (14, 14, 'HuaiJinYuQ', 0, 10, 100, 1, '2023-10-10 17:06:09', 61, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (15, 15, '纯种马', 0, 1, 100, 1, '2023-10-10 17:06:09', 24, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (16, 16, '{YQ}', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (17, 17, 'soso', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (18, 18, 'cz', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (19, 19, '幻影长矛手', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (20, 20, '阿宾轻柔你的穴', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (21, 21, 'ttt', 0, 11, 100, 1, '2023-10-10 17:06:09', 156, '2023-10-26 12:19:10', b'0');
+INSERT INTO `tb_account_player` VALUES (22, 22, 'Van', 15, 5403, 100, 1, '2023-10-10 17:06:09', 2, '2023-10-27 16:07:03', b'0');
+INSERT INTO `tb_account_player` VALUES (23, 23, '晚上搓蛋蛋', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (24, 24, 'haha', 30, 255956, 100, 1, '2023-10-10 17:06:09', 39, '2023-10-27 16:03:34', b'0');
+INSERT INTO `tb_account_player` VALUES (25, 25, '夜', 0, 1, 100, 1, '2023-10-10 17:06:09', 24, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (26, 26, '杯莫停1', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (27, 27, '藍忘機', 0, 1, 100, 1, '2023-10-10 17:06:09', 39, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (28, 28, 'yitioaoyu', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (29, 29, 'codebuger', 0, 6, 100, 1, '2023-10-10 17:06:09', 122, '2023-10-25 15:44:47', b'0');
+INSERT INTO `tb_account_player` VALUES (30, 30, '纯路人', 0, 3, 100, 1, '2023-10-10 17:06:09', 258, '2023-10-25 17:04:16', b'0');
+INSERT INTO `tb_account_player` VALUES (31, 31, '琼霞网警', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (32, 32, '小小牛马可笑可笑', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (33, 33, '1', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (34, 34, 'fish', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (35, 35, '季伯常', 35, 700664, 100, 1, '2023-10-10 17:06:09', 103, '2023-10-27 16:30:27', b'0');
+INSERT INTO `tb_account_player` VALUES (36, 36, '纯牛马', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (37, 37, 'sj', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (38, 38, 'Mr.g', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (39, 39, 'wowjasonl', 31, 324286, 100, 1, '2023-10-10 17:06:09', 281, '2023-10-27 16:27:09', b'0');
+INSERT INTO `tb_account_player` VALUES (40, 40, '法外狂徒李四', 20, 19882, 100, 1, '2023-10-10 17:06:09', 99, '2023-10-27 12:45:44', b'0');
+INSERT INTO `tb_account_player` VALUES (41, 41, 'issues', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (42, 42, '日本岛炸了', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (43, 43, '隔壁老王', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (44, 44, 'UE888A', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (45, 45, 'qhg', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (46, 46, '青箱子', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (47, 47, '0', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (48, 48, '阿祖绝不收手', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (49, 49, 'a', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (50, 50, '{demo}', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (51, 51, 'shushu', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (52, 52, '北辰', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (53, 53, 'qhss', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (54, 54, '笋', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (55, 55, '冷冰冰', 0, 1, 100, 1, '2023-10-10 17:06:09', 24, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (56, 56, 'ccc', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (57, 57, 'zhangzd', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (58, 58, '{娃哈哈}', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (59, 59, '臭屁蛋', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (60, 60, 'xye2', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (61, 61, '叮叮当', 1, 93, 100, 1, '2023-10-10 17:06:09', 61, '2023-10-27 14:14:26', b'0');
+INSERT INTO `tb_account_player` VALUES (62, 62, '开原第一狠人', 0, 0, 100, 1, '2023-10-10 17:06:09', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (63, 83, '墨鱼', 0, 0, 100, 1, '2023-10-10 20:30:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (64, 84, '猛男', 0, 0, 100, 1, '2023-10-10 20:30:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (65, 85, '游戏策划3', 0, 10, 100, 1, '2023-10-10 22:25:22', 40, '2023-10-25 14:56:22', b'0');
+INSERT INTO `tb_account_player` VALUES (66, 86, 'zhixuan', 0, 10, 100, 1, '2023-10-12 22:14:54', 40, '2023-10-25 14:56:26', b'0');
+INSERT INTO `tb_account_player` VALUES (67, 87, '一夜十次郎', 0, 20, 100, 1, '2023-10-12 22:14:54', 308, '2023-10-27 09:24:27', b'0');
+INSERT INTO `tb_account_player` VALUES (68, 88, 'ikun', 0, 0, 100, 1, '2023-10-12 22:14:54', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (69, 89, '喵喵少年', 0, 2, 100, 1, '2023-10-13 09:12:20', 258, '2023-10-25 17:04:22', b'0');
+INSERT INTO `tb_account_player` VALUES (70, 90, '霸道总裁', 0, 0, 100, 1, '2023-10-13 09:12:20', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (71, 91, 'dw', 0, 0, 100, 1, '2023-10-13 09:12:20', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (72, 92, 'ss', 0, 0, 100, 1, '2023-10-13 09:12:20', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (73, 93, '21341412413', 0, 0, 100, 1, '2023-10-13 09:12:20', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (74, 94, 'test', 6, 331, 100, 1, '2023-10-13 09:15:02', 94, '2023-10-27 15:58:37', b'0');
+INSERT INTO `tb_account_player` VALUES (75, 95, 'HelloWold.', 0, 0, 100, 1, '2023-10-13 09:21:37', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (76, 96, '我的好爸爸', 0, 0, 100, 1, '2023-10-13 09:26:42', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (77, 97, 'hh', 0, 0, 100, 1, '2023-10-13 10:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (78, 98, '{Mario}', 0, 1, 100, 1, '2023-10-13 10:00:02', 24, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (79, 99, '[东方明猪]osl', 25, 64263, 100, 1, '2023-10-13 10:06:35', 281, '2023-10-27 16:06:01', b'0');
+INSERT INTO `tb_account_player` VALUES (80, 100, 'kk', 0, 3, 100, 1, '2023-10-13 10:06:35', 99, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (81, 101, 'caicaizi', 0, 0, 100, 1, '2023-10-13 10:09:56', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (82, 102, '腻醌镉铞不铞', 0, 1, 100, 1, '2023-10-13 10:11:20', 103, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (83, 103, 'zsc', 38, 1514129, 100, 1, '2023-10-13 10:14:53', 103, '2023-10-27 16:30:27', b'0');
+INSERT INTO `tb_account_player` VALUES (84, 104, '卷起千层海浪躲了不往里闯', 0, 2, 100, 1, '2023-10-13 10:14:53', 104, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (85, 111, '大棍子', 0, 0, 100, 1, '2023-10-13 11:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (86, 112, '保安队长', 0, 0, 100, 1, '2023-10-13 11:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (87, 113, '浩', 27, 80569, 100, 1, '2023-10-13 11:00:02', 99, '2023-10-27 12:52:55', b'0');
+INSERT INTO `tb_account_player` VALUES (88, 114, '9527', 0, 0, 100, 1, '2023-10-13 11:15:01', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (89, 115, '逼逼', 11, 1442, 100, 1, '2023-10-13 11:15:01', 99, '2023-10-27 10:35:39', b'0');
+INSERT INTO `tb_account_player` VALUES (90, 116, 'djangson', 0, 0, 100, 1, '2023-10-13 11:30:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (91, 117, 'qwp', 0, 0, 100, 1, '2023-10-13 11:30:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (92, 118, 'Grass', 2, 106, 100, 1, '2023-10-13 11:30:02', 320, '2023-10-27 16:03:48', b'0');
+INSERT INTO `tb_account_player` VALUES (93, 119, '大只', 0, 0, 100, 1, '2023-10-13 11:45:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (94, 120, 'xxzc', 0, 26, 100, 1, '2023-10-13 11:45:02', 156, '2023-10-27 16:31:04', b'0');
+INSERT INTO `tb_account_player` VALUES (95, 121, '{Wuuu}', 0, 0, 100, 1, '2023-10-13 12:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (96, 122, '星期七', 0, 12, 100, 1, '2023-10-13 15:46:12', 122, '2023-10-25 15:45:05', b'0');
+INSERT INTO `tb_account_player` VALUES (97, 123, '冈门正直', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (98, 124, 'w', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (99, 125, '{ELS}', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (100, 126, 'faf', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (101, 127, 'JelyChen', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (102, 128, '安徽网警', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (103, 129, 'xiaoyuer', 0, 7, 100, 1, '2023-10-13 15:46:12', 320, '2023-10-27 15:41:26', b'0');
+INSERT INTO `tb_account_player` VALUES (104, 130, 'LuoJin', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (105, 131, 'zz', 0, 0, 100, 1, '2023-10-13 15:46:12', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (106, 132, 'sb', 0, 0, 100, 1, '2023-10-13 16:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (107, 133, '{昵称}', 0, 0, 100, 1, '2023-10-13 16:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (108, 134, '盖亚', 0, 0, 100, 1, '2023-10-13 16:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (109, 135, '纯牛马', 0, 0, 100, 1, '2023-10-13 16:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (110, 136, '咸鱼', 0, 0, 100, 1, '2023-10-13 16:00:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (111, 137, 'hhh', 0, 0, 100, 1, '2023-10-13 16:05:15', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (112, 138, '纯牛马', 0, 0, 100, 1, '2023-10-13 16:08:36', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (113, 139, '穿山甲', 10, 840, 100, 1, '2023-10-13 16:15:23', 99, '2023-10-27 10:29:31', b'0');
+INSERT INTO `tb_account_player` VALUES (114, 140, '游啊游', 0, 0, 100, 1, '2023-10-13 16:26:31', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (115, 141, '粉身碎骨', 0, 0, 100, 1, '2023-10-13 16:30:03', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (116, 142, 'Lsjjj', 0, 0, 100, 1, '2023-10-13 16:46:29', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (117, 143, '${name}', 0, 0, 100, 1, '2023-10-13 16:46:29', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (118, 144, '寒露', 0, 0, 100, 1, '2023-10-13 17:14:32', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (119, 145, '小白', 0, 1, 100, 1, '2023-10-13 17:14:32', 39, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (120, 146, '12313', 0, 0, 100, 1, '2023-10-13 17:14:32', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (121, 147, '1', 0, 0, 100, 1, '2023-10-13 17:14:32', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (122, 148, '666', 0, 0, 100, 1, '2023-10-13 17:14:32', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (123, 149, '胶王迪迦', 0, 0, 100, 1, '2023-10-19 08:40:46', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (124, 150, 'tttt', 0, 0, 100, 1, '2023-10-19 08:40:46', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (125, 151, '爱疯', 0, 0, 100, 1, '2023-10-19 08:40:46', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (126, 152, '赵四', 0, 0, 100, 1, '2023-10-19 09:15:19', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (127, 153, 'jy', 0, 0, 100, 1, '2023-10-19 09:15:19', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (128, 154, 'eason', 0, 0, 100, 1, '2023-10-19 10:00:11', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (129, 155, '寒露', 30, 200278, 100, 1, '2023-10-19 10:00:11', 24, '2023-10-27 11:53:50', b'0');
+INSERT INTO `tb_account_player` VALUES (130, 156, '秦始皇', 12, 2254, 100, 1, '2023-10-19 10:15:01', 156, '2023-10-27 16:33:19', b'0');
+INSERT INTO `tb_account_player` VALUES (131, 157, '隔壁老刘', 0, 0, 100, 1, '2023-10-19 10:15:01', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (132, 162, 'lihao', 0, 0, 100, 1, '2023-10-19 14:15:26', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (133, 163, '白羊', 0, 0, 100, 1, '2023-10-19 14:15:26', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (134, 164, 'lazyCat', 0, 0, 100, 1, '2023-10-19 14:15:26', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (135, 165, '纯牛馬', 0, 0, 100, 1, '2023-10-19 14:20:30', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (136, 166, '阿巴阿巴', 0, 0, 100, 1, '2023-10-19 14:30:13', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (137, 167, '超人强', 0, 0, 100, 1, '2023-10-19 15:15:01', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (138, 168, '法外狂徒', 0, 0, 100, 1, '2023-10-19 15:15:01', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (139, 169, 'ss', 0, 0, 100, 1, '2023-10-19 15:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (140, 170, '{黄粱}', 0, 0, 100, 1, '2023-10-19 15:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (141, 171, '隔壁老玊', 0, 0, 100, 1, '2023-10-19 15:42:30', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (142, 172, 'zhangsan', 0, 0, 100, 1, '2023-10-19 15:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (143, 173, 'zhangsan', 0, 0, 100, 1, '2023-10-19 15:45:02', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (144, 174, '老牛马了', 0, 0, 100, 1, '2023-10-19 16:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (145, 175, 'fzl', 0, 0, 100, 1, '2023-10-19 16:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (146, 176, '1', 0, 0, 100, 1, '2023-10-19 16:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (147, 177, '调理农务系学长', 0, 0, 100, 1, '2023-10-19 16:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (148, 178, 'cz', 0, 0, 100, 1, '2023-10-19 16:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (149, 179, 'bz', 0, 0, 100, 1, '2023-10-19 16:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (150, 180, '赛博G7人爱上电子斐济杯', 0, 0, 100, 1, '2023-10-19 16:59:44', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (151, 181, '灵堂DJ', 0, 0, 100, 1, '2023-10-19 17:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (152, 182, '赛文', 0, 0, 100, 1, '2023-10-19 17:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (153, 183, '粪海狂蛆', 0, 0, 100, 1, '2023-10-19 18:00:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (154, 184, 'l', 0, 0, 100, 1, '2023-10-20 09:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (155, 185, 'lxa', 0, 0, 100, 1, '2023-10-20 09:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (156, 186, '学debug作边城', 0, 0, 100, 1, '2023-10-20 10:08:08', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (157, 187, '哎嗨哎嗨哟', 0, 0, 100, 1, '2023-10-20 11:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (158, 188, '纯牛马', 0, 6, 100, 1, '2023-10-20 13:30:00', 258, '2023-10-26 09:25:46', b'0');
+INSERT INTO `tb_account_player` VALUES (159, 196, 'test', 0, 0, 100, 1, '2023-10-20 14:45:01', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (160, 197, '灵堂DJ', 0, 0, 100, 1, '2023-10-20 14:59:03', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (161, 198, 'sz', 0, 34, 100, 1, '2023-10-20 14:59:03', 39, '2023-10-27 09:46:00', b'0');
+INSERT INTO `tb_account_player` VALUES (162, 199, '小帅', 0, 0, 100, 1, '2023-10-20 14:59:03', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (163, 200, 'cy', 0, 0, 100, 1, '2023-10-20 15:00:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (164, 201, '纯牛马', 0, 0, 100, 1, '2023-10-20 15:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (165, 202, '秃头强者', 0, 0, 100, 1, '2023-10-20 16:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (166, 203, '海绵宝宝', 0, 0, 100, 1, '2023-10-20 16:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (167, 204, 'abc', 0, 0, 100, 1, '2023-10-20 17:30:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (168, 205, '我不摸鱼', 0, 0, 100, 1, '2023-10-21 16:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (169, 206, 'askPanel产品经理', 0, 0, 100, 1, '2023-10-21 17:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (170, 207, '食不食油饼', 0, 0, 100, 1, '2023-10-23 08:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (171, 208, '小超人', 0, 0, 100, 1, '2023-10-23 08:53:30', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (172, 209, 'vastsheen', 0, 0, 100, 1, '2023-10-23 10:00:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (173, 210, '纯牛马', 0, 0, 100, 1, '2023-10-23 10:02:46', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (174, 211, '纯牛逼', 0, 0, 100, 1, '2023-10-23 14:00:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (175, 212, 'www', 0, 0, 100, 1, '2023-10-23 14:15:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (176, 213, 'mc', 0, 1, 100, 1, '2023-10-23 14:30:00', 222, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (177, 214, 'martlet', 0, 1, 100, 1, '2023-10-23 16:45:00', 222, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (178, 215, '纯牛马', 0, 0, 100, 1, '2023-10-23 16:45:00', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (179, 216, 'cds', 0, 0, 100, 1, '2023-10-23 16:55:06', 1, '2023-10-23 12:23:27', b'0');
+INSERT INTO `tb_account_player` VALUES (180, -1, '光之乐园NPC1', 3, 151, 100, 0, '2023-10-24 00:28:42', 104, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (181, -2, '光之乐园NPC2', 5, 274, 100, 0, '2023-10-24 00:28:42', 24, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (182, -3, '光之乐园NPC3', 5, 297, 100, 0, '2023-10-24 00:28:42', 24, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (183, -4, '光之乐园NPC4', 9, 453, 100, 0, '2023-10-24 00:28:42', 24, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (184, -5, '光之乐园NPC5', 10, 926, 100, 0, '2023-10-24 00:28:42', 24, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (185, -6, '光之乐园BOSS', 10, 771, 100, 0, '2023-10-24 00:28:42', 24, '2023-10-24 00:28:42', b'0');
+INSERT INTO `tb_account_player` VALUES (186, 217, '纯牛马', 0, 0, 100, 1, '2023-10-24 09:28:43', 1, '2023-10-24 09:28:43', b'0');
+INSERT INTO `tb_account_player` VALUES (187, 218, '纯牛马', 0, 0, 100, 1, '2023-10-24 09:28:43', 1, '2023-10-24 09:28:43', b'0');
+INSERT INTO `tb_account_player` VALUES (188, 219, '打工者1号', 0, 1, 100, 1, '2023-10-24 10:15:00', 222, '2023-10-24 10:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (189, 220, 'api', 0, 2, 100, 1, '2023-10-24 10:30:00', 222, '2023-10-24 10:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (190, 221, '乌龟半走读', 0, 24, 100, 1, '2023-10-24 10:30:00', 308, '2023-10-27 09:24:25', b'0');
+INSERT INTO `tb_account_player` VALUES (191, 222, 'xiaiosu', 10, 898, 100, 1, '2023-10-24 10:30:00', 99, '2023-10-27 10:29:06', b'0');
+INSERT INTO `tb_account_player` VALUES (192, 223, 'jdj', 0, 1, 100, 1, '2023-10-24 13:45:00', 61, '2023-10-24 13:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (193, 224, '纯牛马', 0, 1, 100, 1, '2023-10-24 14:30:00', 61, '2023-10-24 14:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (194, 225, 'nmm', 0, 0, 100, 1, '2023-10-24 16:30:00', 1, '2023-10-24 16:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (195, 226, 'llluuuu', 0, 0, 100, 1, '2023-10-24 16:45:00', 1, '2023-10-24 16:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (196, 227, 'llluuuu', 0, 0, 100, 1, '2023-10-24 16:45:08', 1, '2023-10-24 16:45:08', b'0');
+INSERT INTO `tb_account_player` VALUES (197, 228, '{我特别特别的爱上班}', 0, 0, 100, 1, '2023-10-24 17:00:00', 1, '2023-10-24 17:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (198, 229, '鼓励师', 0, 0, 100, 1, '2023-10-24 19:22:16', 1, '2023-10-24 19:22:16', b'0');
+INSERT INTO `tb_account_player` VALUES (199, 230, '鼓励师', 0, 0, 100, 1, '2023-10-24 19:22:17', 1, '2023-10-24 19:22:17', b'0');
+INSERT INTO `tb_account_player` VALUES (200, 231, '官方魚塘', 0, 0, 100, 1, '2023-10-25 09:15:01', 1, '2023-10-25 09:15:01', b'0');
+INSERT INTO `tb_account_player` VALUES (201, 232, 'ccp', 0, 0, 100, 1, '2023-10-25 11:00:00', 1, '2023-10-25 11:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (202, 233, '法外狂徒张三', 0, 0, 100, 1, '2023-10-25 11:25:55', 1, '2023-10-25 11:25:55', b'0');
+INSERT INTO `tb_account_player` VALUES (203, 234, 'sdf', 0, 0, 100, 1, '2023-10-25 11:25:55', 1, '2023-10-25 11:25:55', b'0');
+INSERT INTO `tb_account_player` VALUES (204, 235, '法外狂徒张三', 0, 0, 100, 1, '2023-10-25 11:25:55', 1, '2023-10-25 11:25:55', b'0');
+INSERT INTO `tb_account_player` VALUES (205, 236, 'sdf', 0, 0, 100, 1, '2023-10-25 11:25:55', 1, '2023-10-25 11:25:55', b'0');
+INSERT INTO `tb_account_player` VALUES (206, 237, '纯牛马', 0, 40, 100, 1, '2023-10-25 11:30:00', 115, '2023-10-26 23:37:50', b'0');
+INSERT INTO `tb_account_player` VALUES (207, 238, '{海绵宝宝}', 0, 0, 100, 1, '2023-10-25 14:15:00', 1, '2023-10-25 14:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (208, 239, '11', 0, 0, 100, 1, '2023-10-25 14:30:00', 1, '2023-10-25 14:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (209, 240, 'zzy', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (210, 241, '{ashui}', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (211, 242, '阿狸', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (212, 243, '{王青龙}', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (213, 244, 'lurui', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (214, 245, '举哥', 0, 0, 100, 1, '2023-10-25 15:00:01', 1, '2023-10-25 15:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (215, 246, '猛踹瘸子那条好腿', 0, 0, 100, 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (216, 247, '{yaoyuan}', 0, 0, 100, 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (217, 248, 'neil', 0, 0, 100, 1, '2023-10-25 15:15:00', 1, '2023-10-25 15:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (218, 249, '{1024}', 0, 0, 100, 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (219, 250, '老季季伯常', 0, 0, 100, 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (220, 251, 'HY', 0, 0, 100, 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (221, 252, 'kouer', 0, 0, 100, 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (222, 253, '{介是嘛}', 0, 0, 100, 1, '2023-10-25 15:30:00', 1, '2023-10-25 15:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (223, 254, 'Jarry', 0, 0, 100, 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (224, 255, 'chunge', 0, 0, 100, 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (225, 256, 'panzer', 0, 0, 100, 1, '2023-10-25 15:45:00', 1, '2023-10-25 15:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (226, 257, 'master', 0, 2, 100, 1, '2023-10-25 15:45:00', 94, '2023-10-25 15:56:50', b'0');
+INSERT INTO `tb_account_player` VALUES (227, 258, 'lan', 2, 129, 100, 1, '2023-10-25 16:00:00', 308, '2023-10-27 09:25:05', b'0');
+INSERT INTO `tb_account_player` VALUES (228, 259, 'devil', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (229, 260, '阿甘', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (230, 261, '灰色', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (231, 262, '{老王}', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (232, 263, 'kris_wu', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (233, 264, 'hello', 0, 0, 100, 1, '2023-10-25 16:15:00', 1, '2023-10-25 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (234, 265, '菊花', 0, 0, 100, 1, '2023-10-25 16:30:00', 1, '2023-10-25 16:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (235, 266, '奥克曼', 0, 0, 100, 1, '2023-10-25 16:30:00', 1, '2023-10-25 16:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (236, 267, '大和', 0, 0, 100, 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (237, 268, '灵堂DJ', 0, 0, 100, 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (238, 269, '摸鱼的LLM', 0, 0, 100, 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (239, 270, 'jsa', 0, 0, 100, 1, '2023-10-25 16:45:00', 1, '2023-10-25 16:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (240, 271, 'ashr', 0, 0, 100, 1, '2023-10-25 17:00:00', 1, '2023-10-25 17:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (241, 272, 'xx', 0, 0, 100, 1, '2023-10-25 17:00:00', 1, '2023-10-25 17:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (242, 273, '{', 0, 0, 100, 1, '2023-10-25 17:15:00', 1, '2023-10-25 17:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (243, 274, '流苏', 0, 0, 100, 1, '2023-10-25 17:15:00', 1, '2023-10-25 17:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (244, 275, 'lsx', 0, 0, 100, 1, '2023-10-25 17:30:00', 1, '2023-10-25 17:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (245, 276, 'song', 0, 0, 100, 1, '2023-10-25 17:30:00', 1, '2023-10-25 17:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (246, 277, 'fry', 0, 0, 100, 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (247, 278, '萝卜特好吃', 1, 62, 100, 1, '2023-10-25 17:45:00', 308, '2023-10-27 09:24:40', b'0');
+INSERT INTO `tb_account_player` VALUES (248, 279, 'df', 0, 0, 100, 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (249, 280, 'ss', 0, 0, 100, 1, '2023-10-25 17:45:00', 1, '2023-10-25 17:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (250, 281, '{Edwin}', 10, 632, 100, 1, '2023-10-25 17:45:00', 156, '2023-10-27 16:29:03', b'0');
+INSERT INTO `tb_account_player` VALUES (251, 282, '苹果啊', 0, 0, 100, 1, '2023-10-25 18:00:00', 1, '2023-10-25 18:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (252, 283, 'wei', 0, 0, 100, 1, '2023-10-25 19:45:00', 1, '2023-10-25 19:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (253, 284, 'shitou', 0, 0, 100, 1, '2023-10-26 08:45:00', 1, '2023-10-26 08:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (254, 285, '古月', 0, 0, 100, 1, '2023-10-26 08:45:00', 1, '2023-10-26 08:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (255, 286, '{isyou}', 0, 0, 100, 1, '2023-10-26 09:02:52', 1, '2023-10-26 09:02:52', b'0');
+INSERT INTO `tb_account_player` VALUES (256, 287, '{isyou}', 0, 0, 100, 1, '2023-10-26 09:02:53', 1, '2023-10-26 09:02:53', b'0');
+INSERT INTO `tb_account_player` VALUES (257, 288, 'ChaoZhai', 0, 0, 100, 1, '2023-10-26 09:15:00', 1, '2023-10-26 09:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (258, 289, 'ChaoZhai', 0, 0, 100, 1, '2023-10-26 09:15:06', 1, '2023-10-26 09:15:06', b'0');
+INSERT INTO `tb_account_player` VALUES (259, 290, '{rex}', 0, 0, 100, 1, '2023-10-26 09:30:00', 1, '2023-10-26 09:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (260, 291, '灵堂DJ', 0, 0, 100, 1, '2023-10-26 10:15:00', 1, '2023-10-26 10:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (261, 292, '灵堂DJ', 0, 0, 100, 1, '2023-10-26 10:15:12', 1, '2023-10-26 10:15:12', b'0');
+INSERT INTO `tb_account_player` VALUES (262, 293, '甜筒冰淇淋', 0, 0, 100, 1, '2023-10-26 10:30:00', 1, '2023-10-26 10:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (263, 294, 'demo', 0, 0, 100, 1, '2023-10-26 10:30:00', 1, '2023-10-26 10:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (264, 295, '甜筒冰淇淋', 0, 0, 100, 1, '2023-10-26 10:30:03', 1, '2023-10-26 10:30:03', b'0');
+INSERT INTO `tb_account_player` VALUES (265, 296, 'demo', 0, 0, 100, 1, '2023-10-26 10:30:03', 1, '2023-10-26 10:30:03', b'0');
+INSERT INTO `tb_account_player` VALUES (266, 297, '天外飞仙', 0, 0, 100, 1, '2023-10-26 10:45:00', 1, '2023-10-26 10:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (267, 298, '-0', 0, 0, 100, 1, '2023-10-26 11:15:00', 1, '2023-10-26 11:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (268, 299, '灵堂DJ', 0, 0, 100, 1, '2023-10-26 11:15:00', 1, '2023-10-26 11:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (269, 300, '-0', 0, 0, 100, 1, '2023-10-26 11:15:03', 1, '2023-10-26 11:15:03', b'0');
+INSERT INTO `tb_account_player` VALUES (270, 301, '灵堂DJ', 0, 0, 100, 1, '2023-10-26 11:15:03', 1, '2023-10-26 11:15:03', b'0');
+INSERT INTO `tb_account_player` VALUES (271, 302, '灵堂DJ', 0, 0, 100, 1, '2023-10-26 14:00:01', 1, '2023-10-26 14:00:01', b'0');
+INSERT INTO `tb_account_player` VALUES (272, 303, 'barry', 0, 2, 100, 1, '2023-10-26 14:45:00', 281, '2023-10-26 16:13:34', b'0');
+INSERT INTO `tb_account_player` VALUES (273, 304, 'Deuses', 1, 59, 100, 1, '2023-10-26 14:45:00', 115, '2023-10-26 23:38:04', b'0');
+INSERT INTO `tb_account_player` VALUES (274, 305, '小巴', 0, 0, 100, 1, '2023-10-26 14:45:00', 1, '2023-10-26 14:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (275, 306, 'null', 0, 10, 100, 1, '2023-10-26 15:00:01', 281, '2023-10-26 16:11:44', b'0');
+INSERT INTO `tb_account_player` VALUES (276, 307, '灵堂DJ', 0, 5, 100, 1, '2023-10-26 15:27:23', 94, '2023-10-26 15:38:01', b'0');
+INSERT INTO `tb_account_player` VALUES (277, 308, '3', 12, 2660, 100, 1, '2023-10-26 16:15:00', 156, '2023-10-27 16:33:19', b'0');
+INSERT INTO `tb_account_player` VALUES (278, 309, '{Ray}', 0, 0, 100, 1, '2023-10-26 16:15:00', 1, '2023-10-26 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (279, 310, '{鱼向前没有小鸡鸡}', 0, 0, 100, 1, '2023-10-26 16:15:00', 1, '2023-10-26 16:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (280, 311, 'JX', 0, 0, 100, 1, '2023-10-26 16:25:08', 1, '2023-10-26 16:25:08', b'0');
+INSERT INTO `tb_account_player` VALUES (281, 312, '{mike}', 0, 0, 100, 1, '2023-10-26 16:25:08', 1, '2023-10-26 16:25:08', b'0');
+INSERT INTO `tb_account_player` VALUES (282, 313, 'cq', 0, 0, 100, 1, '2023-10-26 16:30:00', 1, '2023-10-26 16:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (283, 314, 'cq', 0, 0, 100, 1, '2023-10-26 16:30:03', 1, '2023-10-26 16:30:03', b'0');
+INSERT INTO `tb_account_player` VALUES (284, 315, '🐟', 10, 744, 100, 1, '2023-10-26 16:45:02', 99, '2023-10-27 10:34:02', b'0');
+INSERT INTO `tb_account_player` VALUES (285, 316, '{mike2}', 0, 0, 100, 1, '2023-10-26 17:00:00', 1, '2023-10-26 17:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (286, 317, '{mike2}', 0, 0, 100, 1, '2023-10-26 17:00:03', 1, '2023-10-26 17:00:03', b'0');
+INSERT INTO `tb_account_player` VALUES (287, 318, '别在河里撒尿', 0, 2, 100, 1, '2023-10-26 17:15:00', 308, '2023-10-27 09:22:22', b'0');
+INSERT INTO `tb_account_player` VALUES (288, 319, '六子', 0, 41, 100, 1, '2023-10-27 09:15:00', 156, '2023-10-27 16:31:15', b'0');
+INSERT INTO `tb_account_player` VALUES (289, 320, '樱桃炸弹🍒', 10, 615, 100, 1, '2023-10-27 10:14:34', 156, '2023-10-27 16:31:39', b'0');
+INSERT INTO `tb_account_player` VALUES (290, 321, 'Shaw', 0, 1, 100, 1, '2023-10-27 11:15:00', 61, '2023-10-27 14:14:20', b'0');
+INSERT INTO `tb_account_player` VALUES (291, 322, '八级大狂风', 0, 1, 100, 1, '2023-10-27 13:15:00', 61, '2023-10-27 14:14:15', b'0');
+INSERT INTO `tb_account_player` VALUES (292, 323, '八级大狂风', 0, 1, 100, 1, '2023-10-27 13:30:00', 61, '2023-10-27 14:14:00', b'0');
+INSERT INTO `tb_account_player` VALUES (293, 324, '八级大狂风', 0, 1, 100, 1, '2023-10-27 13:45:00', 61, '2023-10-27 14:13:55', b'0');
+INSERT INTO `tb_account_player` VALUES (294, 325, '八级大狂风', 0, 1, 100, 1, '2023-10-27 14:00:00', 61, '2023-10-27 14:13:28', b'0');
+INSERT INTO `tb_account_player` VALUES (295, 326, '{miek}', 0, 0, 100, 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (296, 327, '八级大狂风', 0, 0, 100, 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (297, 328, 'joco', 0, 0, 100, 1, '2023-10-27 14:30:00', 1, '2023-10-27 14:30:00', b'0');
+INSERT INTO `tb_account_player` VALUES (298, 329, 'l', 0, 0, 100, 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (299, 330, '八级大狂风', 0, 0, 100, 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (300, 331, '4399', 0, 0, 100, 1, '2023-10-27 14:45:00', 1, '2023-10-27 14:45:00', b'0');
+INSERT INTO `tb_account_player` VALUES (301, 332, '{策君}', 0, 0, 100, 1, '2023-10-27 15:00:00', 1, '2023-10-27 15:00:00', b'0');
+INSERT INTO `tb_account_player` VALUES (302, 333, '哈哈哈哈', 0, 0, 100, 1, '2023-10-27 15:15:00', 1, '2023-10-27 15:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (303, 334, '八级大狂风', 0, 0, 100, 1, '2023-10-27 15:15:00', 1, '2023-10-27 15:15:00', b'0');
+INSERT INTO `tb_account_player` VALUES (304, 335, '蝉', 0, 8, 100, 1, '2023-10-27 15:15:00', 281, '2023-10-27 15:42:12', b'0');
+INSERT INTO `tb_account_player` VALUES (305, 336, '{jagger}', 0, 8, 100, 1, '2023-10-27 15:30:00', 281, '2023-10-27 15:42:09', b'0');
+INSERT INTO `tb_account_player` VALUES (306, 337, '八级大狂风', 0, 0, 100, 1, '2023-10-27 15:37:19', 1, '2023-10-27 15:37:19', b'0');
+INSERT INTO `tb_account_player` VALUES (307, 338, '{唐}', 0, 0, 100, 1, '2023-10-27 16:00:02', 1, '2023-10-27 16:00:02', b'0');
+INSERT INTO `tb_account_player` VALUES (308, 339, 'Su', 0, 0, 100, 1, '2023-10-27 16:00:02', 1, '2023-10-27 16:00:02', b'0');
 
-create table tb_base_table
-(
-    id          int primary key auto_increment comment '自增主键',
-    create_by   int      NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int      NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)   NULL DEFAULT false COMMENT '删除标记'
-) comment '基础表格框架';
+-- ----------------------------
+-- Table structure for tb_buff_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_buff_dict`;
+CREATE TABLE `tb_buff_dict`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '名称',
+  `attr` int NOT NULL,
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Buff字典' ROW_FORMAT = Dynamic;
 
-create table tb_account_player
-(
-    id          int primary key auto_increment comment '自增主键',
-    account_id  int         not null comment '账号id',
-    nickname    varchar(32) not null comment '昵称',
-    level       int              default 0 comment '当前等级',
-    exp         int              default 0 comment '当前经验',
-    create_by   int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)      NULL DEFAULT false COMMENT '删除标记'
-) comment '账号角色';
+-- ----------------------------
+-- Records of tb_buff_dict
+-- ----------------------------
 
-create table tb_weapon
-(
-    id           int primary key auto_increment comment '自增主键',
-    weapon_name  varchar(20)  not null comment '武器名称',
-    weapon_intro varchar(200) not null comment '武器描述',
-    type         int          not null comment '武器类型 0小型武器 1中型武器 2大型武器',
-    grade        int               default 0 comment '品级 0白 1绿 2蓝 3紫 4粉 5传说 6史诗',
-    create_by    int          NULL DEFAULT NULL COMMENT '创建人',
-    create_time  datetime     NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by    int          NULL DEFAULT NULL COMMENT '更新人',
-    update_time  datetime     NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag     bit(1)       NULL DEFAULT false COMMENT '删除标记'
-) comment '武器表';
+-- ----------------------------
+-- Table structure for tb_fight_log
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fight_log`;
+CREATE TABLE `tb_fight_log`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `attacker_id` int NOT NULL COMMENT '攻击者id',
+  `defender_id` int NOT NULL COMMENT '防御者id',
+  `success` tinyint(1) NULL DEFAULT 0 COMMENT '是否胜利',
+  `fight_date` date NULL DEFAULT NULL COMMENT '战斗日期',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '战斗记录表' ROW_FORMAT = Dynamic;
 
-create table tb_skill
-(
-    id          int primary key auto_increment comment '自增主键',
-    skill_name  varchar(20)  not null comment '技能名称',
-    skill_intro varchar(200) not null comment '技能描述',
-    create_by   int          NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime     NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int          NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime     NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)       NULL DEFAULT false COMMENT '删除标记'
-) comment '技能表';
+-- ----------------------------
+-- Records of tb_fight_log
+-- ----------------------------
 
-create table tb_player_skill
-(
-    id          int primary key auto_increment comment '自增主键',
-    player_id   int      not null comment '角色id',
-    skill_id    int      not null comment '技能id',
-    skill_level int      not null comment '技能等级',
-    create_by   int      NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int      NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)   NULL DEFAULT false COMMENT '删除标记'
-) comment '角色技能表';
+-- ----------------------------
+-- Table structure for tb_game_instance
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_game_instance`;
+CREATE TABLE `tb_game_instance`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `instance_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '副本名称',
+  `instance_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '副本描述',
+  `floor_num` int NULL DEFAULT 1 COMMENT '层数',
+  `access_level` int NOT NULL COMMENT '准入等级',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '游戏副本表' ROW_FORMAT = Dynamic;
 
-create table tb_skill_level
-(
-    id          int primary key auto_increment comment '自增主键',
-    skill_id    int      not null comment '技能id',
-    level       int      not null comment '技能等级',
-    need_level  int      not null comment '最低学习等级',
-    min_damage  int           default 1 comment '最小攻击',
-    max_damage  int           default 5 comment '最大攻击',
-    effect_json text comment '增幅效果',
-    create_by   int      NULL DEFAULT NULL COMMENT '创建人',
-    create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by   int      NULL DEFAULT NULL COMMENT '更新人',
-    update_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag    bit(1)   NULL DEFAULT false COMMENT '删除标记'
-) comment '技能等级表';
+-- ----------------------------
+-- Records of tb_game_instance
+-- ----------------------------
+INSERT INTO `tb_game_instance` VALUES (1, '光之乐园', '来自遥远的M78星云的副本', 6, 0, NULL, '2023-10-24 00:30:38', NULL, '2023-10-24 00:30:38', b'0');
 
-create table tb_game_instance
-(
-    id            int primary key auto_increment comment '自增主键',
-    instance_name varchar(30) not null comment '副本名称',
-    instance_info text        not null comment '副本描述',
-    access_level  int         not null comment '准入等级',
-    create_by     int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time   datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by     int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time   datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag      bit(1)      NULL DEFAULT false COMMENT '删除标记'
-) comment '游戏副本表';
+-- ----------------------------
+-- Table structure for tb_instance_npc
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_instance_npc`;
+CREATE TABLE `tb_instance_npc`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `instance_id` int NOT NULL COMMENT '副本id',
+  `npc_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'npc名称',
+  `player_id` int NOT NULL COMMENT '玩家id',
+  `bossFlag` tinyint(1) NULL DEFAULT 0 COMMENT '是否BOSS',
+  `increase_ratio` double NULL DEFAULT 1.1 COMMENT '属性增幅系数',
+  `floor` int NULL DEFAULT 1 COMMENT '层数',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '游戏副本NPC表' ROW_FORMAT = Dynamic;
 
-create table tb_instance_npc
-(
-    id                 int primary key auto_increment comment '自增主键',
-    instance_id        int         not null comment '副本id',
-    npc_name           varchar(30) not null comment 'npc名称',
-    npc_level          int         default 1 comment 'npc等级',
-    bossFlag           boolean          default false comment '是否BOSS',
-    increase_ratio     double           default 1.1 comment '属性增幅系数',
-    floor              int              default 1 comment '层数',
-    random_drop_skill  varchar(50) comment '随机掉落技能',
-    random_drop_weapon varchar(50) comment '随机掉落武器',
-    create_by          int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by          int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag           bit(1)      NULL DEFAULT false COMMENT '删除标记'
-) comment '游戏副本NPC表';
+-- ----------------------------
+-- Records of tb_instance_npc
+-- ----------------------------
+INSERT INTO `tb_instance_npc` VALUES (1, 1, '凡*NPC1', -1, 0, 1.1, 1, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
+INSERT INTO `tb_instance_npc` VALUES (2, 1, '凡*NPC2', -2, 0, 1.2, 2, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
+INSERT INTO `tb_instance_npc` VALUES (3, 1, '凡*NPC3', -3, 0, 1.3, 3, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
+INSERT INTO `tb_instance_npc` VALUES (4, 1, '凡*NPC4', -4, 0, 1.4, 4, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
+INSERT INTO `tb_instance_npc` VALUES (5, 1, '凡*NPC5', -5, 0, 1.5, 5, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
+INSERT INTO `tb_instance_npc` VALUES (6, 1, '凡*BOSS', -6, 1, 2, 6, NULL, '2023-10-24 00:33:13', NULL, '2023-10-24 00:33:13', b'0');
 
-create table tb_fight_log
-(
-    id                 int primary key auto_increment comment '自增主键',
-    attacker_id        int not null comment '攻击者id',
-    defender_id        int not null comment '防御者id',
-    success            boolean default false comment '是否胜利',
-    fight_date         date comment '战斗日期',
-    create_by          int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by          int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag           bit(1)      NULL DEFAULT false COMMENT '删除标记'
-) comment '战斗记录表';
+-- ----------------------------
+-- Table structure for tb_npc_drop
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_npc_drop`;
+CREATE TABLE `tb_npc_drop`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `npc_id` int NOT NULL COMMENT 'npcId',
+  `type` int NULL DEFAULT NULL COMMENT '0技能 1武器 2物品',
+  `obj_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '物品名称',
+  `obj_id` int NULL DEFAULT NULL COMMENT '物品id',
+  `drop_probability` double(8, 5) NULL DEFAULT NULL COMMENT '掉落概率',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'npc掉落物品表' ROW_FORMAT = Dynamic;
 
-create table tb_npc_drop
-(
-    id                 int primary key auto_increment comment '自增主键',
-    npc_id             int not null comment 'npcId',
-    type               int comment '0技能 1武器 2物品',
-    obj_name           varchar(30) comment '物品名称',
-    obj_id             int comment '物品id',
-    drop_probability   double(8,5) comment '掉落概率',
-    create_by          int         NULL DEFAULT NULL COMMENT '创建人',
-    create_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_by          int         NULL DEFAULT NULL COMMENT '更新人',
-    update_time        datetime    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    del_flag           bit(1)      NULL DEFAULT false COMMENT '删除标记'
-) comment 'npc掉落物品表';
+-- ----------------------------
+-- Records of tb_npc_drop
+-- ----------------------------
+INSERT INTO `tb_npc_drop` VALUES (1, 1, 0, '装死', 1, 0.00001, 1, '2023-10-19 16:14:21', 1, '2023-10-19 16:14:24', b'0');
+
+-- ----------------------------
+-- Table structure for tb_player_level_exp
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_player_level_exp`;
+CREATE TABLE `tb_player_level_exp`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `level` int NULL DEFAULT NULL COMMENT '等级',
+  `need_exp` int NULL DEFAULT NULL COMMENT '所需经验',
+  `hp` int NULL DEFAULT 50 COMMENT '基础HP',
+  `attack` int NULL DEFAULT 1 COMMENT '基础攻击力',
+  `defender` int NULL DEFAULT 1 COMMENT '基础防御力',
+  `flee` double(6, 3) NULL DEFAULT 0.300 COMMENT '基础闪避率',
+  `critical_chance` double(6, 3) NULL DEFAULT NULL COMMENT '暴击率',
+  `combo` double(6, 3) NULL DEFAULT 0.300 COMMENT '基础连击',
+  `hit` double(6, 3) NULL DEFAULT 0.500 COMMENT '基础命中率',
+  `get_weapon` int NULL DEFAULT NULL COMMENT '获得武器',
+  `create_by` int NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色等级数据表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_player_level_exp
+-- ----------------------------
+INSERT INTO `tb_player_level_exp` VALUES (1, 0, 0, 50, 3, 1, 0.010, 0.020, 0.010, 0.160, 1, 0, '2023-10-08 06:05:08', 0, '2023-10-08 06:05:08', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (2, 1, 50, 54, 3, 2, 0.020, 0.030, 0.010, 0.160, 14, 0, '2023-10-08 06:05:41', 0, '2023-10-08 06:05:41', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (3, 2, 100, 58, 5, 2, 0.020, 0.030, 0.020, 0.160, NULL, 0, '2023-10-08 06:06:24', 0, '2023-10-08 06:06:24', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (4, 3, 150, 64, 7, 3, 0.020, 0.030, 0.020, 0.170, 2, 0, '2023-10-08 06:06:56', 0, '2023-10-08 06:06:56', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (5, 4, 200, 75, 12, 4, 0.020, 0.030, 0.020, 0.180, NULL, 0, '2023-10-08 06:07:04', 0, '2023-10-08 06:07:04', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (6, 5, 251, 89, 19, 4, 0.020, 0.030, 0.030, 0.180, NULL, 0, '2023-10-08 06:07:08', 0, '2023-10-08 06:07:08', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (7, 6, 300, 130, 31, 7, 0.030, 0.040, 0.030, 0.180, 3, 0, '2023-10-08 06:07:12', 0, '2023-10-08 06:07:12', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (8, 7, 350, 170, 50, 9, 0.030, 0.040, 0.040, 0.180, NULL, 0, '2023-10-08 06:07:17', 0, '2023-10-08 06:07:17', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (9, 8, 400, 220, 60, 13, 0.040, 0.050, 0.040, 0.180, NULL, 0, '2023-10-08 06:07:24', 0, '2023-10-08 06:07:24', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (10, 9, 450, 280, 71, 15, 0.040, 0.050, 0.040, 0.190, 4, 0, '2023-10-08 06:07:29', 0, '2023-10-08 06:07:29', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (11, 10, 500, 340, 80, 15, 0.050, 0.060, 0.050, 0.200, NULL, 0, '2023-10-08 06:07:33', 0, '2023-10-08 06:07:33', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (12, 11, 1000, 400, 84, 18, 0.160, 0.170, 0.150, 0.300, NULL, 0, '2023-10-08 06:07:36', 0, '2023-10-08 06:07:36', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (13, 12, 2000, 500, 88, 19, 0.160, 0.170, 0.160, 0.300, 5, 0, '2023-10-08 06:07:39', 0, '2023-10-08 06:07:39', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (14, 13, 3000, 580, 92, 21, 0.160, 0.170, 0.160, 0.310, NULL, 0, '2023-10-08 06:07:42', 0, '2023-10-08 06:07:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (15, 14, 4000, 670, 100, 22, 0.160, 0.170, 0.170, 0.310, NULL, 0, '2023-10-08 06:07:46', 0, '2023-10-08 06:07:46', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (16, 15, 5000, 800, 123, 23, 0.160, 0.170, 0.170, 0.320, 6, 0, '2023-10-08 06:07:49', 0, '2023-10-08 06:07:49', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (17, 16, 6000, 950, 135, 28, 0.170, 0.180, 0.170, 0.320, NULL, 0, '2023-10-08 06:07:52', 0, '2023-10-08 06:07:52', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (18, 17, 7000, 1080, 156, 30, 0.170, 0.180, 0.180, 0.320, NULL, 0, '2023-10-08 06:07:58', 0, '2023-10-08 06:07:58', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (19, 18, 8000, 1340, 188, 31, 0.170, 0.180, 0.180, 0.330, 7, 0, '2023-10-08 06:08:01', 0, '2023-10-08 06:08:01', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (20, 19, 9000, 1780, 191, 33, 0.180, 0.190, 0.180, 0.330, NULL, 0, '2023-10-08 06:08:05', 0, '2023-10-08 06:08:05', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (21, 20, 10000, 2356, 202, 55, 0.280, 0.290, 0.280, 0.410, NULL, 0, '2023-10-08 06:08:08', 0, '2023-10-08 06:08:08', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (22, 21, 20000, 2600, 222, 64, 0.290, 0.300, 0.280, 0.410, 8, 0, '2023-10-08 06:08:11', 0, '2023-10-08 06:08:11', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (23, 22, 30000, 2980, 245, 70, 0.290, 0.300, 0.290, 0.410, NULL, 0, '2023-10-08 06:08:14', 0, '2023-10-08 06:08:14', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (24, 23, 40000, 3500, 278, 101, 0.290, 0.300, 0.290, 0.420, NULL, 0, '2023-10-08 06:08:17', 0, '2023-10-08 06:08:17', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (25, 24, 50000, 4400, 300, 113, 0.290, 0.300, 0.300, 0.420, 9, 0, '2023-10-08 06:08:22', 0, '2023-10-08 06:08:22', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (26, 25, 60000, 5200, 312, 135, 0.290, 0.300, 0.300, 0.430, NULL, 0, '2023-10-08 06:08:25', 0, '2023-10-08 06:08:25', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (27, 26, 70000, 6100, 344, 149, 0.300, 0.310, 0.300, 0.430, NULL, 0, '2023-10-08 06:08:28', 0, '2023-10-08 06:08:28', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (28, 27, 80000, 7000, 358, 179, 0.310, 0.320, 0.310, 0.430, 10, 0, '2023-10-08 06:08:31', 0, '2023-10-08 06:08:31', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (29, 28, 90000, 8848, 372, 188, 0.310, 0.320, 0.310, 0.460, NULL, 0, '2023-10-08 06:08:35', 0, '2023-10-08 06:08:35', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (30, 29, 100000, 9527, 399, 199, 0.360, 0.370, 0.360, 0.460, NULL, 0, '2023-10-08 06:08:38', 0, '2023-10-08 06:08:38', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (31, 30, 200000, 10086, 404, 200, 0.460, 0.470, 0.460, 0.460, 11, 0, '2023-10-08 06:08:43', 0, '2023-10-08 06:08:43', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (32, 31, 300000, 15000, 500, 220, 0.460, 0.470, 0.460, 0.460, NULL, 0, '2023-10-20 09:06:36', 0, '2023-10-20 09:06:36', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (33, 32, 400000, 17000, 520, 221, 0.465, 0.475, 0.460, 0.460, NULL, 0, '2023-10-20 09:16:09', 0, '2023-10-20 09:16:09', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (34, 33, 500000, 17500, 555, 240, 0.465, 0.475, 0.465, 0.460, 12, 0, '2023-10-20 09:17:14', 0, '2023-10-20 09:17:14', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (35, 34, 600000, 17500, 555, 240, 0.465, 0.475, 0.465, 0.465, NULL, 0, '2023-10-20 09:17:32', 0, '2023-10-20 09:17:32', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (36, 35, 700000, 17500, 570, 260, 0.465, 0.475, 0.465, 0.470, NULL, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (37, 36, 800000, 18500, 600, 280, 0.465, 0.475, 0.465, 0.470, NULL, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (38, 37, 900000, 19500, 666, 300, 0.465, 0.475, 0.465, 0.470, NULL, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (39, 38, 1000000, 24500, 777, 400, 0.465, 0.475, 0.465, 0.470, NULL, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (40, 39, 2000000, 25000, 888, 444, 0.465, 0.475, 0.465, 0.470, 13, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+INSERT INTO `tb_player_level_exp` VALUES (41, 40, 3000000, 30000, 1024, 512, 0.465, 0.475, 0.465, 0.470, NULL, 0, '2023-10-20 09:21:42', 0, '2023-10-20 09:21:42', b'0');
+
+-- ----------------------------
+-- Table structure for tb_player_package
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_player_package`;
+CREATE TABLE `tb_player_package`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `player_id` int NOT NULL COMMENT '玩家id',
+  `type` int NOT NULL COMMENT '0 装备 1消耗品  2材料',
+  `num` int NOT NULL COMMENT '物品数量',
+  `obj_id` int NOT NULL COMMENT '物品id',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '玩家背包' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_player_package
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_player_skill
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_player_skill`;
+CREATE TABLE `tb_player_skill`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `player_id` int NOT NULL COMMENT '角色id',
+  `skill_id` int NOT NULL COMMENT '技能id',
+  `skill_level` int NOT NULL COMMENT '技能等级',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色技能表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_player_skill
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_player_weapon
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_player_weapon`;
+CREATE TABLE `tb_player_weapon`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `player_id` int NOT NULL COMMENT '角色id',
+  `weapon_id` int NOT NULL COMMENT '技能id',
+  `add_level` int NOT NULL COMMENT '强化等级',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 388 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色武器表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_player_weapon
+-- ----------------------------
+INSERT INTO `tb_player_weapon` VALUES (1, 1, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (2, 2, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (3, 3, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (4, 4, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (5, 5, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (6, 6, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (7, 7, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (8, 8, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (9, 9, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (10, 10, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (11, 11, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (12, 12, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (13, 13, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (14, 14, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (15, 15, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (16, 16, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (17, 17, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (18, 18, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (19, 19, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (20, 20, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (21, 21, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (22, 22, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (23, 23, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (24, 24, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (25, 25, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (26, 26, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (27, 27, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (28, 28, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (29, 29, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (30, 30, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (31, 31, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (32, 32, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (33, 33, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (34, 34, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (35, 35, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (36, 36, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (37, 37, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (38, 38, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (39, 39, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (40, 40, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (41, 41, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (42, 42, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (43, 43, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (44, 44, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (45, 45, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (46, 46, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (47, 47, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (48, 48, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (49, 49, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (50, 50, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (51, 51, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (52, 52, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (53, 53, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (54, 54, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (55, 55, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (56, 56, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (57, 57, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (58, 58, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (59, 59, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (60, 60, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (61, 61, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (62, 62, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (63, 63, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (64, 64, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (65, 65, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (66, 66, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (67, 67, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (68, 68, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (69, 69, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (70, 70, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (71, 71, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (72, 72, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (73, 73, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (74, 74, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (75, 75, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (76, 76, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (77, 77, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (78, 78, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (79, 79, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (80, 80, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (81, 81, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (82, 82, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (83, 83, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (84, 84, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (85, 85, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (86, 86, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (87, 87, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (88, 88, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (89, 89, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (90, 90, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (91, 91, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (92, 92, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (93, 93, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (94, 94, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (95, 95, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (96, 96, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (97, 97, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (98, 98, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (99, 99, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (100, 100, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (101, 101, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (102, 102, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (103, 103, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (104, 104, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (105, 105, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (106, 106, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (107, 107, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (108, 108, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (109, 109, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (110, 110, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (111, 111, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (112, 112, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (113, 113, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (114, 114, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (115, 115, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (116, 116, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (117, 117, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (118, 118, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (119, 119, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (120, 120, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (121, 121, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (122, 122, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (123, 123, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (124, 124, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (125, 125, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (126, 126, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (127, 127, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (128, 128, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (129, 129, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (130, 130, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (131, 131, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (132, 132, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (133, 133, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (134, 134, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (135, 135, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (136, 136, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (137, 137, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (138, 138, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (139, 139, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (140, 140, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (141, 141, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (142, 142, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (143, 143, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (144, 144, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (145, 145, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (146, 146, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (147, 147, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (148, 148, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (149, 149, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (150, 150, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (151, 151, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (152, 152, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (153, 153, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (154, 154, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (155, 155, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (156, 156, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (157, 157, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (158, 158, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (159, 159, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (160, 160, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (161, 161, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (162, 162, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (163, 163, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (164, 164, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (165, 165, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (166, 166, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (167, 167, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (168, 168, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (169, 169, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (170, 170, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (171, 171, 1, 0, 1, '2023-10-23 09:13:04', 1, '2023-10-23 09:13:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (172, 74, 2, 0, 1, '2023-10-23 10:20:47', 1, '2023-10-23 10:20:47', b'0');
+INSERT INTO `tb_player_weapon` VALUES (173, 35, 14, 0, 1, '2023-10-23 10:31:01', 1, '2023-10-23 10:31:01', b'0');
+INSERT INTO `tb_player_weapon` VALUES (174, 74, 14, 0, 1, '2023-10-23 10:31:56', 1, '2023-10-23 10:31:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (175, 129, 14, 0, 1, '2023-10-23 10:40:23', 1, '2023-10-23 10:40:23', b'0');
+INSERT INTO `tb_player_weapon` VALUES (176, 40, 14, 0, 1, '2023-10-23 10:47:07', 1, '2023-10-23 10:47:07', b'0');
+INSERT INTO `tb_player_weapon` VALUES (177, 2, 14, 0, 1, '2023-10-23 10:50:30', 1, '2023-10-23 10:50:30', b'0');
+INSERT INTO `tb_player_weapon` VALUES (178, 2, 2, 0, 1, '2023-10-23 10:51:40', 1, '2023-10-23 10:51:40', b'0');
+INSERT INTO `tb_player_weapon` VALUES (179, 129, 2, 0, 1, '2023-10-23 10:52:07', 1, '2023-10-23 10:52:07', b'0');
+INSERT INTO `tb_player_weapon` VALUES (180, 2, 3, 0, 1, '2023-10-23 10:52:08', 1, '2023-10-23 10:52:08', b'0');
+INSERT INTO `tb_player_weapon` VALUES (181, 87, 14, 0, 1, '2023-10-23 10:53:18', 1, '2023-10-23 10:53:18', b'0');
+INSERT INTO `tb_player_weapon` VALUES (182, 3, 14, 0, 1, '2023-10-23 10:53:18', 1, '2023-10-23 10:53:18', b'0');
+INSERT INTO `tb_player_weapon` VALUES (183, 3, 2, 0, 1, '2023-10-23 10:53:55', 1, '2023-10-23 10:53:55', b'0');
+INSERT INTO `tb_player_weapon` VALUES (184, 3, 3, 0, 1, '2023-10-23 10:54:26', 1, '2023-10-23 10:54:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (185, 3, 4, 0, 1, '2023-10-23 10:55:43', 1, '2023-10-23 10:55:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (186, 83, 14, 0, 1, '2023-10-23 10:56:56', 1, '2023-10-23 10:56:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (187, 129, 3, 0, 1, '2023-10-23 10:57:03', 1, '2023-10-23 10:57:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (188, 83, 2, 0, 1, '2023-10-23 10:57:13', 1, '2023-10-23 10:57:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (189, 87, 2, 0, 1, '2023-10-23 10:57:49', 1, '2023-10-23 10:57:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (190, 35, 2, 0, 1, '2023-10-23 10:58:03', 1, '2023-10-23 10:58:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (191, 83, 3, 0, 1, '2023-10-23 10:58:12', 1, '2023-10-23 10:58:12', b'0');
+INSERT INTO `tb_player_weapon` VALUES (192, 4, 14, 0, 1, '2023-10-23 10:58:14', 1, '2023-10-23 10:58:14', b'0');
+INSERT INTO `tb_player_weapon` VALUES (193, 35, 3, 0, 1, '2023-10-23 10:58:21', 1, '2023-10-23 10:58:21', b'0');
+INSERT INTO `tb_player_weapon` VALUES (194, 129, 4, 0, 1, '2023-10-23 10:58:39', 1, '2023-10-23 10:58:39', b'0');
+INSERT INTO `tb_player_weapon` VALUES (195, 87, 3, 0, 1, '2023-10-23 10:58:54', 1, '2023-10-23 10:58:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (196, 83, 4, 0, 1, '2023-10-23 10:59:16', 1, '2023-10-23 10:59:16', b'0');
+INSERT INTO `tb_player_weapon` VALUES (197, 87, 4, 0, 1, '2023-10-23 10:59:20', 1, '2023-10-23 10:59:20', b'0');
+INSERT INTO `tb_player_weapon` VALUES (198, 129, 5, 0, 1, '2023-10-23 11:00:52', 1, '2023-10-23 11:00:52', b'0');
+INSERT INTO `tb_player_weapon` VALUES (199, 35, 4, 0, 1, '2023-10-23 11:00:55', 1, '2023-10-23 11:00:55', b'0');
+INSERT INTO `tb_player_weapon` VALUES (200, 35, 5, 0, 1, '2023-10-23 11:01:54', 1, '2023-10-23 11:01:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (201, 87, 5, 0, 1, '2023-10-23 11:05:29', 1, '2023-10-23 11:05:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (202, 35, 6, 0, 1, '2023-10-23 11:06:32', 1, '2023-10-23 11:06:32', b'0');
+INSERT INTO `tb_player_weapon` VALUES (203, 83, 5, 0, 1, '2023-10-23 11:08:10', 1, '2023-10-23 11:08:10', b'0');
+INSERT INTO `tb_player_weapon` VALUES (204, 35, 7, 0, 1, '2023-10-23 11:08:30', 1, '2023-10-23 11:08:30', b'0');
+INSERT INTO `tb_player_weapon` VALUES (205, 129, 6, 0, 1, '2023-10-23 11:09:19', 1, '2023-10-23 11:09:19', b'0');
+INSERT INTO `tb_player_weapon` VALUES (206, 83, 6, 0, 1, '2023-10-23 11:09:22', 1, '2023-10-23 11:09:22', b'0');
+INSERT INTO `tb_player_weapon` VALUES (207, 87, 6, 0, 1, '2023-10-23 11:10:38', 1, '2023-10-23 11:10:38', b'0');
+INSERT INTO `tb_player_weapon` VALUES (208, 35, 8, 0, 1, '2023-10-23 11:11:24', 1, '2023-10-23 11:11:24', b'0');
+INSERT INTO `tb_player_weapon` VALUES (209, 87, 7, 0, 1, '2023-10-23 11:13:03', 1, '2023-10-23 11:13:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (210, 35, 9, 0, 1, '2023-10-23 11:16:53', 1, '2023-10-23 11:16:53', b'0');
+INSERT INTO `tb_player_weapon` VALUES (211, 129, 7, 0, 1, '2023-10-23 11:18:35', 1, '2023-10-23 11:18:35', b'0');
+INSERT INTO `tb_player_weapon` VALUES (212, 87, 8, 0, 1, '2023-10-23 11:23:59', 1, '2023-10-23 11:23:59', b'0');
+INSERT INTO `tb_player_weapon` VALUES (213, 39, 14, 0, 1, '2023-10-23 11:27:11', 1, '2023-10-23 11:27:11', b'0');
+INSERT INTO `tb_player_weapon` VALUES (214, 39, 2, 0, 1, '2023-10-23 11:29:55', 1, '2023-10-23 11:29:55', b'0');
+INSERT INTO `tb_player_weapon` VALUES (215, 83, 7, 0, 1, '2023-10-23 11:38:06', 1, '2023-10-23 11:38:06', b'0');
+INSERT INTO `tb_player_weapon` VALUES (216, 35, 10, 0, 1, '2023-10-23 11:39:27', 1, '2023-10-23 11:39:27', b'0');
+INSERT INTO `tb_player_weapon` VALUES (217, 83, 8, 0, 1, '2023-10-23 11:43:46', 1, '2023-10-23 11:43:46', b'0');
+INSERT INTO `tb_player_weapon` VALUES (218, 83, 9, 0, 1, '2023-10-23 11:50:52', 1, '2023-10-23 11:50:52', b'0');
+INSERT INTO `tb_player_weapon` VALUES (219, 83, 10, 0, 1, '2023-10-23 11:56:44', 1, '2023-10-23 11:56:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (220, 83, 11, 0, 1, '2023-10-23 12:14:43', 1, '2023-10-23 12:14:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (221, 79, 14, 0, 1, '2023-10-23 13:10:42', 1, '2023-10-23 13:10:42', b'0');
+INSERT INTO `tb_player_weapon` VALUES (222, 7, 14, 0, 1, '2023-10-23 13:10:48', 1, '2023-10-23 13:10:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (223, 79, 2, 0, 1, '2023-10-23 13:11:41', 1, '2023-10-23 13:11:41', b'0');
+INSERT INTO `tb_player_weapon` VALUES (224, 79, 3, 0, 1, '2023-10-23 13:11:54', 1, '2023-10-23 13:11:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (225, 79, 4, 0, 1, '2023-10-23 13:12:21', 1, '2023-10-23 13:12:21', b'0');
+INSERT INTO `tb_player_weapon` VALUES (226, 39, 3, 0, 1, '2023-10-23 13:12:26', 1, '2023-10-23 13:12:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (227, 79, 5, 0, 1, '2023-10-23 13:13:47', 1, '2023-10-23 13:13:47', b'0');
+INSERT INTO `tb_player_weapon` VALUES (228, 79, 6, 0, 1, '2023-10-23 13:22:08', 1, '2023-10-23 13:22:08', b'0');
+INSERT INTO `tb_player_weapon` VALUES (229, 79, 7, 0, 1, '2023-10-23 13:33:50', 1, '2023-10-23 13:33:50', b'0');
+INSERT INTO `tb_player_weapon` VALUES (230, 111, 14, 0, 1, '2023-10-23 13:43:36', 1, '2023-10-23 13:43:36', b'0');
+INSERT INTO `tb_player_weapon` VALUES (231, 111, 2, 0, 1, '2023-10-23 13:43:54', 1, '2023-10-23 13:43:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (232, 130, 14, 0, 1, '2023-10-23 13:50:35', 1, '2023-10-23 13:50:35', b'0');
+INSERT INTO `tb_player_weapon` VALUES (233, 130, 2, 0, 1, '2023-10-23 13:58:53', 1, '2023-10-23 13:58:53', b'0');
+INSERT INTO `tb_player_weapon` VALUES (234, 130, 3, 0, 1, '2023-10-23 13:59:44', 1, '2023-10-23 13:59:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (235, 130, 4, 0, 1, '2023-10-23 14:02:42', 1, '2023-10-23 14:02:42', b'0');
+INSERT INTO `tb_player_weapon` VALUES (236, 130, 5, 0, 1, '2023-10-23 14:04:44', 1, '2023-10-23 14:04:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (237, 130, 6, 0, 1, '2023-10-23 14:07:26', 1, '2023-10-23 14:07:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (238, 130, 7, 0, 1, '2023-10-23 14:09:16', 1, '2023-10-23 14:09:16', b'0');
+INSERT INTO `tb_player_weapon` VALUES (239, 39, 4, 0, 1, '2023-10-23 14:11:48', 1, '2023-10-23 14:11:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (240, 83, 12, 0, 1, '2023-10-23 14:16:51', 1, '2023-10-23 14:16:51', b'0');
+INSERT INTO `tb_player_weapon` VALUES (241, 79, 8, 0, 1, '2023-10-23 14:26:45', 1, '2023-10-23 14:26:45', b'0');
+INSERT INTO `tb_player_weapon` VALUES (242, 130, 8, 0, 1, '2023-10-23 14:27:49', 1, '2023-10-23 14:27:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (243, 79, 9, 0, 1, '2023-10-23 14:37:00', 1, '2023-10-23 14:37:00', b'0');
+INSERT INTO `tb_player_weapon` VALUES (244, 35, 11, 0, 1, '2023-10-23 14:39:47', 1, '2023-10-23 14:39:47', b'0');
+INSERT INTO `tb_player_weapon` VALUES (245, 61, 14, 0, 1, '2023-10-23 14:51:26', 1, '2023-10-23 14:51:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (246, 79, 10, 0, 1, '2023-10-23 14:53:43', 1, '2023-10-23 14:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (247, 79, 10, 0, 1, '2023-10-23 14:53:43', 1, '2023-10-23 14:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (248, 79, 10, 0, 1, '2023-10-23 14:53:43', 1, '2023-10-23 14:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (249, 79, 10, 0, 1, '2023-10-23 14:53:43', 1, '2023-10-23 14:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (250, 79, 10, 0, 1, '2023-10-23 14:53:43', 1, '2023-10-23 14:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (251, 79, 10, 0, 1, '2023-10-23 14:53:44', 1, '2023-10-23 14:53:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (252, 79, 10, 0, 1, '2023-10-23 14:53:44', 1, '2023-10-23 14:53:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (253, 79, 10, 0, 1, '2023-10-23 14:53:44', 1, '2023-10-23 14:53:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (254, 79, 10, 0, 1, '2023-10-23 14:53:44', 1, '2023-10-23 14:53:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (255, 79, 10, 0, 1, '2023-10-23 14:53:44', 1, '2023-10-23 14:53:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (256, 61, 2, 0, 1, '2023-10-23 14:54:20', 1, '2023-10-23 14:54:20', b'0');
+INSERT INTO `tb_player_weapon` VALUES (257, 35, 12, 0, 1, '2023-10-23 15:11:56', 1, '2023-10-23 15:11:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (258, 9, 14, 0, 1, '2023-10-23 16:16:48', 1, '2023-10-23 16:16:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (259, 10, 14, 0, 1, '2023-10-23 16:18:34', 1, '2023-10-23 16:18:34', b'0');
+INSERT INTO `tb_player_weapon` VALUES (260, 9, 2, 0, 1, '2023-10-23 16:21:02', 1, '2023-10-23 16:21:02', b'0');
+INSERT INTO `tb_player_weapon` VALUES (261, 9, 3, 0, 1, '2023-10-23 16:30:04', 1, '2023-10-23 16:30:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (262, 39, 14, 0, 1, '2023-10-24 08:37:07', 1, '2023-10-24 08:37:07', b'0');
+INSERT INTO `tb_player_weapon` VALUES (263, 39, 2, 0, 1, '2023-10-24 08:38:02', 1, '2023-10-24 08:38:02', b'0');
+INSERT INTO `tb_player_weapon` VALUES (264, 39, 3, 0, 1, '2023-10-24 08:39:17', 1, '2023-10-24 08:39:17', b'0');
+INSERT INTO `tb_player_weapon` VALUES (265, 39, 4, 0, 1, '2023-10-24 08:39:42', 1, '2023-10-24 08:39:42', b'0');
+INSERT INTO `tb_player_weapon` VALUES (266, 9, 14, 0, 1, '2023-10-24 08:43:50', 1, '2023-10-24 08:43:50', b'0');
+INSERT INTO `tb_player_weapon` VALUES (267, 9, 2, 0, 1, '2023-10-24 08:47:49', 1, '2023-10-24 08:47:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (268, 35, 5, 0, 1, '2023-10-24 09:01:49', 1, '2023-10-24 09:01:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (269, 89, 14, 0, 1, '2023-10-24 09:21:10', 1, '2023-10-24 09:21:10', b'0');
+INSERT INTO `tb_player_weapon` VALUES (270, 89, 2, 0, 1, '2023-10-24 09:25:07', 1, '2023-10-24 09:25:07', b'0');
+INSERT INTO `tb_player_weapon` VALUES (271, 83, 14, 0, 1, '2023-10-24 09:28:44', 1, '2023-10-24 09:28:44', b'0');
+INSERT INTO `tb_player_weapon` VALUES (272, 83, 2, 0, 1, '2023-10-24 09:29:42', 1, '2023-10-24 09:29:42', b'0');
+INSERT INTO `tb_player_weapon` VALUES (273, 83, 3, 0, 1, '2023-10-24 09:31:13', 1, '2023-10-24 09:31:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (274, 7, 14, 0, 1, '2023-10-24 09:33:14', 1, '2023-10-24 09:33:14', b'0');
+INSERT INTO `tb_player_weapon` VALUES (275, 83, 4, 0, 1, '2023-10-24 09:37:42', 1, '2023-10-24 09:37:42', b'0');
+INSERT INTO `tb_player_weapon` VALUES (276, 83, 5, 0, 1, '2023-10-24 10:06:15', 1, '2023-10-24 10:06:15', b'0');
+INSERT INTO `tb_player_weapon` VALUES (277, 83, 6, 0, 1, '2023-10-24 10:26:01', 1, '2023-10-24 10:26:01', b'0');
+INSERT INTO `tb_player_weapon` VALUES (278, 39, 5, 0, 1, '2023-10-24 11:14:03', 1, '2023-10-24 11:14:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (279, 83, 7, 0, 1, '2023-10-24 11:21:14', 1, '2023-10-24 11:21:14', b'0');
+INSERT INTO `tb_player_weapon` VALUES (280, 24, 14, 0, 1, '2023-10-24 12:04:03', 1, '2023-10-24 12:04:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (281, 24, 2, 0, 1, '2023-10-24 13:50:49', 1, '2023-10-24 13:50:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (282, 24, 3, 0, 1, '2023-10-24 13:54:58', 1, '2023-10-24 13:54:58', b'0');
+INSERT INTO `tb_player_weapon` VALUES (283, 24, 4, 0, 1, '2023-10-24 13:56:47', 1, '2023-10-24 13:56:47', b'0');
+INSERT INTO `tb_player_weapon` VALUES (284, 24, 5, 0, 1, '2023-10-24 14:09:23', 1, '2023-10-24 14:09:23', b'0');
+INSERT INTO `tb_player_weapon` VALUES (285, 24, 6, 0, 1, '2023-10-24 14:15:54', 1, '2023-10-24 14:15:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (286, 24, 7, 0, 1, '2023-10-24 14:19:39', 1, '2023-10-24 14:19:39', b'0');
+INSERT INTO `tb_player_weapon` VALUES (287, 83, 8, 0, 1, '2023-10-24 14:39:23', 1, '2023-10-24 14:39:23', b'0');
+INSERT INTO `tb_player_weapon` VALUES (288, 83, 9, 0, 1, '2023-10-24 15:08:46', 1, '2023-10-24 15:08:46', b'0');
+INSERT INTO `tb_player_weapon` VALUES (289, 9, 3, 0, 1, '2023-10-24 17:30:22', 1, '2023-10-24 17:30:22', b'0');
+INSERT INTO `tb_player_weapon` VALUES (290, 35, 6, 0, 1, '2023-10-24 17:31:39', 1, '2023-10-24 17:31:39', b'0');
+INSERT INTO `tb_player_weapon` VALUES (291, 35, 7, 0, 1, '2023-10-24 17:34:01', 1, '2023-10-24 17:34:01', b'0');
+INSERT INTO `tb_player_weapon` VALUES (292, 39, 6, 0, 1, '2023-10-24 17:34:03', 1, '2023-10-24 17:34:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (293, 24, 8, 0, 1, '2023-10-24 17:36:59', 1, '2023-10-24 17:36:59', b'0');
+INSERT INTO `tb_player_weapon` VALUES (294, 35, 8, 0, 1, '2023-10-24 17:38:13', 1, '2023-10-24 17:38:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (295, 9, 4, 0, 1, '2023-10-24 17:50:46', 1, '2023-10-24 17:50:46', b'0');
+INSERT INTO `tb_player_weapon` VALUES (296, 83, 10, 0, 1, '2023-10-24 17:53:26', 1, '2023-10-24 17:53:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (297, 35, 9, 0, 1, '2023-10-25 09:06:35', 1, '2023-10-25 09:06:35', b'0');
+INSERT INTO `tb_player_weapon` VALUES (298, 10, 14, 0, 1, '2023-10-25 09:06:58', 1, '2023-10-25 09:06:58', b'0');
+INSERT INTO `tb_player_weapon` VALUES (299, 129, 4, 0, 1, '2023-10-25 09:13:18', 1, '2023-10-25 09:13:18', b'0');
+INSERT INTO `tb_player_weapon` VALUES (300, 10, 2, 0, 1, '2023-10-25 09:16:23', 1, '2023-10-25 09:16:23', b'0');
+INSERT INTO `tb_player_weapon` VALUES (301, 129, 5, 0, 1, '2023-10-25 09:17:00', 1, '2023-10-25 09:17:00', b'0');
+INSERT INTO `tb_player_weapon` VALUES (302, 9, 5, 0, 1, '2023-10-25 09:18:09', 1, '2023-10-25 09:18:09', b'0');
+INSERT INTO `tb_player_weapon` VALUES (303, 24, 9, 0, 1, '2023-10-25 09:20:14', 1, '2023-10-25 09:20:14', b'0');
+INSERT INTO `tb_player_weapon` VALUES (304, 10, 3, 0, 1, '2023-10-25 09:20:40', 1, '2023-10-25 09:20:40', b'0');
+INSERT INTO `tb_player_weapon` VALUES (305, 8, 14, 0, 1, '2023-10-25 09:22:00', 1, '2023-10-25 09:22:00', b'0');
+INSERT INTO `tb_player_weapon` VALUES (306, 10, 4, 0, 1, '2023-10-25 09:22:20', 1, '2023-10-25 09:22:20', b'0');
+INSERT INTO `tb_player_weapon` VALUES (307, 8, 2, 0, 1, '2023-10-25 09:22:48', 1, '2023-10-25 09:22:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (308, 129, 6, 0, 1, '2023-10-25 09:23:10', 1, '2023-10-25 09:23:10', b'0');
+INSERT INTO `tb_player_weapon` VALUES (309, 8, 3, 0, 1, '2023-10-25 09:24:11', 1, '2023-10-25 09:24:11', b'0');
+INSERT INTO `tb_player_weapon` VALUES (310, 39, 7, 0, 1, '2023-10-25 09:24:24', 1, '2023-10-25 09:24:24', b'0');
+INSERT INTO `tb_player_weapon` VALUES (311, 10, 5, 0, 1, '2023-10-25 09:26:26', 1, '2023-10-25 09:26:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (312, 8, 4, 0, 1, '2023-10-25 09:26:29', 1, '2023-10-25 09:26:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (313, 9, 6, 0, 1, '2023-10-25 09:28:25', 1, '2023-10-25 09:28:25', b'0');
+INSERT INTO `tb_player_weapon` VALUES (314, 129, 7, 0, 1, '2023-10-25 09:28:55', 1, '2023-10-25 09:28:55', b'0');
+INSERT INTO `tb_player_weapon` VALUES (315, 87, 2, 0, 1, '2023-10-25 09:30:22', 1, '2023-10-25 09:30:22', b'0');
+INSERT INTO `tb_player_weapon` VALUES (316, 9, 7, 0, 1, '2023-10-25 09:31:52', 1, '2023-10-25 09:31:52', b'0');
+INSERT INTO `tb_player_weapon` VALUES (317, 87, 3, 0, 1, '2023-10-25 09:32:13', 1, '2023-10-25 09:32:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (318, 87, 4, 0, 1, '2023-10-25 09:32:36', 1, '2023-10-25 09:32:36', b'0');
+INSERT INTO `tb_player_weapon` VALUES (319, 35, 10, 0, 1, '2023-10-25 09:33:08', 1, '2023-10-25 09:33:08', b'0');
+INSERT INTO `tb_player_weapon` VALUES (320, 87, 5, 0, 1, '2023-10-25 09:34:57', 1, '2023-10-25 09:34:57', b'0');
+INSERT INTO `tb_player_weapon` VALUES (321, 87, 6, 0, 1, '2023-10-25 09:38:26', 1, '2023-10-25 09:38:26', b'0');
+INSERT INTO `tb_player_weapon` VALUES (322, 10, 6, 0, 1, '2023-10-25 09:39:37', 1, '2023-10-25 09:39:37', b'0');
+INSERT INTO `tb_player_weapon` VALUES (323, 113, 14, 0, 1, '2023-10-25 09:40:25', 1, '2023-10-25 09:40:25', b'0');
+INSERT INTO `tb_player_weapon` VALUES (324, 113, 2, 0, 1, '2023-10-25 09:40:47', 1, '2023-10-25 09:40:47', b'0');
+INSERT INTO `tb_player_weapon` VALUES (325, 113, 3, 0, 1, '2023-10-25 09:41:28', 1, '2023-10-25 09:41:28', b'0');
+INSERT INTO `tb_player_weapon` VALUES (326, 87, 7, 0, 1, '2023-10-25 09:42:31', 1, '2023-10-25 09:42:31', b'0');
+INSERT INTO `tb_player_weapon` VALUES (327, 129, 8, 0, 1, '2023-10-25 09:46:18', 1, '2023-10-25 09:46:18', b'0');
+INSERT INTO `tb_player_weapon` VALUES (328, 10, 7, 0, 1, '2023-10-25 09:46:29', 1, '2023-10-25 09:46:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (329, 9, 8, 0, 1, '2023-10-25 09:51:03', 1, '2023-10-25 09:51:03', b'0');
+INSERT INTO `tb_player_weapon` VALUES (330, 10, 8, 0, 1, '2023-10-25 09:54:57', 1, '2023-10-25 09:54:57', b'0');
+INSERT INTO `tb_player_weapon` VALUES (331, 39, 8, 0, 1, '2023-10-25 09:55:21', 1, '2023-10-25 09:55:21', b'0');
+INSERT INTO `tb_player_weapon` VALUES (332, 87, 8, 0, 1, '2023-10-25 09:58:38', 1, '2023-10-25 09:58:38', b'0');
+INSERT INTO `tb_player_weapon` VALUES (333, 89, 3, 0, 1, '2023-10-25 10:02:00', 1, '2023-10-25 10:02:00', b'0');
+INSERT INTO `tb_player_weapon` VALUES (334, 10, 9, 0, 1, '2023-10-25 10:02:08', 1, '2023-10-25 10:02:08', b'0');
+INSERT INTO `tb_player_weapon` VALUES (335, 129, 9, 0, 1, '2023-10-25 10:06:56', 1, '2023-10-25 10:06:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (336, 83, 11, 0, 1, '2023-10-25 10:16:25', 1, '2023-10-25 10:16:25', b'0');
+INSERT INTO `tb_player_weapon` VALUES (337, 130, 3, 0, 1, '2023-10-25 10:26:29', 1, '2023-10-25 10:26:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (338, 10, 10, 0, 1, '2023-10-25 10:59:32', 1, '2023-10-25 10:59:32', b'0');
+INSERT INTO `tb_player_weapon` VALUES (339, 22, 14, 0, 1, '2023-10-25 11:48:14', 1, '2023-10-25 11:48:14', b'0');
+INSERT INTO `tb_player_weapon` VALUES (340, 22, 2, 0, 1, '2023-10-25 11:48:41', 1, '2023-10-25 11:48:41', b'0');
+INSERT INTO `tb_player_weapon` VALUES (341, 79, 14, 0, 1, '2023-10-25 11:50:52', 1, '2023-10-25 11:50:52', b'0');
+INSERT INTO `tb_player_weapon` VALUES (342, 22, 3, 0, 1, '2023-10-25 11:51:28', 1, '2023-10-25 11:51:28', b'0');
+INSERT INTO `tb_player_weapon` VALUES (343, 22, 4, 0, 1, '2023-10-25 11:53:31', 1, '2023-10-25 11:53:31', b'0');
+INSERT INTO `tb_player_weapon` VALUES (344, 113, 4, 0, 1, '2023-10-25 11:54:53', 1, '2023-10-25 11:54:53', b'0');
+INSERT INTO `tb_player_weapon` VALUES (345, 130, 4, 0, 1, '2023-10-25 11:54:56', 1, '2023-10-25 11:54:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (346, 35, 11, 0, 1, '2023-10-25 12:03:29', 1, '2023-10-25 12:03:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (347, 39, 9, 0, 1, '2023-10-25 13:48:11', 1, '2023-10-25 13:48:11', b'0');
+INSERT INTO `tb_player_weapon` VALUES (348, 40, 14, 0, 1, '2023-10-25 14:54:20', 1, '2023-10-25 14:54:20', b'0');
+INSERT INTO `tb_player_weapon` VALUES (349, 40, 2, 0, 1, '2023-10-25 14:54:35', 1, '2023-10-25 14:54:35', b'0');
+INSERT INTO `tb_player_weapon` VALUES (350, 79, 2, 0, 1, '2023-10-25 14:54:54', 1, '2023-10-25 14:54:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (351, 40, 3, 0, 1, '2023-10-25 14:55:15', 1, '2023-10-25 14:55:15', b'0');
+INSERT INTO `tb_player_weapon` VALUES (352, 40, 4, 0, 1, '2023-10-25 14:55:50', 1, '2023-10-25 14:55:50', b'0');
+INSERT INTO `tb_player_weapon` VALUES (353, 8, 5, 0, 1, '2023-10-25 14:59:30', 1, '2023-10-25 14:59:30', b'0');
+INSERT INTO `tb_player_weapon` VALUES (354, 40, 5, 0, 1, '2023-10-25 15:00:06', 1, '2023-10-25 15:00:06', b'0');
+INSERT INTO `tb_player_weapon` VALUES (355, 83, 12, 0, 1, '2023-10-25 15:17:48', 1, '2023-10-25 15:17:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (356, 74, 14, 0, 1, '2023-10-25 15:26:01', 1, '2023-10-25 15:26:01', b'0');
+INSERT INTO `tb_player_weapon` VALUES (357, 87, 9, 0, 1, '2023-10-25 16:13:13', 1, '2023-10-25 16:13:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (358, 79, 3, 0, 1, '2023-10-25 16:26:46', 1, '2023-10-25 16:26:46', b'0');
+INSERT INTO `tb_player_weapon` VALUES (359, 74, 2, 0, 1, '2023-10-25 16:28:36', 1, '2023-10-25 16:28:36', b'0');
+INSERT INTO `tb_player_weapon` VALUES (360, 79, 4, 0, 1, '2023-10-25 16:29:04', 1, '2023-10-25 16:29:04', b'0');
+INSERT INTO `tb_player_weapon` VALUES (361, 89, 4, 0, 1, '2023-10-25 16:30:12', 1, '2023-10-25 16:30:12', b'0');
+INSERT INTO `tb_player_weapon` VALUES (362, 22, 5, 0, 1, '2023-10-25 17:57:11', 1, '2023-10-25 17:57:11', b'0');
+INSERT INTO `tb_player_weapon` VALUES (363, 39, 10, 0, 1, '2023-10-26 09:04:49', 1, '2023-10-26 09:04:49', b'0');
+INSERT INTO `tb_player_weapon` VALUES (364, 40, 6, 0, 1, '2023-10-26 09:16:31', 1, '2023-10-26 09:16:31', b'0');
+INSERT INTO `tb_player_weapon` VALUES (365, 10, 11, 0, 1, '2023-10-26 10:12:37', 1, '2023-10-26 10:12:37', b'0');
+INSERT INTO `tb_player_weapon` VALUES (366, 24, 10, 0, 1, '2023-10-26 10:33:29', 1, '2023-10-26 10:33:29', b'0');
+INSERT INTO `tb_player_weapon` VALUES (367, 129, 10, 0, 1, '2023-10-26 10:37:38', 1, '2023-10-26 10:37:38', b'0');
+INSERT INTO `tb_player_weapon` VALUES (368, 24, 11, 0, 1, '2023-10-26 11:01:13', 1, '2023-10-26 11:01:13', b'0');
+INSERT INTO `tb_player_weapon` VALUES (369, 35, 12, 0, 1, '2023-10-26 15:40:54', 1, '2023-10-26 15:40:54', b'0');
+INSERT INTO `tb_player_weapon` VALUES (370, 5, 14, 0, 1, '2023-10-27 09:24:34', 1, '2023-10-27 09:24:34', b'0');
+INSERT INTO `tb_player_weapon` VALUES (371, 7, 2, 0, 1, '2023-10-27 09:24:59', 1, '2023-10-27 09:24:59', b'0');
+INSERT INTO `tb_player_weapon` VALUES (372, 39, 11, 0, 1, '2023-10-27 09:37:41', 1, '2023-10-27 09:37:41', b'0');
+INSERT INTO `tb_player_weapon` VALUES (373, 79, 5, 0, 1, '2023-10-27 10:35:48', 1, '2023-10-27 10:35:48', b'0');
+INSERT INTO `tb_player_weapon` VALUES (374, 79, 6, 0, 1, '2023-10-27 10:39:37', 1, '2023-10-27 10:39:37', b'0');
+INSERT INTO `tb_player_weapon` VALUES (375, 79, 7, 0, 1, '2023-10-27 10:47:53', 1, '2023-10-27 10:47:53', b'0');
+INSERT INTO `tb_player_weapon` VALUES (376, 40, 7, 0, 1, '2023-10-27 10:48:12', 1, '2023-10-27 10:48:12', b'0');
+INSERT INTO `tb_player_weapon` VALUES (377, 9, 9, 0, 1, '2023-10-27 10:51:10', 1, '2023-10-27 10:51:10', b'0');
+INSERT INTO `tb_player_weapon` VALUES (378, 79, 8, 0, 1, '2023-10-27 10:56:21', 1, '2023-10-27 10:56:21', b'0');
+INSERT INTO `tb_player_weapon` VALUES (379, 129, 11, 0, 1, '2023-10-27 11:53:43', 1, '2023-10-27 11:53:43', b'0');
+INSERT INTO `tb_player_weapon` VALUES (380, 79, 9, 0, 1, '2023-10-27 12:45:27', 1, '2023-10-27 12:45:27', b'0');
+INSERT INTO `tb_player_weapon` VALUES (381, 87, 10, 0, 1, '2023-10-27 12:52:56', 1, '2023-10-27 12:52:56', b'0');
+INSERT INTO `tb_player_weapon` VALUES (382, 61, 14, 0, 1, '2023-10-27 14:13:28', 1, '2023-10-27 14:13:28', b'0');
+INSERT INTO `tb_player_weapon` VALUES (383, 92, 14, 0, 1, '2023-10-27 15:56:19', 1, '2023-10-27 15:56:19', b'0');
+INSERT INTO `tb_player_weapon` VALUES (384, 74, 3, 0, 1, '2023-10-27 15:58:41', 1, '2023-10-27 15:58:41', b'0');
+INSERT INTO `tb_player_weapon` VALUES (385, 8, 6, 0, 1, '2023-10-27 16:06:11', 1, '2023-10-27 16:06:11', b'0');
+INSERT INTO `tb_player_weapon` VALUES (386, 22, 6, 0, 1, '2023-10-27 16:06:30', 1, '2023-10-27 16:06:30', b'0');
+INSERT INTO `tb_player_weapon` VALUES (387, 130, 5, 0, 1, '2023-10-27 16:31:40', 1, '2023-10-27 16:31:40', b'0');
+
+-- ----------------------------
+-- Table structure for tb_skill
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_skill`;
+CREATE TABLE `tb_skill`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `skill_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '技能名称',
+  `skill_intro` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '技能描述',
+  `active_skill` tinyint(1) NULL DEFAULT NULL COMMENT '是否主动技能',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  `fixed_skill` tinyint(1) NULL DEFAULT NULL COMMENT '是否固定伤害',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '技能表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_skill
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_skill_level
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_skill_level`;
+CREATE TABLE `tb_skill_level`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `skill_id` int NOT NULL COMMENT '技能id',
+  `level` int NOT NULL COMMENT '技能等级',
+  `need_level` int NOT NULL COMMENT '最低学习等级',
+  `min_damage` int NULL DEFAULT 1 COMMENT '最小攻击',
+  `max_damage` int NULL DEFAULT 5 COMMENT '最大攻击',
+  `effect_json` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '增幅效果',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '技能等级表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_skill_level
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_weapon
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_weapon`;
+CREATE TABLE `tb_weapon`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '武器名称',
+  `intro` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '武器描述',
+  `type` int NOT NULL COMMENT '武器类型 0小型武器 1中型武器 2大型武器',
+  `grade` int NULL DEFAULT 0 COMMENT '品级 0白 1绿 2蓝 3紫 4粉 5传说 6史诗',
+  `min_damage` int NULL DEFAULT NULL COMMENT '最小攻击',
+  `max_damage` int NULL DEFAULT NULL COMMENT '最大攻击',
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` int NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) NULL DEFAULT b'0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '武器表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_weapon
+-- ----------------------------
+INSERT INTO `tb_weapon` VALUES (1, '蓝球', '普普通通的一个蓝球', 0, 0, 3, 5, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:14', b'0');
+INSERT INTO `tb_weapon` VALUES (2, '键盘', '御斧Y87', 0, 0, 5, 13, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:14', b'0');
+INSERT INTO `tb_weapon` VALUES (3, '背带裤', '小黑子们爱穿的背带裤', 0, 0, 7, 25, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:14', b'0');
+INSERT INTO `tb_weapon` VALUES (4, '武器4', '武器4描述', 0, 0, 9, 41, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:14', b'0');
+INSERT INTO `tb_weapon` VALUES (5, '武器5', '武器5描述', 0, 0, 11, 61, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:14', b'0');
+INSERT INTO `tb_weapon` VALUES (6, '武器6', '武器6描述', 0, 0, 13, 85, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (7, '武器7', '武器7描述', 0, 0, 15, 38, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (8, '武器8', '武器8描述', 0, 0, 17, 48, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (9, '武器9', '武器9描述', 0, 0, 19, 60, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (10, '武器10', '武器10描述', 0, 0, 21, 74, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (11, '武器11', '武器11描述', 0, 0, 23, 88, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (12, '武器12', '武器12描述', 0, 0, 25, 104, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (13, '武器13', '武器13描述', 0, 0, 27, 122, 0, '2023-10-23 00:29:34', 1, '2023-10-23 08:57:15', b'0');
+INSERT INTO `tb_weapon` VALUES (14, '一只Jerry', '一个和Tom相爱相杀的Jerry', 0, 0, 1, 4, 0, '2023-10-23 02:26:47', 0, '2023-10-23 10:26:41', b'0');
+
+SET FOREIGN_KEY_CHECKS = 1;
