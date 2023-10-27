@@ -3,7 +3,6 @@ package net.lesscoding.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.lesscoding.entity.Skill;
-import net.lesscoding.entity.User;
 import net.lesscoding.entity.Weapon;
 
 import java.util.List;
@@ -58,8 +57,6 @@ public class Player {
      * 连击率
      */
     private Double comboRate;
-
-    private User user;
 
     private List<Weapon> weaponList;
 

@@ -1,5 +1,6 @@
 package net.lesscoding.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import net.lesscoding.common.BaseEntity;
 
@@ -9,6 +10,7 @@ import net.lesscoding.common.BaseEntity;
  * @apiNote
  */
 @Data
+@TableName("tb_instance_npc")
 public class InstanceNpc extends BaseEntity<InstanceNpc> {
     private Integer instanceId;
 
