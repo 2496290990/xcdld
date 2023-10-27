@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 
 /**
@@ -183,5 +184,38 @@ public class IpUtils {
         } catch (UnknownHostException e) {
         }
         return "未知";
+    }
+
+    public static String getMac(HttpServletRequest request) {
+        try {
+            InetAddress ipAddress = InetAddress.getByName(getIpAddr(request)); // Replace with your desired IP address
+
+            NetworkInterface networkInterface = NetworkInterface.getByInetAddress(ipAddress);
+
+            if (networkInterface != null) {
+                byte[] macAddressBytes = networkInterface.getHardwareAddress();
+
+                if (macAddressBytes != null) {
+                    StringBuilder macAddress = new StringBuilder();
+
+                    for (byte b : macAddressBytes) {
+                        macAddress.append(String.format("%02X:", b));
+                    }
+
+                    if (macAddress.length() > 0) {
+                        macAddress.deleteCharAt(macAddress.length() - 1);
+                    }
+
+                   return macAddress.toString();
+                } else {
+                    System.out.println("MAC Address not found for the given IP address.");
+                }
+            } else {
+                System.out.println("Network Interface not found for the given IP address.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

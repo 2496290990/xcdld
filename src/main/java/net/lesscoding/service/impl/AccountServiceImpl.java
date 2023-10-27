@@ -84,11 +84,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public String quickLoginByMac(AccountDto dto) {
         String mac = dto.getMac();
         if (StrUtil.isBlank(mac)) {
-            mac = IpUtils.getIpAddr(ServletUtils.getRequest());
+            mac = IpUtils.getMac(ServletUtils.getRequest());
         }
         Account account = accountMapper.selectOne(new QueryWrapper<Account>()
                 .eq("del_flag", false)
-                .eq("mac", mac));
+                .eq("mac", mac)
+                .or().
+                eq("ip", IpUtils.getIpAddr(ServletUtils.getRequest())));
         if (account == null) {
             throw new RuntimeException("查询账号失败，请联系塘主处理，QQ群号754126966");
         }
