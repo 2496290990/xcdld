@@ -59,10 +59,18 @@ public class BattleUtil {
                 sb.append(String.format("%s侧身一躲，躲过了%s的致命一击", defender.getNickname(), attacker.getNickname()));
             } else {
                 attack -= defender.getDefence();
+                Boolean critical = getWeightResult(defender.getCriticalChance());
+                if (critical) {
+                    attack *= 2;
+                }
                 // 防止攻击为负数导致被攻击者加血
                 attack = Math.max(0, attack);
                 defender.setHp(Math.max(0, defender.getHp() - attack));
-                sb.append(String.format("%s被击中, HP减少 %d, 当前 %d", defender.getNickname(), attack, defender.getHp()));
+                sb.append(String.format("%s %s被击中, HP减少 %d, 当前 %d",
+                        critical ? "触发暴击，当前伤害 * 2" : "" ,
+                        defender.getNickname(),
+                        attack,
+                        defender.getHp()));
             }
             round++;
             processList.add(new BattleProcess(round, sb.toString()));

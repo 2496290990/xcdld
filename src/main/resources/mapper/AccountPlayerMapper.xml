@@ -11,6 +11,7 @@
         <result column="hit" property="hitRate" />
         <result column="flee" property="flee" />
         <result column="combo" property="comboRate" />
+        <result column="critical_chance" property="criticalChance" />
         <result column="level" property="level" />
         <collection property="weaponList" ofType="net.lesscoding.entity.Weapon" >
             <id column="tw_id" property="id" />
@@ -60,6 +61,7 @@
         <result column="exp" property="exp" />
         <result column="need_exp" property="nextLvExp" />
         <result column="energy" property="energy" />
+        <result column="critical_chance" property="criticalChance" />
     </resultMap>
     <update id="addPlayerExp">
         UPDATE tb_account_player
@@ -92,6 +94,7 @@
                tple.flee,
                tple.combo,
                tple.hit,
+               tple.critical_chance,
                tple.create_by,
                tple.create_time,
                tple.update_by,
@@ -162,7 +165,8 @@
                defender,
                flee,
                combo,
-               hit
+               hit,
+               critical_chance
         from tb_account_player tb
                  left join tb_player_level_exp ple on ple.level = tb.level + 1
                  left join tb_account ta on ta.id = tb.account_id

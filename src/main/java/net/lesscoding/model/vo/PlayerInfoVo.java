@@ -49,6 +49,10 @@ public class PlayerInfoVo {
      * 连击率
      */
     private Double comboRate;
+    /**
+     * 暴击率
+     */
+    private Double criticalChance;
 
     private Integer exp;
 

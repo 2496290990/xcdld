@@ -48,6 +48,11 @@ public class PlayerLevelExp extends BaseEntity<PlayerLevelExp> {
      * 基础命中
      */
     private Double hit;
+
+    /**
+     * 暴击率
+     */
+    private Double criticalChance;
     /**
      * 特殊效果类型
      */
