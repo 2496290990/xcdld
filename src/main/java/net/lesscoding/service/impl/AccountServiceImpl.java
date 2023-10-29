@@ -7,10 +7,12 @@ import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.entity.Account;
+import net.lesscoding.exception.AccountException;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.model.dto.AccountDto;
 import net.lesscoding.service.AccountService;
 import net.lesscoding.utils.IpUtils;
+import net.lesscoding.utils.PasswordUtil;
 import net.lesscoding.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -109,8 +111,36 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         switch (type) {
             case 0:
                 return quickLoginByMac(dto);
+            case 1:
+                return loginByAccount(dto);
             default:
                 throw new RuntimeException("登录类型异常");
         }
+    }
+
+    private Object loginByAccount(AccountDto dto) {
+        String account = dto.getAccount();
+        String password = dto.getPassword();
+        if (StrUtil.isBlank(account) || StrUtil.isBlank(password)) {
+            throw new RuntimeException("账号货密码不允许为空");
+        }
+        Account row = accountMapper.selectOne(new QueryWrapper<Account>()
+                .eq("account", account));
+        if (row == null || row.getDelFlag()) {
+            throw AccountException.delException();
+        }
+        if (row.getStatus() == 2) {
+            throw AccountException.singOut();
+        }
+        if (row.getStatus() == 1) {
+            throw AccountException.blackList();
+        }
+
+        Boolean accessFlag = PasswordUtil.decrypt(row.getPassword(), row.getSalt(), password);
+        if (!accessFlag) {
+            throw AccountException.notAllow();
+        }
+        StpUtil.login(row.getId());
+        return StpUtil.getTokenValueByLoginId(row.getId());
     }
 }
