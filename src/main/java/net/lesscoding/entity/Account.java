@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.lesscoding.common.BaseEntity;
 import net.lesscoding.model.vo.RedisUserCache;
+import net.lesscoding.utils.PasswordUtil;
 
 /**
  * @author eleven
@@ -65,5 +66,6 @@ public class Account extends BaseEntity {
         this.ip = cache.getIp();
         this.platform = cache.getPlatform();
         this.region = cache.getExtraVo().getShortRegion();
+        this.salt = PasswordUtil.salt();
     }
 }

@@ -1,6 +1,7 @@
 package net.lesscoding.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.Account;
@@ -10,6 +11,7 @@ import net.lesscoding.model.vo.RedisUserCache;
 import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.AccountService;
 import net.lesscoding.service.SystemService;
+import net.lesscoding.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,9 +67,14 @@ public class SystemServiceImpl implements SystemService {
             existsMacList.forEach(redisMacSet::remove);
         }
         List<Account> insertList = new ArrayList<>();
+        Set<String> accountSet = accountList.stream()
+                .map(Account::getAccount)
+                .collect(Collectors.toSet());
         for (String redisMac : redisMacSet) {
             RedisUserCache userVo = gson.fromJson(userCacheMap.get(redisMac), RedisUserCache.class);
             Account account = new Account(userVo);
+            account.setAccount(getAccountStr(accountSet));
+            account.setPassword(PasswordUtil.encrypt(account.getAccount(), account.getSalt()));
             insertList.add(account);
         }
 
@@ -88,6 +94,15 @@ public class SystemServiceImpl implements SystemService {
             playerService.saveBatch(accountPlayerList);
         }
         return redisMacSet.size();
+    }
+
+    private String getAccountStr(Set<String> accountSet) {
+        String account = "";
+        do {
+            account = String.valueOf(RandomUtil.randomInt(9_999, 100_000));
+        } while (!accountSet.contains(account));
+        accountSet.add(account);
+        return account;
     }
 
     @Override
