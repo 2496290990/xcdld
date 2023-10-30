@@ -49,6 +49,9 @@ public class SystemServiceImpl implements SystemService {
     @Autowired
     private Gson gson;
 
+    @Autowired
+    private AccountUtil accountUtil;
+
     @Override
     public Object registerAccount(AccountDto dto) {
         return accountService.registerAccount(dto);
@@ -71,10 +74,13 @@ public class SystemServiceImpl implements SystemService {
         Set<String> accountSet = accountList.stream()
                 .map(Account::getAccount)
                 .collect(Collectors.toSet());
+        List<String> randomAccountList = accountUtil.getAccountList(accountSet, redisMacSet.size());
         for (String redisMac : redisMacSet) {
             RedisUserCache userVo = gson.fromJson(userCacheMap.get(redisMac), RedisUserCache.class);
             Account account = new Account(userVo);
-            account.setAccount(AccountUtil.getAccountStr(accountSet));
+            String randomAccount = RandomUtil.randomEle(randomAccountList);
+            randomAccountList.remove(randomAccount);
+            account.setAccount(randomAccount);
             account.setPassword(PasswordUtil.encrypt(account.getAccount(), account.getSalt()));
             insertList.add(account);
         }

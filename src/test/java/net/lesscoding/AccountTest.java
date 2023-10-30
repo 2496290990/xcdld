@@ -6,6 +6,7 @@ import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
 import net.lesscoding.service.SystemService;
+import net.lesscoding.utils.AccountUtil;
 import net.lesscoding.utils.PasswordUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author eleven
@@ -41,6 +43,9 @@ public class AccountTest {
 
     @Value("${redis.userNameCache}")
     private String userNameCache;
+
+    @Autowired
+    private AccountUtil accountUtil;
 
     @Test
     public void randomAccount() {
@@ -102,20 +107,14 @@ public class AccountTest {
     public void autoInsertAccount() {
         List<Account> accounts = accountMapper.selectList(new QueryWrapper<Account>()
                 .ge("id", 0));
-        Set<String> accountSet = new HashSet<>();
-        do {
-            accountSet.add(String.valueOf(RandomUtil.randomInt(9_999, 100_000)));
-        } while (accounts.size() != accountSet.size());
-        List<String> list = new ArrayList<>(accountSet);
-        for (int i = 0; i < accounts.size(); i++) {
-            Account item = accounts.get(i);
-            item.setAccount(list.get(i));
-            String salt = PasswordUtil.salt();
-            item.setSalt(salt);
-            item.setPassword(PasswordUtil.encrypt(list.get(i), salt));
-            item.setUpdateBy(1);
-            item.setUpdateTime(LocalDateTime.now());
-        }
-        accountMapper.updateAccountAndPwd(accounts);
+        Set<String> existeSet = accounts.stream()
+                .map(Account::getAccount)
+                .collect(Collectors.toSet());
+        List<String> accountList = accountUtil.getAccountList(existeSet, 15);
+        System.out.println(accountList.size());
+        System.out.println(new HashSet<>(accountList).size());
+        accountList.sort(String::compareTo);
+        accountList.forEach(System.out::println);
     }
+
 }

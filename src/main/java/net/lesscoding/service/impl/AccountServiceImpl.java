@@ -61,6 +61,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Autowired
     private Gson gson;
 
+    @Autowired
+    private AccountUtil accountUtil;
+
     @Override
     public String registerAccount(Account account) {
         //List<String> allAccount = (List<String>) redisTemplate.opsForValue().get("allAccount");
@@ -102,7 +105,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             RedisUserCache userVo = gson.fromJson(userCacheMap.get(mac), RedisUserCache.class);
             Set<String> accountSet = accountMapper.selectAccountSet(null);
             Account entity = new Account(userVo);
-            account.setAccount(AccountUtil.getAccountStr(accountSet));
+            account.setAccount(accountUtil.getAccountStr(accountSet));
             account.setPassword(PasswordUtil.encrypt(account.getAccount(), account.getSalt()));
             accountMapper.insert(entity);
             playerService.addPlayerByAccount(Collections.singletonList(entity));
