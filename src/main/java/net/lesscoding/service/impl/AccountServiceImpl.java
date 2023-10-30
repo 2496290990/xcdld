@@ -10,6 +10,7 @@ import net.lesscoding.entity.Account;
 import net.lesscoding.exception.AccountException;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.model.dto.AccountDto;
+import net.lesscoding.model.dto.UpdatePwdDto;
 import net.lesscoding.model.vo.RedisUserCache;
 import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.AccountService;
@@ -135,6 +136,30 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             default:
                 throw new RuntimeException("登录类型异常");
         }
+    }
+
+    @Override
+    public Integer updateAccountPwd(UpdatePwdDto dto) {
+        Account account = accountMapper.selectOne(new QueryWrapper<Account>()
+                .eq("mac", dto.getMac()));
+        if (account == null) {
+            throw AccountException.delException();
+        }
+        Boolean accessFlag = PasswordUtil.decrypt(account.getPassword(), account.getSalt(), dto.getOldPwd());
+        if (!accessFlag) {
+            throw AccountException.notAllow();
+        }
+        String newPwd = dto.getNewPwd();
+        if (StrUtil.isBlank(newPwd)) {
+            throw new RuntimeException("新密码不允许为空");
+        }
+        String encryptPwd = PasswordUtil.encrypt(newPwd, account.getSalt());
+        account.setPassword(encryptPwd);
+        String newAccount = dto.getNewAccount();
+        if (StrUtil.isNotBlank(newAccount)) {
+            account.setAccount(newAccount);
+        }
+        return accountMapper.updateById(account);
     }
 
     private Object loginByAccount(AccountDto dto) {

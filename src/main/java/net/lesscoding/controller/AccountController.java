@@ -3,6 +3,7 @@ package net.lesscoding.controller;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
 import net.lesscoding.entity.Account;
+import net.lesscoding.model.dto.UpdatePwdDto;
 import net.lesscoding.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,11 @@ public class AccountController {
     @PostMapping("/register")
     public Result registerAccount(@RequestBody Account account) {
         return ResultFactory.success(accountService.registerAccount(account));
+    }
+
+    @PostMapping("/updatePwd")
+    public Result updateAccountPwd(@RequestBody UpdatePwdDto dto) {
+        return ResultFactory.success(accountService.updateAccountPwd(dto));
     }
 
 }

@@ -3,6 +3,7 @@ package net.lesscoding.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.lesscoding.entity.Account;
 import net.lesscoding.model.dto.AccountDto;
+import net.lesscoding.model.dto.UpdatePwdDto;
 
 import java.util.List;
 
@@ -29,4 +30,12 @@ public interface AccountService extends IService<Account> {
      * @return
      */
     Object doLogin(AccountDto dto);
+
+    /**
+     * 并更用户名和密码
+     *
+     * @param dto 账号
+     * @return 密码
+     */
+    Integer updateAccountPwd(UpdatePwdDto dto);
 }
