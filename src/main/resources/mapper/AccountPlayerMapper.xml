@@ -135,7 +135,7 @@
     </select>
 
     <select id="selectAfterPlayer" resultMap="afterPlayerMap">
-        select
+        select distinct
             tb.id,
             tb.level,
             get_weapon,

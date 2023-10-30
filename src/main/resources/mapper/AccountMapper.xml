@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.lesscoding.mapper.AccountMapper">
+    <update id="updateAccountAndPwd">
+        insert into tb_account(id, mac, account, salt, password, update_by, update_time)
+        value <foreach collection="list" item="item" separator="," >
+            (
+             #{item.id},
+             #{item.mac},
+            #{item.account},
+            #{item.salt},
+            #{item.password},
+            0,
+            now()
+            )
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        `account`=values(account),
+        mac=values(mac),
+        salt=values(salt),
+        `password`=values(password),
+        update_by=values(update_by),
+        update_time=values(update_time)
+    </update>
+    <select id="selectAccountSet" resultType="java.lang.String">
+        select distinct account
+        from tb_account
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package net.lesscoding;
 
 import cn.hutool.core.util.RandomUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
@@ -99,7 +100,8 @@ public class AccountTest {
 
     @Test
     public void autoInsertAccount() {
-        List<Account> accounts = accountMapper.selectList(null);
+        List<Account> accounts = accountMapper.selectList(new QueryWrapper<Account>()
+                .ge("id", 0));
         Set<String> accountSet = new HashSet<>();
         do {
             accountSet.add(String.valueOf(RandomUtil.randomInt(9_999, 100_000)));
@@ -113,7 +115,7 @@ public class AccountTest {
             item.setPassword(PasswordUtil.encrypt(list.get(i), salt));
             item.setUpdateBy(1);
             item.setUpdateTime(LocalDateTime.now());
-            accountMapper.updateById(item);
         }
+        accountMapper.updateAccountAndPwd(accounts);
     }
 }

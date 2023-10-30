@@ -2,10 +2,12 @@ package net.lesscoding.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import net.lesscoding.entity.Account;
 import net.lesscoding.entity.AccountPlayer;
-import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.PlayerInfoVo;
+
+import java.util.List;
 
 /**
  * @author eleven
@@ -22,4 +24,11 @@ public interface AccountPlayerService extends IService<AccountPlayer> {
      * @return
      */
     PlayerInfoVo getPlayerDetail(AccountPlayer dto);
+
+    /**
+     * 根据账号添加角色
+     *
+     * @param accountList
+     */
+    void addPlayerByAccount(List<Account> accountList);
 }

@@ -3,23 +3,33 @@ package net.lesscoding.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.gson.Gson;
 import net.lesscoding.entity.Account;
 import net.lesscoding.exception.AccountException;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.model.dto.AccountDto;
+import net.lesscoding.model.vo.RedisUserCache;
+import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.AccountService;
+import net.lesscoding.utils.AccountUtil;
 import net.lesscoding.utils.IpUtils;
 import net.lesscoding.utils.PasswordUtil;
 import net.lesscoding.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -33,16 +43,23 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Autowired
     private AccountMapper accountMapper;
 
-    //@Autowired
-    //@Qualifier("myRedisTemplate")
-    //private RedisTemplate redisTemplate;
+    @Autowired
+    private AccountPlayerService playerService;
+
+    @Autowired
+    @Qualifier("jedisRedisTemplate")
+    private RedisTemplate jedisTemplate;
+
     @Override
     public List<Account> getAccountList() {
         return accountMapper.selectList(null);
     }
 
-    @NacosValue("${redis.userNameCache}")
-    private String userNameCache;
+    @Value("${redis.userCache}")
+    private String userCache;
+
+    @Autowired
+    private Gson gson;
 
     @Override
     public String registerAccount(Account account) {
@@ -72,17 +89,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return null;
     }
 
-    /**
-     * 每十五分钟从redis中获取当前的登录用户，
-     * 如果当前mac没有注册，自动注册用户
-     */
-    @Override
-    @Scheduled(cron = "0 0/15 * * * ?")
-    public void autoRegisterByMac() {
-        //Object o = redisTemplate.opsForValue().get(userNameCache);
-        //System.out.println(o);
-    }
-
     public String quickLoginByMac(AccountDto dto) {
         String mac = dto.getMac();
         if (StrUtil.isBlank(mac)) {
@@ -90,19 +96,29 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
         Account account = accountMapper.selectOne(new QueryWrapper<Account>()
                 .eq("del_flag", false)
-                .eq("mac", mac)
-                .or().
-                eq("ip", IpUtils.getIpAddr(ServletUtils.getRequest())));
+                .eq("mac", mac));
         if (account == null) {
-            throw new RuntimeException("查询账号失败，请联系塘主处理，QQ群号754126966");
+            Map<String,String> userCacheMap = jedisTemplate.boundHashOps(userCache).entries();
+            RedisUserCache userVo = gson.fromJson(userCacheMap.get(mac), RedisUserCache.class);
+            Set<String> accountSet = accountMapper.selectAccountSet(null);
+            Account entity = new Account(userVo);
+            account.setAccount(AccountUtil.getAccountStr(accountSet));
+            account.setPassword(PasswordUtil.encrypt(account.getAccount(), account.getSalt()));
+            accountMapper.insert(entity);
+            playerService.addPlayerByAccount(Collections.singletonList(entity));
+            StpUtil.login(entity.getId());
+            return StpUtil.getTokenValueByLoginId(entity.getId());
         }
-        if (account != null && account.getStatus() != 0) {
+        if (account.getStatus() != 0) {
             StpUtil.login(account.getId());
         }
         return StpUtil.getTokenValueByLoginId(account.getId());
     }
 
+
+
     @Override
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Object doLogin(AccountDto dto) {
         Integer type = dto.getType();
         if (type == null) {
@@ -132,7 +148,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (row.getStatus() == 2) {
             throw AccountException.singOut();
         }
-        if (row.getStatus() == 1) {
+        if (row.getStatus() == 0) {
             throw AccountException.blackList();
         }
 

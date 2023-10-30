@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import net.lesscoding.entity.Account;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.PlayerLevelExp;
 import net.lesscoding.mapper.AccountPlayerMapper;
@@ -17,6 +18,7 @@ import net.lesscoding.service.AccountPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,5 +69,20 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
             playerInfoVo.setAttack(maxLevel.getAttack());
         }
         return playerInfoVo;
+    }
+
+    @Override
+    public void addPlayerByAccount(List<Account> accountList) {
+        List<AccountPlayer> accountPlayerList = new ArrayList<>();
+        AccountPlayer accountPlayer = null;
+        for (Account account : accountList) {
+            accountPlayer = new AccountPlayer();
+            accountPlayer.setNickname(account.getNickname());
+            accountPlayer.setLevel(0);
+            accountPlayer.setExp(0);
+            accountPlayer.setAccountId(account.getId());
+            accountPlayerList.add(accountPlayer);
+        }
+        saveBatch(accountPlayerList);
     }
 }
