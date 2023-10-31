@@ -2,6 +2,8 @@ package net.lesscoding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.lesscoding.entity.GameInstance;
+import net.lesscoding.model.dto.JoinInstanceDto;
+import net.lesscoding.model.vo.ChallengeInstanceVo;
 
 import java.util.List;
 
@@ -18,9 +20,9 @@ public interface GameInstanceService extends IService<GameInstance> {
     List<GameInstance> getInstanceList();
 
     /**
-     * 查询副本NPC列表
-     * @param instance 副本
-     * @return List
+     * 加入副本
+     * @param dto
+     * @return
      */
-    List instanceNpcList(GameInstance instance);
+    ChallengeInstanceVo joinInstance(JoinInstanceDto dto);
 }

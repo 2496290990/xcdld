@@ -2,6 +2,7 @@ package net.lesscoding.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.lesscoding.entity.InstanceNpc;
 import net.lesscoding.entity.Skill;
 import net.lesscoding.entity.Weapon;
 
@@ -20,8 +21,6 @@ public class Player {
     private Integer level;
 
     private String mac;
-
-    private Integer accountPlayerId;
 
     /**
      * 昵称
@@ -66,6 +65,8 @@ public class Player {
 
     private List<Skill> skillList;
 
+    private Boolean isNpc = false;
+
 
     public Player(String nickname, List<Weapon> weaponList) {
         this.nickname = nickname;
@@ -76,5 +77,22 @@ public class Player {
         this.flee = 0.4;
         this.comboRate = 0.2;
         this.weaponList = weaponList;
+    }
+
+    /**
+     * 根据NPC属性增幅对应的玩家模板
+     * @param npc
+     */
+    public void increaseNpcAttr(InstanceNpc npc) {
+        Double increaseRatio = npc.getIncreaseRatio();
+        setNickname(npc.getNpcName());
+        setIsNpc(true);
+        setHp((int)(getHp() * increaseRatio));
+        setAttack((int)(getAttack() * increaseRatio));
+        setDefence((int)(getDefence() * increaseRatio));
+        setHitRate(getHitRate() * increaseRatio);
+        setFlee(getFlee() * increaseRatio);
+        setComboRate(getComboRate() * increaseRatio);
+        setCriticalChance(getCriticalChance() * increaseRatio);
     }
 }

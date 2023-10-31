@@ -112,8 +112,16 @@
                  left join tb_account ac on ac.id = tb.account_id
                  left join tb_player_weapon pw on tb.id = pw.player_id
                  left join tb_weapon tw on pw.weapon_id = tw.id
-        where tb.del_flag = false
-          and (tb.id = #{accountPlayerId} or ac.mac = #{mac})
+        <where>
+            tb.del_flag = false
+            <if test="mac != null and mac != ''">
+                and ac.mac = #{mac}
+            </if>
+            <if test="id != null">
+                and tb.id = #{id}
+            </if>
+        </where>
+
     </select>
 
     <select id="getAllPlayer" resultMap="playerVoMap">

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lesscoding.mapper.InstanceNpcMapper">
+    <select id="selectInstanceNpcList" resultType="net.lesscoding.entity.InstanceNpc">
+        select id,
+               instance_id,
+               npc_name,
+               player_id,
+               bossFlag,
+               increase_ratio,
+               floor,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from tb_instance_npc
+        where instance_id = #{instanceId}
+    </select>
+</mapper>

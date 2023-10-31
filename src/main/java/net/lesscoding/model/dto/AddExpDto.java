@@ -16,9 +16,11 @@ public class AddExpDto {
 
     private Integer updateBy;
 
-    public AddExpDto(Integer id, Integer addExp) {
+    private Boolean isNpc;
+
+    public AddExpDto(Integer id, Integer addExp, Boolean isNpc) {
         this.id = id;
-        this.addExp = addExp;
+        this.addExp = isNpc ? 0 : addExp;
         this.updateBy = StpUtil.getLoginIdAsInt();
     }
 }

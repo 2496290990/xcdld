@@ -3,6 +3,7 @@ package net.lesscoding.controller;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
 import net.lesscoding.entity.GameInstance;
+import net.lesscoding.model.dto.JoinInstanceDto;
 import net.lesscoding.service.GameInstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,8 @@ public class GameInstanceController {
         return ResultFactory.success(instanceService.getInstanceList());
     }
 
-    @PostMapping("/npcList")
-    public Result instanceNpcList(@RequestBody GameInstance instance) {
-        return ResultFactory.success(instanceService.instanceNpcList(instance));
+    @PostMapping("/join")
+    public Result joinInstance(@RequestBody JoinInstanceDto dto) {
+        return ResultFactory.success(instanceService.joinInstance(dto));
     }
 }

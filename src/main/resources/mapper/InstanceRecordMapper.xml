@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lesscoding.mapper.InstanceRecordMapper">
+    <select id="getNotCompletedInstance" resultType="net.lesscoding.entity.InstanceRecord">
+        select tb.id,
+               tb.player_id,
+               tb.instance_id,
+               tb.challenge_date,
+               tb.current_floor,
+               tb.success_flag,
+               tb.complete_flag,
+               tb.create_by,
+               tb.create_time,
+               tb.update_by,
+               tb.update_time,
+               tb.del_flag
+        from tb_instance_record tb
+                 left join tb_account_player ap on ap.id = tb.player_id
+        where
+            challenge_date = now()
+          and instance_id = #{instanceId}
+          and tb.complete_flag = false
+          and ap.account_id = #{accountId}
+    </select>
+</mapper>

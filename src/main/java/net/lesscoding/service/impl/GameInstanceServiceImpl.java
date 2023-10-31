@@ -1,13 +1,23 @@
 package net.lesscoding.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.GameInstance;
+import net.lesscoding.entity.InstanceNpc;
+import net.lesscoding.entity.InstanceRecord;
+import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.GameInstanceMapper;
+import net.lesscoding.mapper.InstanceNpcMapper;
+import net.lesscoding.mapper.InstanceRecordMapper;
+import net.lesscoding.model.dto.JoinInstanceDto;
+import net.lesscoding.model.vo.ChallengeInstanceVo;
 import net.lesscoding.service.GameInstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,6 +30,15 @@ public class GameInstanceServiceImpl extends ServiceImpl<GameInstanceMapper, Gam
     @Autowired
     private GameInstanceMapper instanceMapper;
 
+    @Autowired
+    private InstanceRecordMapper recordMapper;
+
+    @Autowired
+    private AccountPlayerMapper playerMapper;
+
+    @Autowired
+    private InstanceNpcMapper npcMapper;
+
     @Override
     public List<GameInstance> getInstanceList() {
         return instanceMapper.selectList(new QueryWrapper<GameInstance>()
@@ -28,8 +47,24 @@ public class GameInstanceServiceImpl extends ServiceImpl<GameInstanceMapper, Gam
     }
 
     @Override
-    public List instanceNpcList(GameInstance instance) {
-        //List list = instanceMapper.getInstanceNpcList(instance);
-        return null;
+    public ChallengeInstanceVo joinInstance(JoinInstanceDto dto) {
+        dto.setAccountId(StpUtil.getLoginIdAsInt());
+        InstanceRecord record = recordMapper.getNotCompletedInstance(dto);
+        if (record == null) {
+            AccountPlayer player = playerMapper.selectOne(new QueryWrapper<AccountPlayer>()
+                    .eq("account_id", dto.getAccountId()));
+            record = new InstanceRecord();
+            record.setInstanceId(dto.getInstanceId());
+            record.setCompleteFlag(false);
+            record.setChallengeDate(LocalDate.now());
+            record.setSuccessFlag(false);
+            record.setPlayerId(player.getId());
+            record.setCurrentFloor(0);
+            recordMapper.insert(record);
+        }
+        List<InstanceNpc> npcList = npcMapper.selectInstanceNpcList(dto);
+        InstanceRecord finalRecord = record;
+        npcList.forEach(item -> item.setDefeatFlag(finalRecord.getCurrentFloor() >= item.getFloor()));
+        return new ChallengeInstanceVo(record, npcList);
     }
 }

@@ -16,19 +16,6 @@ import java.util.*;
  * @apiNote 战斗工具类
  */
 public class BattleUtil {
-    /**
-     * 传入两个对战者的mac 从数据查询相应的玩家信息转换成Player对象
-     * PVE npc不增加经验
-     * @param attackerMac       攻击者Mac
-     * @param defenderMac       被攻击者Mac
-     * @param isPvp             是否PVP
-     * @return BattleResult     对战结果
-     */
-    public static BattleResult doBattle(String attackerMac, String defenderMac, boolean isPvp) {
-        BattleResult result = new BattleResult();
-
-        return result;
-    }
 
     /**
      * 战斗工具类
