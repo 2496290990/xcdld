@@ -3,7 +3,7 @@
 <mapper namespace="net.lesscoding.mapper.AccountPlayerMapper">
     <resultMap id="playerMap" type="net.lesscoding.model.Player">
         <id column="id" property="id" />
-        <result column="account_id" property="accountPlayerId" />
+        <result column="account_id" property="accountId" />
         <result column="nickname" property="nickname" />
         <result column="hp" property="hp" />
         <result column="attack" property="attack" />

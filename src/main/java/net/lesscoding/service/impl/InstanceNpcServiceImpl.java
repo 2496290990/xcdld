@@ -48,9 +48,9 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Object challengeNpc(NpcFightDto dto) {
-        Player player = getPlayer(dto.getPlayerMac(), null);
+        Player player = getPlayer(dto.getPlayerId());
         InstanceNpc npc = dto.getNpc();
-        Player npcPlayer = getPlayer(null, npc.getPlayerId());
+        Player npcPlayer = getPlayer(npc.getPlayerId());
         // 增幅npc
         npcPlayer.increaseNpcAttr(npc);
         List<BattleProcess> processList = new ArrayList<>();
@@ -80,14 +80,12 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
 
     /**
      * 获取玩家属性
-     * @param mac           mac地址
      * @param playerId      玩家id
      * @return Player
      */
-    private Player getPlayer(String mac,Integer playerId) {
+    private Player getPlayer(Integer playerId) {
         Player queryPlayer = new Player();
         queryPlayer.setId(playerId);
-        queryPlayer.setMac(mac);
         return playerMapper.getPlayerBaseAttr(queryPlayer);
     }
 

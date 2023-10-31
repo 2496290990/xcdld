@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @apiNote
  */
 @RestController
-@RequestMapping("instanceNpc")
+@RequestMapping("/instanceNpc")
 public class InstanceNpcController {
     @Autowired
     private InstanceNpcService npcService;

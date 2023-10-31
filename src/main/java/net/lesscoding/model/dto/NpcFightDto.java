@@ -11,7 +11,7 @@ import net.lesscoding.entity.InstanceNpc;
 @Data
 public class NpcFightDto {
 
-    private String playerMac;
+    private Integer playerId;
 
     private InstanceNpc npc;
 }

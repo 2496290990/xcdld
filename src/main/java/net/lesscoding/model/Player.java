@@ -18,6 +18,8 @@ import java.util.List;
 public class Player {
     private Integer id;
 
+    private Integer accountId;
+
     private Integer level;
 
     private String mac;
