@@ -27,4 +27,10 @@
         select distinct account
         from tb_account
     </select>
+    <select id="selectAccountIfExist" resultType="java.lang.Boolean">
+        select count(account) > 0
+        from tb_account
+        where id != #{id}
+        and account = #{account}
+    </select>
 </mapper>

@@ -24,4 +24,8 @@ public class AccountException extends RuntimeException{
     public static AccountException notAllow() {
         return new AccountException("账号密码不正确");
     }
+
+    public static AccountException accountExists() {
+        return new AccountException("账号已存在");
+    }
 }

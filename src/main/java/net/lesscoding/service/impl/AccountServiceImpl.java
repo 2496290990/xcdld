@@ -140,8 +140,14 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Override
     public Integer updateAccountPwd(UpdatePwdDto dto) {
-        Account account = accountMapper.selectOne(new QueryWrapper<Account>()
-                .eq("mac", dto.getMac()));
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>();
+        String mac = dto.getMac();
+        if (StrUtil.isBlank(mac)) {
+            queryWrapper.eq("id", StpUtil.getLoginId());
+        } else  {
+            queryWrapper.eq("mac", mac);
+        }
+        Account account = accountMapper.selectOne(queryWrapper);
         if (account == null) {
             throw AccountException.delException();
         }
@@ -149,6 +155,8 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (!accessFlag) {
             throw AccountException.notAllow();
         }
+
+
         String newPwd = dto.getNewPwd();
         if (StrUtil.isBlank(newPwd)) {
             throw new RuntimeException("新密码不允许为空");
@@ -158,6 +166,11 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         String newAccount = dto.getNewAccount();
         if (StrUtil.isNotBlank(newAccount)) {
             account.setAccount(newAccount);
+            boolean accountExistFlag = accountMapper.selectAccountIfExist(account.getId(), dto.getNewAccount());
+            if (accountExistFlag) {
+                throw AccountException.accountExists();
+            }
+
         }
         return accountMapper.updateById(account);
     }

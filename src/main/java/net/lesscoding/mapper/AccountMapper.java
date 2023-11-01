@@ -25,4 +25,12 @@ public interface AccountMapper extends BaseMapper<Account> {
      * @param accounts
      */
     void updateAccountAndPwd(@Param("list") List<Account> accounts);
+
+    /**
+     * 根据账号id和新的账号判断是否已存在
+     * @param id
+     * @param newAccount
+     * @return
+     */
+    boolean selectAccountIfExist(@Param("id") Integer id, @Param("account") String newAccount);
 }
