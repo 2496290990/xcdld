@@ -9,6 +9,7 @@
                bossFlag,
                increase_ratio,
                floor,
+               drop_ids,
                create_by,
                create_time,
                update_by,

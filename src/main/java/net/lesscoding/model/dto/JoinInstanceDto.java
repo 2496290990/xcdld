@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JoinInstanceDto {
-    private Integer accountId;
+    private Integer playerId;
 
     private Integer instanceId;
+
 }

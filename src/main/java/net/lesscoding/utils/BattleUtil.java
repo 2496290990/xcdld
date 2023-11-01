@@ -167,7 +167,7 @@ public class BattleUtil {
      * @param weight        权重值
      * @return Boolean
      */
-    private static Boolean getWeightResult(double weight) {
+    public static Boolean getWeightResult(double weight) {
         if(weight < 0) {
             weight = 0;
         }

@@ -48,11 +48,10 @@ public class GameInstanceServiceImpl extends ServiceImpl<GameInstanceMapper, Gam
 
     @Override
     public ChallengeInstanceVo joinInstance(JoinInstanceDto dto) {
-        dto.setAccountId(StpUtil.getLoginIdAsInt());
         InstanceRecord record = recordMapper.getNotCompletedInstance(dto);
         if (record == null) {
             AccountPlayer player = playerMapper.selectOne(new QueryWrapper<AccountPlayer>()
-                    .eq("account_id", dto.getAccountId()));
+                    .eq("id", dto.getPlayerId()));
             record = new InstanceRecord();
             record.setInstanceId(dto.getInstanceId());
             record.setCompleteFlag(false);
