@@ -75,7 +75,7 @@ public class ExpUtil {
         //int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
         int winnerExp = realLvExp + hpExp + 1;
         //int loserExp = Math.max(lvDiff / 2, winnerExp / (5 + lvDiff));
-        int loserExp = Math.max(lvDiff * lvDiff, winnerExp / 5  / lvDiff);
+        int loserExp = Math.max(lvDiff * lvDiff, winnerExp / 5  / lvExp);
         log.info("胜利者获得 {} exp， 失败者获得 {} exp", winnerExp, loserExp);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp, winner.getIsNpc()));
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp, loser.getIsNpc()));
