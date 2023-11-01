@@ -53,7 +53,7 @@ public class ExpUtil {
         int hpExpRatio = Math.max(2, lvExp * lvExp);
         int hpExp = 1;
         log.info("当前胜利者 {} 等级 {}", winner.getNickname(), winnerLv);
-        log.info("当前失败者 {} 等级 {}", loser.getNickname(), loser);
+        log.info("当前失败者 {} 等级 {}", loser.getNickname(), loserLv);
         log.info("当前胜利者剩余HP {}", winner.getHp());
         log.info("等级差：：{}，hp比例：：{}", lvDiff, hpExpRatio);
         int realLvExp = lvDiff > 5 ? 1 : lvExp;
