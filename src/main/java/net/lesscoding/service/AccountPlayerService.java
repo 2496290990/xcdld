@@ -7,6 +7,7 @@ import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.PlayerInfoVo;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,4 +32,9 @@ public interface AccountPlayerService extends IService<AccountPlayer> {
      * @param accountList
      */
     void addPlayerByAccount(List<Account> accountList);
+
+    Integer delRedisEnergy() throws IOException;
+
+    Integer selfRecovery() throws IOException;
+
 }

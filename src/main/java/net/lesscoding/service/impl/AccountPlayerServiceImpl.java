@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.Account;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.PlayerLevelExp;
@@ -16,10 +17,17 @@ import net.lesscoding.model.vo.PlayerInfoVo;
 import net.lesscoding.model.vo.PlayerVo;
 import net.lesscoding.service.AccountPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author eleven
@@ -27,6 +35,7 @@ import java.util.List;
  * @apiNote
  */
 @Service
+@Slf4j
 public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, AccountPlayer> implements AccountPlayerService {
 
     @Autowired
@@ -34,7 +43,9 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
     @Autowired
     private PlayerLevelExpMapper levelMapper;
 
-
+    @Autowired
+    @Qualifier("jedisRedisTemplate")
+    private RedisTemplate jedisTemplate;
     /**
      * 获取所有的玩家数据
      * @return
@@ -84,5 +95,26 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
             accountPlayerList.add(accountPlayer);
         }
         saveBatch(accountPlayerList);
+    }
+
+    @Override
+    @Scheduled(cron = "0 30 0 * * ?")
+    public Integer delRedisEnergy() throws IOException {
+        log.info("执行删除体力值key的操作");
+        Set<String> energyKeys  = jedisTemplate.keys("energy:*");
+        long delNum = jedisTemplate.delete(energyKeys);
+        //Boolean energyDelFlag = jedisTemplate.delete("energy:*");
+        Integer effectRow = playerMapper.selfRecoveryEnergy();
+        log.info("删除数量 {} , 受影响行数 {}\n key值{}", delNum, effectRow, energyKeys);
+        return effectRow;
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 * * * ?")
+    public Integer selfRecovery() throws IOException {
+        log.info("执行自动删命令开始,有新的战斗重新计算");
+        Integer effectRow = delRedisEnergy();
+        log.info("执行完成");
+        return effectRow;
     }
 }

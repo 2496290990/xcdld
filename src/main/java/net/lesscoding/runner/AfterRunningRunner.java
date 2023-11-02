@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.*;
 
@@ -23,6 +24,8 @@ public class AfterRunningRunner implements ApplicationRunner {
 
     @Autowired
     private SystemService systemService;
+
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()

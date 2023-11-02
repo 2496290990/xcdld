@@ -1,7 +1,9 @@
 package net.lesscoding.utils;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.PlayerWeapon;
 import net.lesscoding.entity.Weapon;
@@ -11,6 +13,8 @@ import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.AddExpDto;
 import net.lesscoding.model.vo.AfterPlayerVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -32,13 +36,23 @@ public class ExpUtil {
     @Autowired
     private PlayerWeaponMapper playerWeaponMapper;
 
+    @Autowired
+    @Qualifier("intRedisTemplate")
+    private RedisTemplate intRedisTemplate;
+
     /**
      * 添加玩家的经验
      * @param attacker          攻击者
      * @param defender          防御者
      * @param processList       进程集合
+     * v1： winnerExp
+     *
      */
     public void addPlayerExp(Player attacker, Player defender, List<BattleProcess> processList) {
+        if (!hasEnergy(attacker.getId())) {
+            processList.add(new BattleProcess(0, "体力值不足，请使用道具恢复或等待整点自动恢复"));
+            return;
+        }
         List<Player> playerList = new ArrayList<>();
         Collections.addAll(playerList, attacker, defender);
         playerList.sort(Comparator.comparingInt(Player::getHp));
@@ -49,7 +63,6 @@ public class ExpUtil {
         int loserLv = loser.getLevel();
         int lvDiff = Math.abs(winnerLv - loserLv);
         int lvExp = lvDiff + 1;
-        //int hpExpRatio = Math.max(2, lvExp * lvExp);
         int hpExpRatio = Math.max(2, lvExp * lvExp);
         int hpExp = 1;
         log.info("当前胜利者 {} 等级 {}", winner.getNickname(), winnerLv);
@@ -62,7 +75,6 @@ public class ExpUtil {
         String hpExpLogStr = "";
         boolean vsHighLevel = winnerLv < loserLv;
         if (vsHighLevel) {
-            //hpExp = winner.getHp() * hpExpRatio;
             hpExp = winner.getHp() * Math.max(2, lvExp);
         } else {
             hpExp = winner.getHp() / hpExpRatio;
@@ -72,18 +84,60 @@ public class ExpUtil {
                 winner.getHp(), vsHighLevel ? "*" : "/" , hpExpRatio,
                 hpExp);
         log.info(hpExpLogStr);
-        //int winnerExp = (lvDiff > 5 ? 0 : lvExp)+ lvExp + hpExp + 1;
         int winnerExp = realLvExp + hpExp + 1;
-        //int loserExp = Math.max(lvDiff / 2, winnerExp / (5 + lvDiff));
         int loserExp = Math.max(lvDiff * lvDiff, winnerExp / 5  / lvExp);
+        /**
+         * 被动战斗还赢了
+         */
+        if (winner.getId().equals(defender.getId())) {
+            winnerExp /= lvExp;
+        }
         log.info("胜利者获得 {} exp， 失败者获得 {} exp", winnerExp, loserExp);
         playerMapper.addPlayerExp(new AddExpDto(winner.getId(), winnerExp, winner.getIsNpc()));
         playerMapper.addPlayerExp(new AddExpDto(loser.getId(), loserExp, loser.getIsNpc()));
+        // 扣减玩家体力值
+        subEnergy(attacker.getId());
         processList.add(new BattleProcess(processList.size() + 1,
                 String.format("你获得了%d经验值", attacker.getHp() > 0 ? winnerExp : loserExp)));
         List<AfterPlayerVo> afterList =  playerMapper.selectAfterPlayer(Arrays.asList(attacker.getId(), defender.getId()));
         addWeapon(attacker, defender, processList, afterList);
     }
+
+    private boolean hasEnergy(Integer id) {
+        String energyKey = energyKey(id);
+        String energyStr = String.valueOf(intRedisTemplate.opsForValue().get(energyKey));
+        // redis不存在key值 将key更新
+        if (StrUtil.isBlank(energyStr) || StrUtil.equalsIgnoreCase("null", energyStr)) {
+            AccountPlayer player = playerMapper.selectById(id);
+            intRedisTemplate.opsForValue().set(energyKey, player.getEnergy());
+            return true;
+        }
+        return Integer.parseInt(energyStr) > 0;
+    }
+
+    /**
+     * 扣减玩家的体力值
+     * @param id
+     */
+    private void subEnergy(Integer id) {
+        String energyKey = energyKey(id);
+        log.info("当前体力key为 {}", energyKey);
+        playerMapper.subEnergy(id);
+        String energyStr = String.valueOf(intRedisTemplate.opsForValue().get(energyKey));
+        // redis不存在key值 将key更新
+        if (StrUtil.isBlank(energyStr) || StrUtil.equalsIgnoreCase("null", energyStr)) {
+            AccountPlayer player = playerMapper.selectById(id);
+            intRedisTemplate.opsForValue().set(energyKey, player.getEnergy());
+        } else {
+            // 否则就直接 -1
+            intRedisTemplate.opsForValue().decrement(energyKey);
+        }
+    }
+
+    private String energyKey(Integer id) {
+        return String.format("energy:%d", id);
+    }
+
 
     /**
      * 添加获取武器的代码

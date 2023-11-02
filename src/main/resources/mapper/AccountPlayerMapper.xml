@@ -82,6 +82,16 @@
             WHERE id = #{item.id}
         </foreach>
     </update>
+    <update id="subEnergy">
+        update tb_account_player
+        set energy = energy - 1
+        where id = #{id}
+    </update>
+    <update id="selfRecoveryEnergy">
+        update tb_account_player
+        set energy = 100
+        where energy &lt;= 0
+    </update>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.account_id account_id,
                tb.nickname,

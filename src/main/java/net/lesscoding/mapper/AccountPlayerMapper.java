@@ -50,4 +50,17 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @return
      */
     PlayerInfoVo selectPlayerDetail(Integer accountId);
+
+    /**
+     * 扣减玩家体力值
+     * @param id 攻击者id
+     * @return Integer
+     */
+    Integer subEnergy(Integer id);
+
+    /**
+     * 重置体力
+     * @return Integer
+     */
+    Integer selfRecoveryEnergy();
 }

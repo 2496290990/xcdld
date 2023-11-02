@@ -31,4 +31,6 @@ public class AccountPlayer extends BaseEntity<AccountPlayer> {
      * 当前经验值
      */
     private Integer exp;
+
+    private Integer energy;
 }

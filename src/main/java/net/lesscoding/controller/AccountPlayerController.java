@@ -8,6 +8,8 @@ import net.lesscoding.service.AccountPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 /**
  * @author eleven
  * @date 2023/10/10 16:59
@@ -30,4 +32,8 @@ public class AccountPlayerController {
         return ResultFactory.success(playerService.getPlayerDetail(dto));
     }
 
+    @PutMapping("/recovery")
+    public Result recoveryEnergy() throws IOException {
+        return ResultFactory.success(playerService.selfRecovery());
+    }
 }

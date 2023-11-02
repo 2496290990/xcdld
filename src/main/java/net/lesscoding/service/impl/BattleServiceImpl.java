@@ -58,4 +58,5 @@ public class BattleServiceImpl implements BattleService {
         expUtil.addPlayerExp(attacker, defender, processList);
         return processList;
     }
+
 }
