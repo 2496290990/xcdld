@@ -6,6 +6,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import net.lesscoding.interceptor.LimitIllegalRequestsInterceptor;
 import net.lesscoding.interceptor.RateLimiterInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,6 +52,11 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         ;
         // 添加限流
         registry.addInterceptor(new RateLimiterInterceptor()).addPathPatterns("/battle/**");
+        /**
+         * 限制战斗接口通过Postman等工具调用
+         */
+        registry.addInterceptor(new LimitIllegalRequestsInterceptor())
+                .addPathPatterns("/battle/doBattle", "/instanceNpc/challenge");
     }
 
     /**

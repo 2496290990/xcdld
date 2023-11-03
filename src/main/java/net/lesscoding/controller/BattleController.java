@@ -1,7 +1,9 @@
 package net.lesscoding.controller;
 
+import net.lesscoding.aspect.Log;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
+import net.lesscoding.enums.BusinessType;
 import net.lesscoding.model.dto.BattleDto;
 import net.lesscoding.service.BattleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ public class BattleController {
     private BattleService battleService;
 
     @PostMapping("/doBattle")
+    @Log(title = "PVP战斗", businessType = BusinessType.INSERT)
     private Result doBattle(@RequestBody BattleDto dto) {
         return ResultFactory.success(battleService.doBattle(dto));
     }

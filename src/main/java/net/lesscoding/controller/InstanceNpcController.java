@@ -1,5 +1,6 @@
 package net.lesscoding.controller;
 
+import net.lesscoding.aspect.Log;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
 import net.lesscoding.model.dto.NpcFightDto;
@@ -22,6 +23,7 @@ public class InstanceNpcController {
     private InstanceNpcService npcService;
 
     @PostMapping("/challenge")
+    @Log(title = "挑战副本")
     public Result challenge(@RequestBody NpcFightDto dto) {
         return ResultFactory.success(npcService.challengeNpc(dto));
     }
