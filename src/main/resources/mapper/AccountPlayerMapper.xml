@@ -89,8 +89,14 @@
     </update>
     <update id="selfRecoveryEnergy">
         update tb_account_player
-        set energy = 100
-        where energy &lt;= 0
+        set energy = 1200
+        where energy &lt;= 1200
+    </update>
+    <update id="updateEnergy">
+        update tb_account_player
+        set energy = #{energy},
+            update_time = now()
+        where id = #{id}
     </update>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.account_id account_id,

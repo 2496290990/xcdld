@@ -18,6 +18,10 @@ public class Consts {
     public static final String SUCCESS_MSG = "success";
     /** 失败返回信息 */
     public static final String FAILED_MSG = "failed";
+    /**
+     * 能量key
+     */
+    public static final String ENERGY_KEYS = "energy:*";
 
     /** 生成密码随机盐的字符串 */
     public static final String BASE_STR = "0123456789abcdefghijklmnopqrstuvwxyz~!@#$%^&*()-+";

@@ -63,4 +63,11 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @return Integer
      */
     Integer selfRecoveryEnergy();
+
+    /**
+     * 变更列表
+     *
+     * @param player
+     */
+    Integer updateEnergy(AccountPlayer player);
 }
