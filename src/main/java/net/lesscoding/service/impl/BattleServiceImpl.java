@@ -1,6 +1,8 @@
 package net.lesscoding.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
@@ -47,9 +49,14 @@ public class BattleServiceImpl implements BattleService {
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Object doBattle(BattleDto dto) {
-        Player attacker =  playerMapper.getPlayerBaseAttr(dto.getAttacker());
-        Player defender =  playerMapper.getPlayerBaseAttr(dto.getDefender());
         List<BattleProcess> processList = new ArrayList<>();
+        Player reqAttack = dto.getAttacker();
+        if (reqAttack.getId() != null || StrUtil.isNotBlank(reqAttack.getMac())) {
+            throw new RuntimeException("别用接口刷啊喂，如果是插件的话记得更新一下插件版本");
+        }
+        reqAttack.setId(StpUtil.getLoginIdAsInt());
+        Player attacker =  playerMapper.getPlayerBaseAttr(reqAttack);
+        Player defender =  playerMapper.getPlayerBaseAttr(dto.getDefender());
         BattleUtil.doBattle(attacker, defender, processList, 1);
         processList.add(new BattleProcess(
                 processList.size(),
