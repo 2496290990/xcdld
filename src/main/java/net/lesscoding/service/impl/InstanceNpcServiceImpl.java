@@ -134,6 +134,7 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
                         row.setType(3);
                         row.setNum(1);
                         row.setObjId(realDrop.getId());
+                        packageMapper.insert(row);
                     }
                     list.add(new BattleProcess(list.size(),
                             String.format("恭喜获得[%s] * 1, 请前往背包查看", realDrop.getName())));
