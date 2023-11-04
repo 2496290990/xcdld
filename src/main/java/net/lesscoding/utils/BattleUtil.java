@@ -5,8 +5,10 @@ import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.Weapon;
+import net.lesscoding.link.*;
 import net.lesscoding.model.BattleResult;
 import net.lesscoding.model.Player;
+import net.lesscoding.model.dto.CurrentBattleProcess;
 
 import java.util.*;
 
@@ -70,7 +72,68 @@ public class BattleUtil {
         }
     }
 
+
     /**
+     * 战斗工具类
+     * @param attacker      攻击者
+     * @param defender      被攻击者
+     * @param processList   进程集合
+     * @param round         回合数
+     */
+    public static void doBattleByPlugIn(Player attacker, Player defender, List<BattleProcess> processList, int round) {
+        while (attacker.getHp() > 0 && defender.getHp() > 0) {
+            BattleRequestHandler battleRequestHandler = initBattleHandler();
+            BattleRequest battleRequest = initBattleRequest(attacker, defender, round);
+            battleRequestHandler.handleRequest(battleRequest);
+            CurrentBattleProcess currentBattleProcess = battleRequest.getCurrentBattleProcess();
+            Integer currentState = currentBattleProcess.getCurrentState();
+            attacker.setHp(currentBattleProcess.getAttackerHp());
+            defender.setHp(currentBattleProcess.getDefenderHp());
+            if (currentState != 0) {
+                doBattle(defender, attacker, processList, round);
+            }else {
+                break;
+            }
+        }
+    }
+
+    /**
+     * 初始化责任链
+     * @return
+     */
+    public static BattleRequestHandler initBattleHandler() {
+        BattleRequestHandler initBattleEnvHander = new InitBattleEnvHander();
+        BattleRequestHandler playerAttributeHandler = new PlayerAttributeHandler();
+        BattleRequestHandler weaponAttributeHandler = new WeaponAttributeHandler();
+        BattleRequestHandler playerSkillHandler = new PlayerSkillHandler();
+        BattleRequestHandler resultHandler = new ResultHandler();
+
+        initBattleEnvHander.setNextHandler(playerAttributeHandler);
+        playerAttributeHandler.setNextHandler(weaponAttributeHandler);
+        weaponAttributeHandler.setNextHandler(playerSkillHandler);
+        playerSkillHandler.setNextHandler(resultHandler);
+
+        return initBattleEnvHander;
+    }
+
+    public static BattleRequest initBattleRequest(Player attacker, Player defender, int round) {
+        CurrentBattleProcess currentBattleProcess = CurrentBattleProcess.builder()
+                .attackerName(attacker.getNickname())
+                .attackerDefence(attacker.getDefence())
+                .attackerAttack(attacker.getAttack())
+                .attackerHp(attacker.getHp())
+                .attackerWeaponList(attacker.getWeaponList())
+                .defenderAttack(defender.getAttack())
+                .defenderName(defender.getNickname())
+                .defenderDefence(defender.getDefence())
+                .defenderHp(defender.getHp())
+                .flee(defender.getFlee())
+                .criticalChance(attacker.getCriticalChance())
+                .round(round).build();
+        return BattleRequest.builder().currentBattleProcess(currentBattleProcess).build();
+    }
+
+   /**
      * 坚果教主提供的战斗工具类
      * @author 坚果教主
      * @param attacker  攻击者
@@ -158,7 +221,7 @@ public class BattleUtil {
      * @param max   最大值(不包含)
      * @return Integer 最终数据
      */
-    private static Integer getRangeAttack(Integer min, Integer max) {
+    public static Integer getRangeAttack(Integer min, Integer max) {
         return RandomUtil.randomInt(min - 1, max + 1);
     }
 
