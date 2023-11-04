@@ -75,10 +75,11 @@ public class BattleUtil {
 
     /**
      * 战斗工具类
-     * @param attacker      攻击者
-     * @param defender      被攻击者
-     * @param processList   进程集合
-     * @param round         回合数
+     *
+     * @param attacker    攻击者
+     * @param defender    被攻击者
+     * @param processList 进程集合
+     * @param round       回合数
      */
     public static void doBattleByPlugIn(Player attacker, Player defender, List<BattleProcess> processList, int round) {
         while (attacker.getHp() > 0 && defender.getHp() > 0) {
@@ -89,9 +90,10 @@ public class BattleUtil {
             Integer currentState = currentBattleProcess.getCurrentState();
             attacker.setHp(currentBattleProcess.getAttackerHp());
             defender.setHp(currentBattleProcess.getDefenderHp());
+            processList.add(new BattleProcess(round, currentBattleProcess.getCurrentResult().toString()));
             if (currentState != 0) {
                 doBattle(defender, attacker, processList, round);
-            }else {
+            } else {
                 break;
             }
         }
@@ -118,11 +120,13 @@ public class BattleUtil {
 
     public static BattleRequest initBattleRequest(Player attacker, Player defender, int round) {
         CurrentBattleProcess currentBattleProcess = CurrentBattleProcess.builder()
+                .orginAttackerName(attacker.getNickname())
                 .attackerName(attacker.getNickname())
                 .attackerDefence(attacker.getDefence())
                 .attackerAttack(attacker.getAttack())
                 .attackerHp(attacker.getHp())
                 .attackerWeaponList(attacker.getWeaponList())
+                .orginDefenderName(defender.getNickname())
                 .defenderAttack(defender.getAttack())
                 .defenderName(defender.getNickname())
                 .defenderDefence(defender.getDefence())

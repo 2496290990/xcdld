@@ -12,6 +12,10 @@ import java.util.List;
 @Builder
 public class CurrentBattleProcess {
 
+    private String orginAttackerName;
+
+    private String orginDefenderName;
+
     private String attackerName;
 
     private String defenderName;
@@ -89,7 +93,7 @@ public class CurrentBattleProcess {
     private Integer calAttack;
 
     /**
-     * 当前回合状态,0：没结束,1：防御者HP<=0，2:攻击者HP<=0
+     * 当前回合状态,0：没结束,1：防御者HP<=0，2:攻击者HP<=0,3：同时为0
      */
     private Integer currentState;
 

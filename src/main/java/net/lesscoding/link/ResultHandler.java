@@ -14,6 +14,7 @@ public class ResultHandler extends BattleRequestHandler {
         CurrentBattleProcess currentBattleProcess = request.getCurrentBattleProcess();
         calHp(currentBattleProcess);
         setResult(currentBattleProcess);
+        setEnd(currentBattleProcess);
     }
 
     public static void calHp(CurrentBattleProcess currentBattleProcess) {
@@ -23,6 +24,10 @@ public class ResultHandler extends BattleRequestHandler {
         currentBattleProcess.setDefenderHp(calDefenderHp);
     }
 
+    /**
+     * 设置战斗过程文本
+     *
+     */
     public static void setResult(CurrentBattleProcess currentBattleProcess) {
         Boolean fleeFlag = currentBattleProcess.getFleeFlag();
         Boolean criticalFlag = currentBattleProcess.getCriticalFlag();
@@ -52,6 +57,43 @@ public class ResultHandler extends BattleRequestHandler {
                     currentBattleProcess.getDefenderName(),
                     currentBattleProcess.getCalAttack(),
                     currentBattleProcess.getDefenderHp()));
+        }
+    }
+
+    /**
+     * 设置战斗结束
+     *
+     */
+    public static void setEnd(CurrentBattleProcess currentBattleProcess) {
+        Integer attackerHp = currentBattleProcess.getAttackerHp();
+        Integer defenderHp = currentBattleProcess.getDefenderHp();
+        if (attackerHp > 0 && defenderHp > 0) {
+            currentBattleProcess.setCurrentState(0);
+        } else if (attackerHp <= 0 & defenderHp <= 0) {
+            currentBattleProcess.setCurrentState(3);
+        } else if (defenderHp == 0) {
+            currentBattleProcess.setCurrentState(1);
+        } else {
+            currentBattleProcess.setCurrentState(2);
+        }
+        Integer currentState = currentBattleProcess.getCurrentState();
+
+        StringBuilder currentResult = currentBattleProcess.getCurrentResult();
+        switch (currentState) {
+            case 1:
+                currentResult.append("你击败了【")
+                        .append(currentBattleProcess.getDefenderName())
+                        .append("】获得了胜利。评价：")
+                        .append(attackerHp < 10 ? "惨胜" : "完胜");
+                break;
+            case 2:
+                currentResult.append("惜败！");
+                break;
+            case 3:
+                currentResult.append("平局");
+                break;
+            default:
+                break;
         }
     }
 }
