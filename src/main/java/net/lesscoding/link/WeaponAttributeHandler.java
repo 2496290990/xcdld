@@ -6,7 +6,6 @@ import net.lesscoding.model.dto.CurrentBattleProcess;
 import net.lesscoding.utils.BattleUtil;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder

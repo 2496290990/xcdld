@@ -11,23 +11,25 @@ import net.lesscoding.common.Consts;
 import net.lesscoding.entity.Account;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.PlayerLevelExp;
+import net.lesscoding.entity.SysDict;
 import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.PlayerLevelExpMapper;
+import net.lesscoding.mapper.SysDictMapper;
 import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.PlayerInfoVo;
 import net.lesscoding.model.vo.PlayerVo;
 import net.lesscoding.service.AccountPlayerService;
+import net.lesscoding.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author eleven
@@ -46,6 +48,10 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
     @Autowired
     @Qualifier("jedisRedisTemplate")
     private RedisTemplate jedisTemplate;
+
+    @Autowired
+    private SysDictMapper dictMapper;
+
     /**
      * 获取所有的玩家数据
      * @return
@@ -70,6 +76,7 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
                 .orderByDesc(PlayerLevelExp::getLevel)
                 .last("limit 1"));
         PlayerInfoVo playerInfoVo = playerMapper.selectPlayerDetail(accountId);
+        playerInfoVo.setMaxEnergy(maxEnergy());
         if (playerInfoVo.getNextLvExp() == null) {
             playerInfoVo.setNextLvExp(maxLevel.getNeedExp());
             playerInfoVo.setHitRate(maxLevel.getHit());
@@ -103,7 +110,7 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
         log.info("执行删除体力值key的操作");
         Set<String> energyKeys  = jedisTemplate.keys(Consts.ENERGY_KEYS);
         long delNum = jedisTemplate.delete(energyKeys);
-        playerMapper.selfRecoveryEnergy();
+        playerMapper.selfRecoveryEnergy(maxEnergy());
         log.info("删除数量 {} , 受影响行数 {}\n key值{}", delNum, energyKeys.size(), energyKeys);
         return energyKeys.size();
     }
@@ -115,21 +122,34 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
         Set<String> energyKeys  = jedisTemplate.keys(Consts.ENERGY_KEYS);
         AccountPlayer accountPlayer = null;
         if (CollUtil.isNotEmpty(energyKeys)) {
+            Map<Integer, Integer> playerMap = new HashMap<>(energyKeys.size());
+            Integer maxEnergy = maxEnergy();
             for (String energyKey : energyKeys) {
                 String energyStr = String.valueOf(jedisTemplate.opsForValue().get(energyKey));
                 if (StrUtil.isNotBlank(energyStr) || StrUtil.equalsIgnoreCase("null", energyStr)) {
                     Integer energy = Integer.parseInt(energyStr);
-                    energy = Math.min(1200, energy + 100);
+                    energy = Math.min(maxEnergy, energy + (maxEnergy / 12));
                     jedisTemplate.opsForValue().set(energyKey, energy.toString());
                     log.info("当前玩家{} 恢复后体力值为{}", energyKey, energy);
-                    accountPlayer = new AccountPlayer();
-                    accountPlayer.setId(Integer.parseInt(energyKey.split(":")[1]));
-                    accountPlayer.setEnergy(energy);
-                    playerMapper.updateEnergy(accountPlayer);
+                    playerMap.put(Integer.parseInt(energyKey.split(":")[1]), energy);
                 }
+            }
+            if (CollUtil.isNotEmpty(playerMap)) {
+                List<AccountPlayer> updateList = playerMapper.selectList(new QueryWrapper<AccountPlayer>()
+                        .in("id", playerMap.keySet()));
+                updateList.forEach(item -> item.setEnergy(playerMap.get(item.getId())));
+                playerMapper.updateEnergy(updateList);
             }
         }
         log.info("执行完成");
         return energyKeys.size();
+    }
+
+    private Integer maxEnergy () {
+        SysDict dict = dictMapper.selectOne(new QueryWrapper<SysDict>()
+                .lambda()
+                .eq(SysDict::getDictType, "energy")
+                .eq(SysDict::getDictCode, "maxEnergy"));
+        return Integer.parseInt(dict.getDictValue());
     }
 }

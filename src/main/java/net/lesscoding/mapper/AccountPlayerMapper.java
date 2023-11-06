@@ -60,14 +60,15 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
 
     /**
      * 重置体力
+     * @param maxEnergy  最大体力
      * @return Integer
      */
-    Integer selfRecoveryEnergy();
+    Integer selfRecoveryEnergy(@Param("maxEnergy") Integer maxEnergy);
 
     /**
      * 变更列表
      *
      * @param player
      */
-    Integer updateEnergy(AccountPlayer player);
+    Integer updateEnergy(@Param("list") List<AccountPlayer> player);
 }

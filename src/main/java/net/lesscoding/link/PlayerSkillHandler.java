@@ -3,7 +3,6 @@ package net.lesscoding.link;
 import lombok.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder

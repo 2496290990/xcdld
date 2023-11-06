@@ -89,14 +89,20 @@
     </update>
     <update id="selfRecoveryEnergy">
         update tb_account_player
-        set energy = 1200
-        where energy &lt;= 1200
+        set energy = #{maxEnergy}
+        where energy &lt;= #{maxEnergy}
     </update>
     <update id="updateEnergy">
-        update tb_account_player
-        set energy = #{energy},
-            update_time = now()
-        where id = #{id}
+        insert into tb_account_player (id, account_id, nickname, energy,  update_time)
+        value <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.accountId}, #{item.nickname}, #{item.energy}, now())
+        </foreach>
+        on duplicate key update
+        id = values(id),
+        account_id = values(account_id),
+        nickname = values(nickname),
+        energy = values(energy),
+        update_time = values(update_time)
     </update>
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.account_id account_id,

@@ -60,4 +60,6 @@ public class PlayerInfoVo {
 
     private Integer energy;
 
+    private Integer maxEnergy;
+
 }

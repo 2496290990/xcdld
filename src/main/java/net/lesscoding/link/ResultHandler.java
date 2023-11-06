@@ -4,7 +4,6 @@ import lombok.*;
 import net.lesscoding.model.dto.CurrentBattleProcess;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder

@@ -8,7 +8,6 @@ import net.lesscoding.model.dto.CurrentBattleProcess;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder
