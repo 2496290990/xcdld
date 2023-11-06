@@ -1,18 +1,18 @@
 package net.lesscoding.link;
 
 import cn.hutool.core.util.RandomUtil;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.model.dto.CurrentBattleProcess;
 
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Builder
-public class InitBattleEnvHander extends BattleRequestHandler{
+public class InitBattleEnvHandler extends BattleRequestHandler {
     @Override
     public void handleRequest(BattleRequest request) {
         CurrentBattleProcess currentBattleProcess = request.getCurrentBattleProcess();
