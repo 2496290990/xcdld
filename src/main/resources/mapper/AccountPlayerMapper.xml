@@ -142,6 +142,9 @@
             <if test="id != null">
                 and tb.id = #{id}
             </if>
+            <if test="accountId != null">
+                and ac.id = #{accountId}
+            </if>
         </where>
 
     </select>

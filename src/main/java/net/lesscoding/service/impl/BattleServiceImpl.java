@@ -55,7 +55,7 @@ public class BattleServiceImpl implements BattleService {
         if (reqAttack.getId() != null || StrUtil.isNotBlank(reqAttack.getMac())) {
             throw new RuntimeException("别用接口刷啊喂，如果是插件的话记得更新一下插件版本");
         }
-        reqAttack.setId(StpUtil.getLoginIdAsInt());
+        reqAttack.setAccountId(StpUtil.getLoginIdAsInt());
         Player attacker =  playerMapper.getPlayerBaseAttr(reqAttack);
         Player defender =  playerMapper.getPlayerBaseAttr(dto.getDefender());
         BattleUtil.doBattle(attacker, defender, processList, 1);
