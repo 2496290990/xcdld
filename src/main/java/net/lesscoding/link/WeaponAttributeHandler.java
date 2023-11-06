@@ -1,6 +1,8 @@
 package net.lesscoding.link;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.model.dto.CurrentBattleProcess;
 import net.lesscoding.utils.BattleUtil;
@@ -8,7 +10,6 @@ import net.lesscoding.utils.BattleUtil;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class WeaponAttributeHandler extends BattleRequestHandler {
     @Override
     public void handleRequest(BattleRequest request) {

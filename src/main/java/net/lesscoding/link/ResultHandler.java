@@ -1,12 +1,13 @@
 package net.lesscoding.link;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.lesscoding.model.dto.CurrentBattleProcess;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class ResultHandler extends BattleRequestHandler {
     @Override
     public void handleRequest(BattleRequest request) {
@@ -25,7 +26,6 @@ public class ResultHandler extends BattleRequestHandler {
 
     /**
      * 设置战斗过程文本
-     *
      */
     public static void setResult(CurrentBattleProcess currentBattleProcess) {
         Boolean fleeFlag = currentBattleProcess.getFleeFlag();
@@ -45,8 +45,8 @@ public class ResultHandler extends BattleRequestHandler {
                 baseText = "致命一击";
             }
             currentResult.append(String.format("%s侧身一躲，躲过了%s的",
-                    currentBattleProcess.getDefenderName(),
-                    currentBattleProcess.getAttackerName()))
+                            currentBattleProcess.getDefenderName(),
+                            currentBattleProcess.getAttackerName()))
                     .append(baseText);
         } else {
             if (criticalFlag) {
@@ -61,7 +61,6 @@ public class ResultHandler extends BattleRequestHandler {
 
     /**
      * 设置战斗结束
-     *
      */
     public static void setEnd(CurrentBattleProcess currentBattleProcess) {
         Integer attackerHp = currentBattleProcess.getAttackerHp();

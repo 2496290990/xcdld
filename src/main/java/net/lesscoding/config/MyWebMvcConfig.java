@@ -52,9 +52,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         ;
         // 添加限流
         registry.addInterceptor(new RateLimiterInterceptor()).addPathPatterns("/battle/**");
-        /**
-         * 限制战斗接口通过Postman等工具调用
-         */
+        // 限制战斗接口通过Postman等工具调用
         registry.addInterceptor(new LimitIllegalRequestsInterceptor())
                 .addPathPatterns("/battle/doBattle", "/instanceNpc/challenge");
     }

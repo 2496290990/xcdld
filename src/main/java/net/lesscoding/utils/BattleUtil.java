@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.link.*;
-import net.lesscoding.model.BattleResult;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.CurrentBattleProcess;
 
@@ -104,18 +103,18 @@ public class BattleUtil {
      * @return
      */
     public static BattleRequestHandler initBattleHandler() {
-        BattleRequestHandler initBattleEnvHander = new InitBattleEnvHander();
+        BattleRequestHandler initBattleEnvHandler = new InitBattleEnvHandler();
         BattleRequestHandler playerAttributeHandler = new PlayerAttributeHandler();
         BattleRequestHandler weaponAttributeHandler = new WeaponAttributeHandler();
         BattleRequestHandler playerSkillHandler = new PlayerSkillHandler();
         BattleRequestHandler resultHandler = new ResultHandler();
 
-        initBattleEnvHander.setNextHandler(playerAttributeHandler);
+        initBattleEnvHandler.setNextHandler(playerAttributeHandler);
         playerAttributeHandler.setNextHandler(weaponAttributeHandler);
         weaponAttributeHandler.setNextHandler(playerSkillHandler);
         playerSkillHandler.setNextHandler(resultHandler);
 
-        return initBattleEnvHander;
+        return initBattleEnvHandler;
     }
 
     public static BattleRequest initBattleRequest(Player attacker, Player defender, int round) {
