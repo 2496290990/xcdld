@@ -98,4 +98,10 @@ public class SystemServiceImpl implements SystemService {
         return accountService.doLogin(dto);
     }
 
+    @Override
+    public String redeploy() {
+
+        return null;
+    }
+
 }

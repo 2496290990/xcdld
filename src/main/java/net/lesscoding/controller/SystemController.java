@@ -35,4 +35,9 @@ public class SystemController {
         return ResultFactory.success(systemService.doLogin(dto));
     }
 
+    @PostMapping("/redeploy")
+    public Result redeploy() {
+        return ResultFactory.success(systemService.redeploy());
+    }
+
 }

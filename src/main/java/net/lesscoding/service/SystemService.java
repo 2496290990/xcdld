@@ -28,4 +28,6 @@ public interface SystemService {
      * @return
      */
     Object doLogin(AccountDto dto);
+
+    String redeploy();
 }
