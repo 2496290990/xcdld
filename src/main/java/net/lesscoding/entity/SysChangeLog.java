@@ -24,34 +24,6 @@ public class SysChangeLog extends BaseEntity<SysChangeLog> {
 	 */
 	@TableField("content")
 	private String content;
-	/**
-	 * 创建人
-	 */
-	@TableField("create_by")
-	private Integer createBy;
-	/**
-	 * 创建时间
-	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@TableField("create_time")
-	private LocalDateTime createTime;
-	/**
-	 * 更新人
-	 */
-	@TableField("update_by")
-	private Integer updateBy;
-	/**
-	 * 更新时间
-	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@TableField("update_time")
-	private LocalDateTime updateTime;
-	/**
-	 * 删除标记
-	 */
-	@TableField("del_flag")
-	private Integer delFlag;
+
 	
 }
