@@ -22,4 +22,15 @@
         from sys_dict
         where dict_type = #{dictType}
     </select>
+    <select id="selectByType" resultType="net.lesscoding.entity.SysDict">
+        select *
+        from sys_dict
+        where dict_type = #{dictType}
+    </select>
+    <select id="selectByTypeAndCode" resultType="net.lesscoding.entity.SysDict">
+        select *
+        from sys_dict
+        where dict_type = #{dictType}
+        and dict_code = #{dictCode}
+    </select>
 </mapper>

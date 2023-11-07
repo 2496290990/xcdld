@@ -2,6 +2,9 @@ package net.lesscoding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lesscoding.entity.SysDict;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author eleven
@@ -16,5 +19,9 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      * @return
      */
     Integer selectMaxSort(SysDict dict);
+
+    List<SysDict> selectByType(@Param("dictType") String dictType);
+    SysDict selectByTypeAndCode(@Param("dictType") String dictType, @Param("dictCode") String dictCode);
+
 
 }
