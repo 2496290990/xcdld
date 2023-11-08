@@ -26,4 +26,49 @@ public class Consts {
     /** 生成密码随机盐的字符串 */
     public static final String BASE_STR = "0123456789abcdefghijklmnopqrstuvwxyz~!@#$%^&*()-+";
 
+    /**
+     * int 常量 0
+     */
+    public static final Integer INT_STATE_0 = 0;
+    /**
+     * int 常量 1
+     */
+    public static final Integer INT_STATE_1 = 1;
+    /**
+     * int 常量 2
+     */
+    public static final Integer INT_STATE_2 = 2;
+    /**
+     * int 常量 3
+     */
+    public static final Integer INT_STATE_3 = 3;
+    /**
+     * int 常量 4
+     */
+    public static final Integer INT_STATE_4 = 4;
+    /**
+     * int 常量 5
+     */
+    public static final Integer INT_STATE_5 = 5;
+    /**
+     * int 常量 6
+     */
+    public static final Integer INT_STATE_6 = 6;
+    /**
+     * int 常量 7
+     */
+    public static final Integer INT_STATE_7 = 7;
+    /**
+     * int 常量 8
+     */
+    public static final Integer INT_STATE_8 = 8;
+    /**
+     * int 常量 9
+     */
+    public static final Integer INT_STATE_9 = 9;
+    /**
+     * int 常量 10
+     */
+    public static final Integer INT_STATE_10 = 10;
+
 }

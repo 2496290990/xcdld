@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.lesscoding.mapper.TbBossMapper">
+
+	<sql id="tableColumns">
+			a.id AS "id",
+		a.name AS "name",
+		a.min_level AS "minLevel",
+		a.max_level AS "maxLevel",
+		a.parent_id AS "parentId",
+		a.probability AS "probability",
+		a.create_by AS "createBy",
+		a.create_time AS "createTime",
+		a.update_by AS "updateBy",
+		a.update_time AS "updateTime",
+		a.del_flag AS "delFlag"
+	</sql>
+
+	<resultMap id="playerMap" type="net.lesscoding.model.Player">
+		<id column="id" property="id" />
+		<result column="account_id" property="accountId" />
+		<result column="nickname" property="nickname" />
+		<result column="hp" property="hp" />
+		<result column="attack" property="attack" />
+		<result column="defender" property="defence" />
+		<result column="hit" property="hitRate" />
+		<result column="flee" property="flee" />
+		<result column="combo" property="comboRate" />
+		<result column="critical_chance" property="criticalChance" />
+		<result column="level" property="level" />
+		<collection property="weaponList" ofType="net.lesscoding.entity.Weapon" >
+			<id column="tw_id" property="id" />
+			<result column="name" property="name" />
+			<result column="intro" property="intro" />
+			<result column="min_damage" property="minDamage" />
+			<result column="max_damage" property="maxDamage" />
+		</collection>
+	</resultMap>
+
+	<select id="getBossPlayerBaseAttr" resultMap="playerMap">
+		SELECT
+			tb.nickname,
+			tple.level,
+			tple.need_exp,
+			tple.hp,
+			tple.attack,
+			tple.defender,
+			tple.flee,
+			tple.combo,
+			tple.hit,
+			tple.critical_chance,
+			tple.create_by,
+			tple.create_time,
+			tple.update_by,
+			tple.update_time,
+			tple.del_flag,
+			tw.id tw_id,
+			tw.name,
+			tw.intro,
+			tw.type,
+			tw.grade,
+			tw.min_damage,
+			tw.max_damage
+		FROM tb_boss tb
+		LEFT JOIN tb_player_level_exp tple ON tple.level = tb.level
+		LEFT JOIN tb_player_weapon pw ON tb.id = pw.player_id
+		LEFT JOIN tb_weapon tw ON pw.weapon_id = tw.id
+		WHERE tb.id = #{id}
+	</select>
+</mapper>

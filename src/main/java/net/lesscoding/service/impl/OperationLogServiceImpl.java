@@ -1,17 +1,13 @@
 package net.lesscoding.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
-import net.lesscoding.common.ResultFactory;
 import net.lesscoding.entity.OperationLog;
 import net.lesscoding.mapper.OperationLogMapper;
 import net.lesscoding.service.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author eleven

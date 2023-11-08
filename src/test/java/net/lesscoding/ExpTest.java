@@ -1,7 +1,6 @@
 package net.lesscoding;
 
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.index.qual.SameLen;
 
 /**
  * @author eleven

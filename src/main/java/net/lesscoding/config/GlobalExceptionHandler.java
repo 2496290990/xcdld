@@ -1,20 +1,12 @@
 package net.lesscoding.config;
 
-//import cn.dev33.satoken.exception.NotLoginException;
-//import cn.dev33.satoken.exception.NotRoleException;
-//import cn.dev33.satoken.util.SaResult;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
-import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
-import net.lesscoding.entity.Account;
 import net.lesscoding.exception.LimiterException;
 import net.lesscoding.mapper.AccountMapper;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -74,15 +66,4 @@ public class GlobalExceptionHandler{
         log.error("==文件不存在==",e);
         return ResultFactory.exception(e);
     }
-
-    /**
-     * 拦截异常基类
-     * @param e
-     * @return
-     */
-    //@ExceptionHandler
-    //public SaResult handlerException(Exception e) {
-    //    e.printStackTrace();
-    //    return SaResult.error(e.getMessage());
-    //}
 }

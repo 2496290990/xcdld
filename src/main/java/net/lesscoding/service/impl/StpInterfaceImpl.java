@@ -2,10 +2,8 @@ package net.lesscoding.service.impl;
 
 
 import cn.dev33.satoken.stp.StpInterface;
-import cn.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

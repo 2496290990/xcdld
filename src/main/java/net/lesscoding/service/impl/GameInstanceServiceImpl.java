@@ -1,6 +1,5 @@
 package net.lesscoding.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.entity.AccountPlayer;
