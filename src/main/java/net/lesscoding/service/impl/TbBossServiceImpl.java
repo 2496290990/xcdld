@@ -5,7 +5,6 @@ import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.TbBoss;
-import net.lesscoding.enums.RoleType;
 import net.lesscoding.enums.RoleTypeEnum;
 import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.TbBossMapper;
