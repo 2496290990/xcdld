@@ -10,7 +10,6 @@ import org.springframework.core.env.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.StandardServletEnvironment;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;

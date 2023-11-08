@@ -19,15 +19,12 @@ import net.lesscoding.model.dto.PlayerDto;
 import net.lesscoding.model.vo.PlayerInfoVo;
 import net.lesscoding.model.vo.PlayerVo;
 import net.lesscoding.service.AccountPlayerService;
-import net.lesscoding.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
 

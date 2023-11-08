@@ -2,13 +2,8 @@ package net.lesscoding;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import net.lesscoding.model.chat.ChatMsg;
-import net.lesscoding.model.chat.SendDto;
 import net.lesscoding.model.dto.AnnounceDto;
 import net.lesscoding.utils.WebSocketUtil;
-import org.assertj.core.util.Lists;
-import org.checkerframework.checker.units.qual.A;
-import org.java_websocket.client.WebSocketClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

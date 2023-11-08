@@ -1,13 +1,11 @@
 package net.lesscoding;
 
-import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.lesscoding.entity.Account;
 import net.lesscoding.mapper.AccountMapper;
 import net.lesscoding.service.AccountService;
 import net.lesscoding.service.SystemService;
 import net.lesscoding.utils.AccountUtil;
-import net.lesscoding.utils.PasswordUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,10 @@ import javax.annotation.Resource;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
