@@ -84,13 +84,18 @@
     </update>
     <update id="subEnergy">
         update tb_account_player
-        set energy = energy - 1
+        set energy = energy - #{energy}
         where id = #{id}
     </update>
     <update id="selfRecoveryEnergy">
         update tb_account_player
         set energy = #{maxEnergy}
         where energy &lt;= #{maxEnergy}
+    </update>
+    <update id="addSpecies">
+        update tb_account_player
+        set species = species + #{species}
+        where id = #{id}
     </update>
     <update id="updateEnergy">
         insert into tb_account_player (id, account_id, nickname, energy,  update_time)

@@ -56,7 +56,7 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @param id 攻击者id
      * @return Integer
      */
-    Integer subEnergy(Integer id);
+    Integer subEnergy(Integer id, Integer energy);
 
     /**
      * 重置体力
@@ -64,6 +64,14 @@ public interface AccountPlayerMapper extends BaseMapper<AccountPlayer> {
      * @return Integer
      */
     Integer selfRecoveryEnergy(@Param("maxEnergy") Integer maxEnergy);
+
+    /**
+     * 添加金币
+     * @param id
+     * @param species
+     * @return
+     */
+    Integer addSpecies(Integer id, Integer species);
 
     /**
      * 变更列表

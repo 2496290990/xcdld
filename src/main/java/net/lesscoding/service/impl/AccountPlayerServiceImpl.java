@@ -2,8 +2,12 @@ package net.lesscoding.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +30,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -37,8 +42,6 @@ import java.util.*;
 @Slf4j
 public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, AccountPlayer> implements AccountPlayerService {
 
-    @Autowired
-    private AccountPlayerMapper playerMapper;
     @Autowired
     private PlayerLevelExpMapper levelMapper;
 
@@ -55,7 +58,7 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
      */
     @Override
     public Page getAllPlayer(PlayerDto dto) {
-        Page<PlayerVo> allPlayer = playerMapper.getAllPlayer(dto.getPage(), dto);
+        Page<PlayerVo> allPlayer = baseMapper.getAllPlayer(dto.getPage(), dto);
         allPlayer.getRecords().forEach(item -> {
             item.setOnline(StrUtil.isNotBlank(StpUtil.getTokenValueByLoginId(item.getId())));
         });
@@ -72,7 +75,7 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
                 .lambda()
                 .orderByDesc(PlayerLevelExp::getLevel)
                 .last("limit 1"));
-        PlayerInfoVo playerInfoVo = playerMapper.selectPlayerDetail(accountId);
+        PlayerInfoVo playerInfoVo = baseMapper.selectPlayerDetail(accountId);
         playerInfoVo.setMaxEnergy(maxEnergy());
         if (playerInfoVo.getNextLvExp() == null) {
             playerInfoVo.setNextLvExp(maxLevel.getNeedExp());
@@ -107,7 +110,7 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
         log.info("执行删除体力值key的操作");
         Set<String> energyKeys  = jedisTemplate.keys(Consts.ENERGY_KEYS);
         long delNum = jedisTemplate.delete(energyKeys);
-        playerMapper.selfRecoveryEnergy(maxEnergy());
+        baseMapper.selfRecoveryEnergy(maxEnergy());
         log.info("删除数量 {} , 受影响行数 {}\n key值{}", delNum, energyKeys.size(), energyKeys);
         return energyKeys.size();
     }
@@ -117,30 +120,31 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
     public Integer selfRecovery() throws IOException {
         log.info("执行每五分钟自动恢复");
         Set<String> energyKeys  = jedisTemplate.keys(Consts.ENERGY_KEYS);
-        AccountPlayer accountPlayer = null;
-        if (CollUtil.isNotEmpty(energyKeys)) {
-            Map<Integer, Integer> playerMap = new HashMap<>(energyKeys.size());
-            Integer maxEnergy = maxEnergy();
-            for (String energyKey : energyKeys) {
-                String energyStr = String.valueOf(jedisTemplate.opsForValue().get(energyKey));
-                if (StrUtil.isNotBlank(energyStr) || StrUtil.equalsIgnoreCase("null", energyStr)) {
-                    Integer energy = Integer.parseInt(energyStr);
-                    energy = Math.min(maxEnergy, energy + (maxEnergy / 12));
-                    jedisTemplate.opsForValue().set(energyKey, energy.toString());
-                    log.info("当前玩家{} 恢复后体力值为{}", energyKey, energy);
-                    playerMap.put(Integer.parseInt(energyKey.split(":")[1]), energy);
-                }
+        if (CollUtil.isEmpty(energyKeys)) {
+            return Consts.INT_STATE_0;
+        }
+        Map<Integer, Integer> playerMap = new HashMap<>(energyKeys.size());
+        int maxEnergy = maxEnergy();
+        for (String energyKey : energyKeys) {
+            String energyStr = String.valueOf(jedisTemplate.opsForValue().get(energyKey));
+            if (StrUtil.isNotBlank(energyStr) || StrUtil.equalsIgnoreCase("null", energyStr)) {
+                int energy = Integer.parseInt(energyStr);
+                energy = Math.min(maxEnergy, energy + (maxEnergy / 12));
+                jedisTemplate.opsForValue().set(energyKey, Integer.toString(energy));
+                log.info("当前玩家{} 恢复后体力值为{}", energyKey, energy);
+                playerMap.put(Integer.parseInt(energyKey.split(":")[1]), energy);
             }
-            if (CollUtil.isNotEmpty(playerMap)) {
-                List<AccountPlayer> updateList = playerMapper.selectList(new QueryWrapper<AccountPlayer>()
-                        .in("id", playerMap.keySet()));
-                updateList.forEach(item -> item.setEnergy(playerMap.get(item.getId())));
-                playerMapper.updateEnergy(updateList);
-            }
+        }
+        if (CollUtil.isNotEmpty(playerMap)) {
+            List<AccountPlayer> updateList = baseMapper.selectList(new QueryWrapper<AccountPlayer>()
+                    .in("id", playerMap.keySet()));
+            updateList.forEach(item -> item.setEnergy(playerMap.get(item.getId())));
+            baseMapper.updateEnergy(updateList);
         }
         log.info("执行完成");
         return energyKeys.size();
     }
+
 
     private Integer maxEnergy () {
         SysDict dict = dictMapper.selectOne(new QueryWrapper<SysDict>()
