@@ -1,8 +1,11 @@
 package net.lesscoding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.TbBoss;
 import net.lesscoding.model.dto.BossDto;
+
+import java.util.List;
 
 
 /**
@@ -14,5 +17,5 @@ public interface TbBossService extends IService<TbBoss> {
      * 挑战boss
      * @param bossDto
      */
-    public void challenge(BossDto bossDto);
+     List<BattleProcess> challenge(BossDto bossDto);
 }

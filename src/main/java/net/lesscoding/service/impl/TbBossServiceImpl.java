@@ -1,15 +1,19 @@
 package net.lesscoding.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
 import net.lesscoding.entity.BattleProcess;
 import net.lesscoding.entity.TbBoss;
+import net.lesscoding.entity.TbBossReward;
 import net.lesscoding.enums.RoleTypeEnum;
 import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.TbBossMapper;
+import net.lesscoding.mapper.TbBossRewardMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.BossDto;
+import net.lesscoding.service.TbBossRewardService;
 import net.lesscoding.service.TbBossService;
 import net.lesscoding.utils.BattleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,9 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
     private AccountPlayerMapper accountPlayerMapper;
 
     @Autowired
+    private TbBossRewardService tbBossRewardService;
+
+    @Autowired
     @Qualifier("jedisRedisTemplate")
     private RedisTemplate<String,Object> jedisTemplate;
 
@@ -42,7 +49,7 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
      * @param dto
      */
     @Override
-    public void challenge(BossDto dto) {
+    public List<BattleProcess> challenge(BossDto dto) {
         Player player = getPlayer(dto.getPlayerId(), RoleTypeEnum.PLAYER);
         Optional.ofNullable(player).orElseThrow(() -> new RuntimeException("玩家获取异常！"));
 
@@ -51,35 +58,76 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
 
         List<BattleProcess> processList = new ArrayList<>();
         BattleUtil.doBattle(player, playerBoss, processList, Consts.INT_STATE_1);
+
+        List<TbBossReward> bossRewardList = new ArrayList<>();
+        bossRewardList.add(new TbBossReward(Consts.INT_STATE_1,Consts.INT_STATE_1));
         // 玩家胜利
         if (player.getHp() > Consts.INT_STATE_0) {
-            //  发放金币奖励
-            accountPlayerMapper.addSpecies(player.getId(),Consts.INT_STATE_2);
+            // 发放奖励
+            List<TbBossReward> bossRewards = tbBossRewardService.drawLottery(dto.getBossId(), Consts.INT_STATE_1);
+            bossRewardList.addAll(bossRewards);
+            StringBuilder builder = new StringBuilder("Boss挑战成功！");
+            for (TbBossReward reward : bossRewardList) {
+                builder.append(String.format("【摸到了%s * %s】-",reward.getRewardName(),reward.getNumber()));
+            }
+            processList.add(new BattleProcess(null,builder.toString()));
         }else {
-            // 发放少量金币奖励
-            accountPlayerMapper.addSpecies(player.getId(),Consts.INT_STATE_10);
+            // 发放安慰奖
+            StringBuilder builder = new StringBuilder("Boss挑战失败！");
+            for (TbBossReward reward : bossRewardList) {
+                builder.append(String.format("【摸到了%s * %s】-",reward.getRewardName(),reward.getNumber()));
+            }
+            processList.add(new BattleProcess(null,builder.toString()));
+            // 结算奖励
+            this.settlement(dto.getPlayerId(),bossRewardList);
+            return processList;
         }
-        // 父类boss
+
+        // 概率刷新父类boss
         TbBoss boss = super.getById(dto.getBossId());
-        Integer probability = boss.getProbability();
-        Integer parentId = boss.getParentId();
-        boolean boosResult = getPBossResult(probability / 100D);
+        boolean boosResult = getPBossResult(boss.getProbability() / 100D);
         if (!boosResult){
-            return;
+            // 结算奖励
+            this.settlement(dto.getPlayerId(),bossRewardList);
+            return processList;
         }
-        Integer index = processList.get(processList.size() - Consts.INT_STATE_1).getIndex();
-        processList.add(new BattleProcess(null,"吵醒了Big BOSS~~~ 哎哈哈，鸡汤来咯！"));
-        Player parentPlayerBoss = getPlayer(parentId,RoleTypeEnum.BOSS);
-        BattleUtil.doBattle(player, parentPlayerBoss, processList, index);
+        processList.add(new BattleProcess(null,"【吵醒了BigBOSS~~~】 哎哈哈，鸡汤来咯！"));
+        Player parentPlayerBoss = getPlayer(boss.getParentId(),RoleTypeEnum.BOSS);
+        BattleUtil.doBattle(player, parentPlayerBoss, processList, Consts.INT_STATE_1);
+        // 发放奖励
         if (player.getHp() > Consts.INT_STATE_0) {
-            // 发放大量金币奖励
-            accountPlayerMapper.addSpecies(player.getId(),Consts.INT_STATE_10);
+            List<TbBossReward> bossRewards = tbBossRewardService.drawLottery(dto.getBossId(),Consts.INT_STATE_1);
+            bossRewardList.addAll(bossRewards);
+            StringBuilder builder = new StringBuilder("BigBoss挑战成功！");
+            for (TbBossReward reward : bossRewards) {
+                builder.append(String.format("【摸到了%s * %s】-",reward.getRewardName(),reward.getNumber()));
+            }
+            processList.add(new BattleProcess(null,builder.toString()));
+            // 结算奖励
+            this.settlement(dto.getPlayerId(),bossRewardList);
         }else {
             // 无奖励，扣除体力值
-            this.deductEnergy(player.getId(),200);
+            Integer energy = 200;
+            this.deductEnergy(player.getId(),energy);
+            processList.add(new BattleProcess(null,String.format("BigBOSS挑战失败！奖品丢失，扣除%s体力虚弱中。。。",energy)));
         }
+        return processList;
     }
 
+    /**
+     * 结算奖励
+     * @param playerId
+     * @param bossRewards
+     */
+    private void settlement(Integer playerId,List<TbBossReward> bossRewards){
+        Integer species = Consts.INT_STATE_0;
+        for (TbBossReward reward : bossRewards) {
+            if (Consts.INT_STATE_1.equals(reward.getType())){
+                species += reward.getNumber();
+            }
+        }
+        accountPlayerMapper.addSpecies(playerId,species);
+    }
     /**
      * 获取玩家基础属性
      * @param playerId
@@ -98,7 +146,7 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
      * @param winProbability
      * @return
      */
-    public static boolean getPBossResult(double winProbability) {
+    private boolean getPBossResult(double winProbability) {
         Random random = new Random();
         double randomNumber = random.nextDouble();
         return randomNumber <= winProbability;
@@ -109,8 +157,7 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
      * @param id
      * @param energy
      */
-
-    public void deductEnergy(Integer id, Integer energy) {
+    private void deductEnergy(Integer id, Integer energy) {
         String key = Consts.ENERGY_KEYS + id;
         accountPlayerMapper.subEnergy(id,energy);
         AccountPlayer player = accountPlayerMapper.selectById(id);

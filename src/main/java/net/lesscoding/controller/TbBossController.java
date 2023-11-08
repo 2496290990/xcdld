@@ -23,11 +23,10 @@ public class TbBossController{
 
 	/**
 	* boss表列表
-	* @param tbBossVO
 	* @return
 	*/
 	@PostMapping("/list")
-	public Result list(@RequestBody TbBossVO tbBossVO){
+	public Result list(){
 		return ResultFactory.success(tbBossServiceImpl.list());
 	}
 
@@ -37,7 +36,7 @@ public class TbBossController{
 	*/
 	@GetMapping("/challenge")
 	public Result challenge(BossDto bossDto) {
-		return ResultFactory.success("");
+		return ResultFactory.success(tbBossServiceImpl.challenge(bossDto));
 	}
 
 
