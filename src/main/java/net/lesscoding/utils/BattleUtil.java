@@ -8,6 +8,7 @@ import net.lesscoding.entity.Weapon;
 import net.lesscoding.link.*;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.CurrentBattleProcess;
+import net.lesscoding.model.vo.SkillVo;
 
 import java.util.*;
 
@@ -42,6 +43,15 @@ public class BattleUtil {
                 attack += rangeAttack;
                 sb.append(String.format("攻击力提升了%d,当前%d,", rangeAttack, attack));
             }
+            Boolean useSkillFlag = getWeightResult(0.5);
+            if (useSkillFlag) {
+                SkillVo skillVo = RandomUtil.randomEle(attacker.getSkillList());
+                sb.append(String.format("玩家[%s]使用了技能[%s],", attacker.getNickname(), skillVo.getName()));
+                Integer rangeAttack = getRangeAttack(skillVo.getMinDamage(), skillVo.getMaxDamage());
+                attack += rangeAttack;
+                sb.append(String.format("攻击力提升了%d,当前%d,", rangeAttack, attack));
+            }
+
             Boolean fleeFlag = getWeightResult(defender.getFlee());
             if (fleeFlag) {
                 sb.append(String.format("%s侧身一躲，躲过了%s的致命一击", defender.getNickname(), attacker.getNickname()));

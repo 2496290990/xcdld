@@ -20,6 +20,13 @@
             <result column="min_damage" property="minDamage" />
             <result column="max_damage" property="maxDamage" />
         </collection>
+        <collection property="skillList" ofType="net.lesscoding.model.vo.SkillVo">
+            <id column="sk_id" property="id" />
+            <id column="sk_name" property="name" />
+            <id column="sk_effect_json" property="effectJson" />
+            <id column="sk_min_damage" property="minDamage" />
+            <id column="sk_max_damage" property="maxDamage" />
+        </collection>
     </resultMap>
 
     <resultMap id="playerVoMap" type="net.lesscoding.model.vo.PlayerVo">
@@ -128,12 +135,20 @@
                tw.type,
                tw.grade,
                tw.min_damage,
-               tw.max_damage
+               tw.max_damage,
+               sk.id as sk_id,
+               sk.skill_name as sk_name,
+               sl.effect_json as sk_effect_json,
+               sl.min_damage as sk_min_damage,
+               sl.max_damage as sk_max_damage
         from tb_account_player tb
                  left join tb_player_level_exp tple on tple.level = tb.level
                  left join tb_account ac on ac.id = tb.account_id
                  left join tb_player_weapon pw on tb.id = pw.player_id
                  left join tb_weapon tw on pw.weapon_id = tw.id
+                 left join tb_player_skill ps on ps.player_id = tb.id
+                 left join tb_skill sk on sk.id = ps.skill_id
+                 left join tb_skill_level sl on sl.level = ps.skill_level and sk.id = sl.skill_id
         <where>
             tb.del_flag = false
             <if test="mac != null and mac != ''">

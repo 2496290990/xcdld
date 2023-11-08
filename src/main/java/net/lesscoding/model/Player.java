@@ -3,8 +3,8 @@ package net.lesscoding.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.lesscoding.entity.InstanceNpc;
-import net.lesscoding.entity.Skill;
 import net.lesscoding.entity.Weapon;
+import net.lesscoding.model.vo.SkillVo;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class Player {
 
     private List<Weapon> weaponList;
 
-    private List<Skill> skillList;
+    private List<SkillVo> skillList;
 
     private Boolean isNpc = false;
 
