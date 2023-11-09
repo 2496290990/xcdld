@@ -1,5 +1,6 @@
 package net.lesscoding.utils;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.WeightRandom;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
@@ -36,7 +37,8 @@ public class BattleUtil {
             int attack = attacker.getAttack();
             // 是否使用武器
             Boolean useWeaponFlag = getWeightResult(0.5);
-            if (useWeaponFlag) {
+            List<Weapon> weaponList = attacker.getWeaponList();
+            if (useWeaponFlag && CollUtil.isNotEmpty(weaponList)) {
                 Weapon weapon = RandomUtil.randomEle(attacker.getWeaponList());
                 sb.append(String.format("玩家[%s]使用了武器[%s],", attacker.getNickname(), weapon.getName()));
                 Integer rangeAttack = getRangeAttack(weapon.getMinDamage(), weapon.getMaxDamage());
@@ -44,8 +46,9 @@ public class BattleUtil {
                 sb.append(String.format("攻击力提升了%d,当前%d,", rangeAttack, attack));
             }
             Boolean useSkillFlag = getWeightResult(0.5);
-            if (useSkillFlag) {
-                SkillVo skillVo = RandomUtil.randomEle(attacker.getSkillList());
+            List<SkillVo> skillList = attacker.getSkillList();
+            if (useSkillFlag && CollUtil.isNotEmpty(skillList)) {
+                SkillVo skillVo = RandomUtil.randomEle(skillList);
                 sb.append(String.format("玩家[%s]使用了技能[%s],", attacker.getNickname(), skillVo.getName()));
                 Integer rangeAttack = getRangeAttack(skillVo.getMinDamage(), skillVo.getMaxDamage());
                 attack += rangeAttack;
