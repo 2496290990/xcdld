@@ -19,7 +19,7 @@ public class PlayerPackage extends BaseEntity<PlayerPackage> {
     private Integer playerId;
 
     /**
-     * 类型 0装备 1消耗品 2材料 3掉落礼包
+     * 类型 0消耗品 1材料 2掉落礼包
      */
     private Integer type;
 

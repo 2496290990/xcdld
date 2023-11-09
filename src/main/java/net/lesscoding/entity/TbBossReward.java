@@ -22,7 +22,7 @@ public class TbBossReward extends BaseEntity<TbBossReward> {
 	@TableField("boss_id")
 	private Integer bossId;
 	/**
-	 * 奖励类型
+	 * 奖励类型 1:金币
 	 */
 	@TableField("type")
 	private Integer type;

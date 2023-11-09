@@ -1,6 +1,5 @@
 package net.lesscoding.service.impl;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
@@ -10,7 +9,6 @@ import net.lesscoding.entity.TbBossReward;
 import net.lesscoding.enums.RoleTypeEnum;
 import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.TbBossMapper;
-import net.lesscoding.mapper.TbBossRewardMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.BossDto;
 import net.lesscoding.service.TbBossRewardService;
@@ -56,10 +54,12 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
         Player playerBoss = getPlayer(dto.getPlayerId(),RoleTypeEnum.BOSS);
         Optional.ofNullable(playerBoss).orElseThrow(() -> new RuntimeException("BOSS获取异常！"));
 
+        // 开始战斗
         List<BattleProcess> processList = new ArrayList<>();
         BattleUtil.doBattle(player, playerBoss, processList, Consts.INT_STATE_1);
-
+        // 奖品列表
         List<TbBossReward> bossRewardList = new ArrayList<>();
+        // 初始奖品
         bossRewardList.add(new TbBossReward(Consts.INT_STATE_1,Consts.INT_STATE_1));
         // 玩家胜利
         if (player.getHp() > Consts.INT_STATE_0) {
@@ -83,7 +83,7 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
             return processList;
         }
 
-        // 概率刷新父类boss
+        // 基础Boss击杀成功，检测是否刷新父类boss
         TbBoss boss = super.getById(dto.getBossId());
         boolean boosResult = getPBossResult(boss.getProbability() / 100D);
         if (!boosResult){
@@ -93,6 +93,7 @@ public class TbBossServiceImpl extends ServiceImpl<TbBossMapper, TbBoss> impleme
         }
         processList.add(new BattleProcess(null,"【吵醒了BigBOSS~~~】 哎哈哈，鸡汤来咯！"));
         Player parentPlayerBoss = getPlayer(boss.getParentId(),RoleTypeEnum.BOSS);
+        // bigBoss开始战斗
         BattleUtil.doBattle(player, parentPlayerBoss, processList, Consts.INT_STATE_1);
         // 发放奖励
         if (player.getHp() > Consts.INT_STATE_0) {
