@@ -17,7 +17,7 @@ public interface PlayerPackageService extends IService<PlayerPackage> {
      * @param type
      * @return
      */
-    List<PlayerPackage> findByType(Integer type);
+    List<PlayerPackage> findByType(Integer playerId,Integer type);
 
     /**
      * 新增背包物品
