@@ -37,8 +37,7 @@ public class BattleUtil {
             int attack = attacker.getAttack();
             // 是否使用武器
             Boolean useWeaponFlag = getWeightResult(0.5);
-            List<Weapon> weaponList = attacker.getWeaponList();
-            if (useWeaponFlag && CollUtil.isNotEmpty(weaponList)) {
+            if (useWeaponFlag && CollUtil.isNotEmpty(attacker.getWeaponList())) {
                 Weapon weapon = RandomUtil.randomEle(attacker.getWeaponList());
                 sb.append(String.format("玩家[%s]使用了武器[%s],", attacker.getNickname(), weapon.getName()));
                 Integer rangeAttack = getRangeAttack(weapon.getMinDamage(), weapon.getMaxDamage());

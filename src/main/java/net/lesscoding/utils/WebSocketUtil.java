@@ -60,9 +60,10 @@ public class WebSocketUtil {
     private WebSocketClient webSocketClient() {
         WebSocketClient client = null;
         try {
-            SysDict sysDict = sysDictMapper.selectByTypeAndCode("service", "prodWebSocket");
+            //SysDict sysDict = sysDictMapper.selectByTypeAndCode("service", "prodWebSocket");
             // 替换为你的WebSocket服务器地址和端口
-            URI serverUri = new URI(sysDict.getDictValue());
+            //URI serverUri = new URI(sysDict.getDictValue());
+            URI serverUri = new URI("ws://localhost:9098/autoTesting/websocket");
             client = new WebSocketClient(serverUri) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
@@ -128,7 +129,7 @@ public class WebSocketUtil {
             Thread.sleep(dto.getDelayMinutes());
         }
         // 最后退出关闭连接
-        client.close();
+        //client.close();
         return "success";
     }
 }
