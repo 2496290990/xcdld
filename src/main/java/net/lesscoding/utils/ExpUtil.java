@@ -2,7 +2,6 @@ package net.lesscoding.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.druid.sql.visitor.functions.Concat;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
@@ -14,7 +13,6 @@ import net.lesscoding.mapper.PlayerWeaponMapper;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.AddExpDto;
 import net.lesscoding.model.vo.AfterPlayerVo;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -101,8 +99,10 @@ public class ExpUtil {
         // 扣减玩家体力值
         subEnergy(attacker.getId());
         processList.add(new BattleProcess(processList.size() + 1,
+                String.format("你%s", attacker.getHp() > 0 ? "挑战成功" : "挑战失败")));
+        processList.add(new BattleProcess(processList.size() + 1,
                 String.format("你获得了%d经验值", attacker.getHp() > 0 ? winnerExp : loserExp)));
-        List<AfterPlayerVo> afterList =  playerMapper.selectAfterPlayer(Arrays.asList(attacker.getId(), defender.getId()));
+       List<AfterPlayerVo> afterList = playerMapper.selectAfterPlayer(Arrays.asList(attacker.getId(), defender.getId()));
         addWeapon(attacker, defender, processList, afterList);
     }
 
