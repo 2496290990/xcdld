@@ -18,4 +18,30 @@
         )
         </foreach>
     </insert>
+    <select id="getPlayerAllWeapon" resultType="net.lesscoding.entity.Weapon">
+        select tw.id,
+               tw.name,
+               tw.intro,
+               tw.type,
+               tw.grade,
+               tw.min_damage,
+               tw.max_damage,
+               tw.create_by,
+               tw.create_time,
+               tw.update_by,
+               tw.update_time,
+               tw.del_flag
+        from tb_player_weapon tb
+                 left join tb_account_player ap on ap.id = tb.player_id
+                 left join tb_weapon tw on tw.id = tb.weapon_id
+        <where>
+            ap.id = #{playerId}
+            <if test="weaponName != null and weaponName != ''">
+                and tw.name like '%${weaponName}%'
+            </if>
+            <if test="grade != null">
+                and tw.grade = #{grade}
+            </if>
+        </where>
+    </select>
 </mapper>

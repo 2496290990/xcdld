@@ -2,6 +2,8 @@ package net.lesscoding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lesscoding.entity.PlayerWeapon;
+import net.lesscoding.entity.Weapon;
+import net.lesscoding.model.dto.query.QueryWeaponDto;
 
 import java.util.List;
 
@@ -17,4 +19,11 @@ public interface PlayerWeaponMapper extends BaseMapper<PlayerWeapon> {
      * @return Integer 数据库受影响的行数
      */
     Integer insertBatch(List<PlayerWeapon> insertList);
+
+    /**
+     * 获取玩家所有的武器
+     * @param dto
+     * @return
+     */
+    List<Weapon> getPlayerAllWeapon(QueryWeaponDto dto);
 }
