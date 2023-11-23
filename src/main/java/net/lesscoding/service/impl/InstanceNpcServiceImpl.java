@@ -11,6 +11,7 @@ import net.lesscoding.mapper.*;
 import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.JoinInstanceDto;
 import net.lesscoding.model.dto.NpcFightDto;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.service.InstanceNpcService;
 import net.lesscoding.utils.BattleUtil;
 import net.lesscoding.utils.ExpUtil;

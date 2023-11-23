@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
-import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.entity.PlayerWeapon;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.mapper.AccountPlayerMapper;

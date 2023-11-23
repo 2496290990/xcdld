@@ -3,7 +3,7 @@ package net.lesscoding.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lesscoding.common.Consts;
 import net.lesscoding.entity.AccountPlayer;
-import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.entity.TbBoss;
 import net.lesscoding.entity.TbBossReward;
 import net.lesscoding.enums.RoleTypeEnum;

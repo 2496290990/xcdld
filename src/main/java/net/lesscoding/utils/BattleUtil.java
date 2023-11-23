@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.WeightRandom;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
-import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.entity.Weapon;
 import net.lesscoding.link.*;
 import net.lesscoding.model.Player;

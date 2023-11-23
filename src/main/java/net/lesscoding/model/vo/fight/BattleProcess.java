@@ -1,4 +1,4 @@
-package net.lesscoding.entity;
+package net.lesscoding.model.vo.fight;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

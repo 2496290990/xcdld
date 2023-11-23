@@ -3,7 +3,7 @@ package net.lesscoding.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
-import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.mapper.AccountPlayerMapper;
 import net.lesscoding.mapper.PlayerWeaponMapper;
 import net.lesscoding.model.Player;

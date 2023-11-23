@@ -1,7 +1,7 @@
 package net.lesscoding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.lesscoding.entity.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleProcess;
 import net.lesscoding.entity.TbBoss;
 import net.lesscoding.model.dto.BossDto;
 
