@@ -3,6 +3,7 @@ package net.lesscoding.controller;
 import net.lesscoding.common.Result;
 import net.lesscoding.common.ResultFactory;
 import net.lesscoding.model.dto.BattleDto;
+import net.lesscoding.model.dto.TauntDto;
 import net.lesscoding.service.BattleService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +32,12 @@ public class BattleController {
      * @date 2023/11/1 13:53
      */
     @PostMapping("/doBattle")
-//    @Log(title = "PVP战斗", businessType = BusinessType.INSERT)
-    private Result doBattle(@RequestBody BattleDto dto) {
+    public Result doBattle(@RequestBody BattleDto dto) {
         return ResultFactory.success(battleService.doBattle(dto));
+    }
+
+    @PostMapping("/taunt")
+    public Result tauntRavil(@RequestBody TauntDto dto) throws InterruptedException {
+        return ResultFactory.success(battleService.tauntRavil(dto));
     }
 }

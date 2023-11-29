@@ -1,6 +1,7 @@
 package net.lesscoding.service;
 
 import net.lesscoding.model.dto.BattleDto;
+import net.lesscoding.model.dto.TauntDto;
 
 /**
  * @author eleven
@@ -9,4 +10,11 @@ import net.lesscoding.model.dto.BattleDto;
  */
 public interface BattleService {
     Object doBattle(BattleDto dto);
+
+    /**
+     * 嘲讽
+     * @param dto
+     * @return
+     */
+    String tauntRavil(TauntDto dto) throws InterruptedException;
 }

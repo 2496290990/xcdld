@@ -12,6 +12,7 @@ import net.lesscoding.model.Player;
 import net.lesscoding.model.dto.JoinInstanceDto;
 import net.lesscoding.model.dto.NpcFightDto;
 import net.lesscoding.model.vo.fight.BattleProcess;
+import net.lesscoding.model.vo.fight.BattleResult;
 import net.lesscoding.service.InstanceNpcService;
 import net.lesscoding.utils.BattleUtil;
 import net.lesscoding.utils.ExpUtil;
@@ -47,7 +48,7 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public Object challengeNpc(NpcFightDto dto) {
+    public BattleResult challengeNpc(NpcFightDto dto) {
         Player player = getPlayer(dto.getPlayerId());
         InstanceNpc npc = dto.getNpc();
         Player npcPlayer = getPlayer(npc.getPlayerId());
@@ -59,7 +60,8 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
         InstanceRecord notCompletedInstance = recordMapper.getNotCompletedInstance(new JoinInstanceDto(player.getId(), npc.getInstanceId()));
         expUtil.addPlayerExp(player, npcPlayer, processList);
         // 玩家胜利
-        if (player.getHp() > 0) {
+        boolean successFlag = player.getHp() > 0;
+        if (successFlag) {
             // Boss
             if (npc.getBossFlag()) {
                 notCompletedInstance.setCompleteFlag(true);
@@ -77,7 +79,11 @@ public class InstanceNpcServiceImpl extends ServiceImpl<InstanceNpcMapper, Insta
             notCompletedInstance.setSuccessFlag(false);
         }
         recordMapper.updateById(notCompletedInstance);
-        return processList;
+        BattleResult result = new BattleResult();
+        result.setCurrentFloor(notCompletedInstance.getCurrentFloor());
+        result.setSuccess(successFlag);
+        result.setProcessList(processList);
+        return result;
     }
 
     /**

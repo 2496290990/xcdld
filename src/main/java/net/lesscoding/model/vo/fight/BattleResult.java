@@ -16,5 +16,12 @@ public class BattleResult {
      */
     private Boolean success;
 
+    private Integer currentFloor;
+
     private List<BattleProcess> processList;
+
+    /**
+     * 对手MAC
+     */
+    private String rivalMac;
 }

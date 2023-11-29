@@ -3,6 +3,7 @@ package net.lesscoding.utils;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.Account;
@@ -60,15 +61,16 @@ public class WebSocketUtil {
     private WebSocketClient webSocketClient() {
         WebSocketClient client = null;
         try {
-            //SysDict sysDict = sysDictMapper.selectByTypeAndCode("service", "prodWebSocket");
+            SysDict sysDict = sysDictMapper.selectByTypeAndCode("service", "prodWebSocket");
             // 替换为你的WebSocket服务器地址和端口
-            //URI serverUri = new URI(sysDict.getDictValue());
-            URI serverUri = new URI("ws://localhost:9098/autoTesting/websocket");
+            URI serverUri = new URI(sysDict.getDictValue());
             client = new WebSocketClient(serverUri) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("连接已建立");
-                    send(new Gson().toJson(new SendDto<>("LOGIN", new LoginMsg())));
+                    log.info("开始执行登录流程");
+                    String login = new Gson().toJson(new SendDto<>("LOGIN", new LoginMsg()));
+                    send(login);
                 }
 
                 @Override
@@ -129,7 +131,23 @@ public class WebSocketUtil {
             Thread.sleep(dto.getDelayMinutes());
         }
         // 最后退出关闭连接
-        //client.close();
+        client.close();
+        return "success";
+    }
+
+    public String tauntRival(String attackerNickname, String rivalNickname) throws InterruptedException {
+        WebSocketClient client = webSocketClient();
+        // 休眠三秒等待ws连接
+        Thread.sleep(3000);
+        ChatMsg chatMsg = new ChatMsg();
+        chatMsg.setContent(String.format("恭喜玩家【@%s】击败对手【@%s】, 胜败乃兵家常事，请【%s】再接再厉",
+                attackerNickname, rivalNickname, rivalNickname));
+        chatMsg.setToUsers(Lists.newArrayList(attackerNickname, rivalNickname));
+        SendDto sendDto = new SendDto<>("CHAT", chatMsg);
+        String text = gson.toJson(sendDto);
+        log.info("当前发送的消息{}", text);
+        client.getConnection().send(text);
+        client.close();
         return "success";
     }
 }

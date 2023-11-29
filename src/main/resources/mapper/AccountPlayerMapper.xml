@@ -5,6 +5,7 @@
         <id column="id" property="id" />
         <result column="account_id" property="accountId" />
         <result column="nickname" property="nickname" />
+        <result column="mac" property="mac" />
         <result column="hp" property="hp" />
         <result column="attack" property="attack" />
         <result column="defender" property="defence" />
@@ -119,6 +120,7 @@
     <select id="getPlayerBaseAttr" resultMap="playerMap">
         select tb.account_id account_id,
                tb.nickname,
+               ac.mac,
                tb.id,
                tple.level,
                tple.need_exp,
