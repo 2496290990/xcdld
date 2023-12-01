@@ -4,10 +4,12 @@ import cn.hutool.core.util.RandomUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  * @author eleven
@@ -16,6 +18,7 @@ import java.time.format.DateTimeFormatter;
  */
 @Data
 @AllArgsConstructor
+@Slf4j
 public class LoginMsg {
 
     private String username;
@@ -27,11 +30,12 @@ public class LoginMsg {
     private String platform;
 
     public LoginMsg() {
-        this.username = String.format("爱坤公告发布_%s", LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")));
+        this.username = String.format("爱坤公告发布_%s", LocalTime.now().format(DateTimeFormatter.ofPattern("mmssS")));
         this.platform = "IDEA";
         this.reconnected = false;
         this.uuid = "FF-FF-FF-FF-FF";
         this.pluginVersion = "1.6.7-beta";
         this.status = "FISHING";
+
     }
 }

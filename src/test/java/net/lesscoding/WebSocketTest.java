@@ -30,7 +30,13 @@ public class WebSocketTest {
     private WebSocketUtil socketUtil;
     @Test
     public void webSocket() throws Exception {
-        System.out.println(socketUtil.announce(new AnnounceDto("游戏更新公告:\n\t1.谁想要技能请告诉我，我给你们加2.你们觉得先开发技能好还是锦囊掉落或者是开放商店用金币买东西好", 0)));
+        socketUtil.announce(
+                new AnnounceDto(
+                        "游戏更新公告:\n" +
+                                "1.战斗结果返回变更\n" +
+                                "2.新增战胜对手发送鱼塘嘲讽功能\n" +
+                                "3.增加了游戏背包查看功能",
+                        0));
     }
 
 
