@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class PlayerDto {
 
+    private String nickname;
+
     private Page page;
 
 }

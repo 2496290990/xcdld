@@ -185,7 +185,12 @@
         from tb_account tb
         left join tb_account_player ap on ap.account_id = tb.id
         left join tb_player_level_exp ple on ple.level = ap.level + 1
-        where tb.id > 0
+        <where>
+            tb.id > 0
+            <if test="dto.nickname != null and dto.nickname != ''">
+                and ap.nickname like concat('%', #{dto.nickname}, '%')
+            </if>
+        </where>
         order by ap.level desc ,ap.exp desc
     </select>
 
