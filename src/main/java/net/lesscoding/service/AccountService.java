@@ -29,7 +29,7 @@ public interface AccountService extends IService<Account> {
      * @param dto
      * @return
      */
-    Object doLogin(AccountDto dto);
+    String doLogin(AccountDto dto);
 
     /**
      * 并更用户名和密码

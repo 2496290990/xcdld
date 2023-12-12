@@ -123,7 +123,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public Object doLogin(AccountDto dto) {
+    public String doLogin(AccountDto dto) {
         Integer type = dto.getType();
         if (type == null) {
             throw new RuntimeException("登录类型不允许为空");
@@ -175,7 +175,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return accountMapper.updateById(account);
     }
 
-    private Object loginByAccount(AccountDto dto) {
+    private String loginByAccount(AccountDto dto) {
         String account = dto.getAccount();
         String password = dto.getPassword();
         if (StrUtil.isBlank(account) || StrUtil.isBlank(password)) {

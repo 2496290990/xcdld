@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.lesscoding.entity.Account;
 import net.lesscoding.model.dto.AccountDto;
+import net.lesscoding.model.vo.PlayerInfoVo;
 import net.lesscoding.model.vo.RedisUserCache;
 import net.lesscoding.service.AccountPlayerService;
 import net.lesscoding.service.AccountService;
@@ -94,7 +95,10 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public Object doLogin(AccountDto dto) {
-        return accountService.doLogin(dto);
+        String token = accountService.doLogin(dto);
+        PlayerInfoVo playerDetail = playerService.getPlayerDetail(null);
+        playerDetail.setToken(token);
+        return playerDetail;
     }
 
     @Override

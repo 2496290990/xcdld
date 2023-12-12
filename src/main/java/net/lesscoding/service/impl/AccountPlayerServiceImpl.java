@@ -67,9 +67,11 @@ public class AccountPlayerServiceImpl extends ServiceImpl<AccountPlayerMapper, A
 
     @Override
     public PlayerInfoVo getPlayerDetail(AccountPlayer dto) {
-        Integer accountId = dto.getAccountId();
-        if (accountId == null) {
+        Integer accountId;
+        if (dto == null || dto.getAccountId() == null) {
             accountId = StpUtil.getLoginIdAsInt();
+        } else {
+            accountId = dto.getAccountId();
         }
         PlayerLevelExp maxLevel = levelMapper.selectOne(new QueryWrapper<PlayerLevelExp>()
                 .lambda()
